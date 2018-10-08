@@ -9,12 +9,30 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    @IBAction func easyBtn(_ sender: UIButton) {
+        performSegue(withIdentifier: "seg1", sender: self)
+    }
+    @IBAction func medBtn(_ sender: UIButton) {
+        performSegue(withIdentifier: "seg1", sender: self)
+    }
+    @IBAction func hardBtn(_ sender: UIButton) {
+        performSegue(withIdentifier: "seg1", sender: self)
+    }
+    
+    @IBAction func menuBtn(_ sender: UIButton) {
+        performSegue(withIdentifier: "seg2", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+   
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
-
+    
 
 }
 

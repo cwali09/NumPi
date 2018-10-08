@@ -14,6 +14,8 @@
 		24912B0E216BB98D00C34B6C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24912B0C216BB98D00C34B6C /* LaunchScreen.storyboard */; };
 		24912B19216BB98D00C34B6C /* Project_Team6Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24912B18216BB98D00C34B6C /* Project_Team6Tests.swift */; };
 		24912B24216BB98D00C34B6C /* Project_Team6UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24912B23216BB98D00C34B6C /* Project_Team6UITests.swift */; };
+		24912B32216BC27C00C34B6C /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24912B31216BC27C00C34B6C /* GameView.swift */; };
+		24C07B40216BE42000C4B216 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C07B3F216BE42000C4B216 /* MenuView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		24912B1F216BB98D00C34B6C /* Project_Team6UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Project_Team6UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		24912B23216BB98D00C34B6C /* Project_Team6UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project_Team6UITests.swift; sourceTree = "<group>"; };
 		24912B25216BB98D00C34B6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		24912B31216BC27C00C34B6C /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		24C07B3F216BE42000C4B216 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +103,8 @@
 			children = (
 				24912B03216BB98C00C34B6C /* AppDelegate.swift */,
 				24912B05216BB98C00C34B6C /* ViewController.swift */,
+				24C07B3F216BE42000C4B216 /* MenuView.swift */,
+				24912B31216BC27C00C34B6C /* GameView.swift */,
 				24912B07216BB98C00C34B6C /* Main.storyboard */,
 				24912B0A216BB98D00C34B6C /* Assets.xcassets */,
 				24912B0C216BB98D00C34B6C /* LaunchScreen.storyboard */,
@@ -257,6 +263,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				24912B06216BB98C00C34B6C /* ViewController.swift in Sources */,
+				24C07B40216BE42000C4B216 /* MenuView.swift in Sources */,
+				24912B32216BC27C00C34B6C /* GameView.swift in Sources */,
 				24912B04216BB98C00C34B6C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
