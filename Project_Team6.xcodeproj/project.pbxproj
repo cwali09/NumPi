@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		242C7E87217E326F001B380A /* PopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242C7E86217E326F001B380A /* PopUpView.swift */; };
 		24912B04216BB98C00C34B6C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24912B03216BB98C00C34B6C /* AppDelegate.swift */; };
 		24912B06216BB98C00C34B6C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24912B05216BB98C00C34B6C /* ViewController.swift */; };
 		24912B09216BB98C00C34B6C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24912B07216BB98C00C34B6C /* Main.storyboard */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		242C7E86217E326F001B380A /* PopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpView.swift; sourceTree = "<group>"; };
 		24912B00216BB98C00C34B6C /* Project_Team6.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project_Team6.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24912B03216BB98C00C34B6C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		24912B05216BB98C00C34B6C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				24912B05216BB98C00C34B6C /* ViewController.swift */,
 				24C07B3F216BE42000C4B216 /* MenuView.swift */,
 				24912B31216BC27C00C34B6C /* GameView.swift */,
+				242C7E86217E326F001B380A /* PopUpView.swift */,
 				24912B07216BB98C00C34B6C /* Main.storyboard */,
 				24912B0A216BB98D00C34B6C /* Assets.xcassets */,
 				24912B0C216BB98D00C34B6C /* LaunchScreen.storyboard */,
@@ -262,6 +265,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				242C7E87217E326F001B380A /* PopUpView.swift in Sources */,
 				24912B06216BB98C00C34B6C /* ViewController.swift in Sources */,
 				24C07B40216BE42000C4B216 /* MenuView.swift in Sources */,
 				24912B32216BC27C00C34B6C /* GameView.swift in Sources */,
