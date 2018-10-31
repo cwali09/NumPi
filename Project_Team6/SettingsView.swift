@@ -20,6 +20,7 @@ class SettingsView: UIViewController {
     @IBAction func EditUser(_ sender: Any) {
         if !uNameLbl.isHidden{
             uNameLbl.isHidden = true
+            uNameTextField.placeholder = "New Username"
             EditUserText.setTitle("Done", for: .normal)
         }
         else{
@@ -40,7 +41,6 @@ class SettingsView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //uNameTextField.text = settingsUser.currentUsername!
         uNameLbl.text = settingsUser.currentUsername!
         
         /*
