@@ -2,26 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIAppFonts</key>
-	<array>
-		<string>K2D-SemiBold.ttf</string>
-		<string>K2D-Bold.ttf</string>
-		<string>K2D-Thin.ttf</string>
-		<string>K2D-Italic.ttf</string>
-		<string>K2D-LightItalic.ttf</string>
-		<string>K2D-ExtraBold.ttf</string>
-		<string>K2D-ExtraLightItalic.ttf</string>
-		<string>K2D-ExtraLight.ttf</string>
-		<string>K2D-MediumItalic.ttf</string>
-		<string>K2D-ThinItalic.ttf</string>
-		<string>K2D-BoldItalic.ttf</string>
-		<string>K2D-SemiBoldItalic.ttf</string>
-		<string>K2D-Light.ttf</string>
-		<string>K2D-ExtraBoldItalic.ttf</string>
-		<string>K2D-Medium.ttf</string>
-	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>K2D</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
