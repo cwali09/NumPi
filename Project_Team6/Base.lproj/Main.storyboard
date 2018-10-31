@@ -467,35 +467,14 @@
                                     <constraint firstAttribute="height" constant="80" id="fnz-Xz-QOv"/>
                                 </constraints>
                             </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="R2W-rY-XcW">
-                                <rect key="frame" x="16" y="269" width="343" height="378"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="378" id="Uer-qn-Vky"/>
-                                    <constraint firstAttribute="height" constant="378" id="xgd-OT-a7D"/>
-                                </constraints>
-                                <tabBar key="tableFooterView" contentMode="scaleToFill" id="bo5-Aa-wda">
-                                    <rect key="frame" x="0.0" y="0.0" width="343" height="49"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <items>
-                                        <tabBarItem title="Recent" id="hCy-i9-PQl"/>
-                                        <tabBarItem title="Friends" id="hZZ-Ak-Buv"/>
-                                    </items>
-                                </tabBar>
-                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="7NW-7N-bh9" firstAttribute="top" secondItem="PHB-h5-4LR" secondAttribute="top" constant="150" id="A96-3L-jTM"/>
-                            <constraint firstItem="cs0-3o-T60" firstAttribute="bottom" secondItem="R2W-rY-XcW" secondAttribute="bottom" constant="20" id="H5b-4g-EM5"/>
                             <constraint firstItem="cs0-3o-T60" firstAttribute="trailing" secondItem="qiC-BH-qHL" secondAttribute="trailing" constant="15" id="I0j-9t-MvD"/>
-                            <constraint firstItem="R2W-rY-XcW" firstAttribute="centerX" secondItem="PHB-h5-4LR" secondAttribute="centerX" id="WDs-24-Yj3"/>
                             <constraint firstItem="cs0-3o-T60" firstAttribute="trailing" secondItem="7NW-7N-bh9" secondAttribute="trailing" constant="20.25" id="bZw-Sf-hsK"/>
                             <constraint firstItem="7NW-7N-bh9" firstAttribute="centerX" secondItem="PHB-h5-4LR" secondAttribute="centerX" id="dXL-Y5-qtA"/>
-                            <constraint firstItem="R2W-rY-XcW" firstAttribute="leading" secondItem="cs0-3o-T60" secondAttribute="leading" constant="16" id="n49-7Y-FY6"/>
                             <constraint firstItem="7NW-7N-bh9" firstAttribute="leading" secondItem="cs0-3o-T60" secondAttribute="leading" constant="20.25" id="uHo-M8-1C5"/>
-                            <constraint firstItem="cs0-3o-T60" firstAttribute="trailing" secondItem="R2W-rY-XcW" secondAttribute="trailing" constant="16" id="vqJ-3p-eIs"/>
                             <constraint firstItem="qiC-BH-qHL" firstAttribute="top" secondItem="cs0-3o-T60" secondAttribute="top" constant="15" id="xzd-kF-JHC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cs0-3o-T60"/>
@@ -510,7 +489,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4pB-O3-L4u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2942" y="-639"/>
+            <point key="canvasLocation" x="2941.5999999999999" y="-639.13043478260875"/>
         </scene>
         <!--Settings View-->
         <scene sceneID="DdJ-we-faa">
@@ -735,9 +714,9 @@
         <image name="settings" width="245" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="8Am-Vn-IHa"/>
-        <segue reference="gs5-jt-BTY"/>
+        <segue reference="nxn-ac-tZm"/>
+        <segue reference="m0O-Tv-fP3"/>
         <segue reference="G6k-bP-DLD"/>
-        <segue reference="rr3-4N-as2"/>
+        <segue reference="3Tw-0g-EGs"/>
     </inferredMetricsTieBreakers>
 </document>

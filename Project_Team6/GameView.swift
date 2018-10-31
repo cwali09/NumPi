@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GameKit
 
 // Scoreboard Protocol used to set score on MenuView
     // Sender GameView -> MenuView
@@ -21,6 +22,9 @@ protocol difficultyLevel {
 }
 
 class GameView: UIViewController {
+    // Game Seed
+    let rs = GKMersenneTwisterRandomSource()
+   
     
     // Delegate Variables
     var score: scoreBoard?
@@ -35,14 +39,14 @@ class GameView: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if segue.identifier == "menuSeg" {
-            let passScore = segue.destination as! MenuView
-            passScore.showRecent = "0"
+            let passToMenu = segue.destination as! MenuView
+            passToMenu.showRecent = "0"
             score?.setScore(currentScore: "0")
             SetScore = "\(pointSystem)"
-            passScore.showRecent = SetScore!
+            passToMenu.showRecent = SetScore!
             score?.setScore(currentScore: SetScore!)
-            let passToMenu = segue.destination as! MenuView
             passToMenu.menuUser = gameUser
+            passToMenu.level = SetLevel
         }
         if segue.identifier == "home" {
             let passToView = segue.destination as! ViewController
@@ -66,6 +70,7 @@ class GameView: UIViewController {
     @IBOutlet weak var timerLbl: UILabel!
     
     override func viewDidLoad() {
+        rs.seed = 123456789
         super.viewDidLoad()
         print(gameUser.currentUsername!)
         // Set background img
@@ -160,11 +165,15 @@ class GameView: UIViewController {
     //function to make an easy problem with numbers between 0 to 20
     //function to make an easy problem with numbers between 0 to 20
     func randomEasyProblem()->String{
+        let rd = GKRandomDistribution(randomSource: rs, lowestValue: 0, highestValue: 12)
         let array = ["+","-"]
-        self.num1 = Int.random(in: 0...12)
+        //self.num1 = Int.random(in: 0...12)
+        self.num1 = rd.nextInt()
         //num2 cannot be 0 because may cause a divide by 0
-        self.num2 = Int.random(in: 0...12)
-        self.currentProblem=array.randomElement()!
+        //self.num2 = Int.random(in: 0...12)
+        self.num2 = rd.nextInt()
+        //self.currentProblem=array.randomElement()!
+        self.currentProblem = array[rd.nextInt()%2]
         return "\(self.num1!) \(self.currentProblem!) \(self.num2!)"
     }
     func randomMedProblem()->String{

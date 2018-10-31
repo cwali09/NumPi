@@ -10,10 +10,25 @@ import UIKit
 
 let uid = UIDevice.current.identifierForVendor?.uuidString
 
+struct QuestionLog {
+    var Question: String?
+    var Answer: String?
+    var PossibleAnswers: [String]?
+    
+    init(){
+    }
+}
+
 class MenuView: UIViewController {
+    
+    let uid = UIDevice.current.identifierForVendor?.uuidString
+    var level: String?
+    
+    @IBOutlet weak var tableView: UITableView!
+    
     // Drop Down Menu Button
     var button = dropDownBtn()
-    
+    var Questions = QuestionLog()
     var menuUser = currentUser()
     
     // Value sent through delegate
@@ -30,12 +45,29 @@ class MenuView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        /*tableView.beginUpdates()
+    
+        
+        
+        tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+        tableView.insertRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
+        tableView.insertRows(at: [IndexPath(row: 2, section: 0)], with: .automatic)
+        tableView.insertRows(at: [IndexPath(row: 3, section: 0)], with: .automatic)
+        tableView.insertRows(at: [IndexPath(row: 4, section: 0)], with: .automatic)
+        
+        tableView.endUpdates()*/
+        
+        //let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0))
+        //let lbl = cell?.viewWithTag(1) as! UILabel
+        //lbl.text = "hello"
+        
         print(menuUser.currentUsername!)
         // Set background img
         self.recentScore.text = "0"
-        self.highScore.text = "0"
+        self.highScore.text = ""
         if showRecent == nil {
-            showRecent = "0"
+            showRecent = ""
         }
         else {
             self.recentScore.text = showRecent
@@ -71,7 +103,7 @@ class MenuView: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    /*override func viewDidAppear(_ animated: Bool) {
         var tempHigh:Int
         var tempRecent: Int
         
@@ -99,6 +131,97 @@ class MenuView: UIViewController {
                 
                 // NEED TO PASS THIS TO STRUCT OR GLOBAL OR WHATEVER
                 self.highScore.text = self.highScore.text
+            }
+        }
+    }*/
+    
+    override func viewDidAppear(_ animated: Bool) {
+        var tempHigh:Int
+        var tempRecent: Int
+        print("_____________\n")
+        print(self.menuUser)
+        print("\n_______________")
+        
+        //self.menuUser.currentUserscore = "0"
+        
+        let todosEndpoint: String = "http://98.197.90.65:8000/highscore"
+        let newTodo = "type=score&&uuid=\(String(describing: uid!))&&level=Easy"
+        print("dddd")
+        print(newTodo)
+        print("TODOTODOTODOTODOTODOTODOTODO")
+        let pfd = PostFOrData(str: todosEndpoint, post: newTodo)
+        pfd.forData { jsonString in
+            let dict = jsonString.toJSON() as? [String:AnyObject]
+            print(jsonString)
+            print("================================================")
+            print(dict!["data"])
+            
+            DispatchQueue.main.async {
+                guard let uname = dict!["data"] as? [[String: Any]] else {
+                    print("Could not get data as Data from JSON")
+                    return
+                }
+                print("=-=-==-=-=-=-==-")
+                print(uname)
+                print("=-=-==-=-=-=-==2323232323-")
+                //var score = String(describing: uname["username"]!)
+                if uname.isEmpty {
+                    //do nothing
+                }
+                else {
+                    self.menuUser.currentUserscore = "\(uname[0]["score"]!)"
+                    print(self.menuUser.currentUserscore!)
+                    print("eeee")
+                    self.showHighest = "\(uname[0]["score"]!)"
+                    print(self.showHighest!)
+                    self.highScore.text = "\(self.menuUser.currentUserscore!)"
+                }
+                
+            }
+        }
+        
+        if showHighest == nil {
+            if showRecent == nil {
+                showHighest = "0"
+            }
+            else{
+                showHighest = showRecent
+                if (level != nil && showRecent != nil){
+                    // NEED TO PASS THIS TO STRUCT OR GLOBAL OR WHATEVER
+                    let todosEndpoint: String = "http://98.197.90.65:8000/addHighscore"
+                    let newTodo = "score=\(showRecent!)&&uuid=\(String(describing: uid!))&&level=\(level!)"
+                    let pfd = PostFOrData(str: todosEndpoint, post: newTodo)
+                    pfd.forData { jsonString in
+                        let dict = jsonString.toJSON() as? [String:AnyObject]
+                        print(jsonString)
+                        print("================================================")
+                        print(dict!)
+                        DispatchQueue.main.async {
+                            guard let uname = dict!["debug"] as? [String: String] else {
+                                print("Could not get data as Data from JSON")
+                                return
+                            }
+                            self.highScore.text = "\(self.menuUser.currentUserscore!)"
+                            print(uname)
+                        }
+                    }
+                }
+                
+                //elf.highScore.text = "\(self.menuUser.currentUserscore!)"
+                
+            }
+        }
+        else {
+            tempHigh = Int("\(self.menuUser.currentUserscore!)")!
+            tempRecent = Int(showRecent!)!
+            if(tempHigh > tempRecent){
+                showHighest = showRecent
+                
+                self.highScore.text = "\(self.menuUser.currentUserscore!)"//showHighest
+            }
+            else {
+                
+                self.highScore.text = "\(self.menuUser.currentUserscore!)"
             }
         }
     }
