@@ -14,11 +14,33 @@ class SettingsView: UIViewController {
     var button = dropDownBtn()
     
     var settingsUser = currentUser()
+    @IBOutlet weak var EditUserText: UIButton!
     @IBOutlet weak var uNameLbl: UILabel!
+    @IBOutlet weak var uNameTextField: UITextField!
+    @IBAction func EditUser(_ sender: Any) {
+        if !uNameLbl.isHidden{
+            uNameLbl.isHidden = true
+            EditUserText.setTitle("Done", for: .normal)
+        }
+        else{
+            uNameLbl.isHidden=false
+            EditUserText.setTitle("Edit UserName", for: .normal)
+            //change username here
+            if(uNameTextField.text != ""){
+                ChangeUsername(newName: uNameTextField.text)
+            }
+            uNameTextField.text = ""
+        }
+        
+    }
+    
+    func ChangeUsername(newName: String?){
+        print(newName!)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //uNameTextField.text = settingsUser.currentUsername!
         uNameLbl.text = settingsUser.currentUsername!
         
         /*

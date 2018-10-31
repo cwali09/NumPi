@@ -545,6 +545,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
+                                            <action selector="EditUser:" destination="KEW-Th-GS8" eventType="touchUpInside" id="3zb-Zd-jiE"/>
                                             <action selector="editNameFunc:" destination="KEW-Th-GS8" eventType="touchUpInside" id="dDL-Cv-ehu"/>
                                         </connections>
                                     </button>
@@ -691,8 +692,10 @@
                         <viewLayoutGuide key="safeArea" id="Y9L-L8-HOb"/>
                     </view>
                     <connections>
+                        <outlet property="EditUserText" destination="OvB-cm-2JG" id="MtT-46-4Vi"/>
                         <outlet property="creatorLbl" destination="HA6-md-GSI" id="m7b-78-eJC"/>
                         <outlet property="uNameLbl" destination="315-eV-IxD" id="d21-hM-WKO"/>
+                        <outlet property="uNameTextField" destination="eS0-Fl-skw" id="BZh-sV-Tsf"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="settingsToHome" animates="NO" id="vL8-f7-U9c"/>
                         <segue destination="04g-37-KJp" kind="show" identifier="seg6" animates="NO" id="gs5-jt-BTY"/>
                     </connections>
