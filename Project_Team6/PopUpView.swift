@@ -8,35 +8,31 @@
 
 import UIKit
 
-class PopUpView: UIViewController, protoStartTimer {
-    var setTrue = false
-    var timer: protoStartTimer?
-   
-    func start(timeBool: Bool) {
-        setTrue = timeBool
-    }
+class PopUpView: UIViewController {
+    var passobj: GameView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
 
         self.view.backgroundColor = UIColor.clear.withAlphaComponent(0.0)
         // Do any additional setup after loading the view.
     }
     
     @IBAction func startGame(sender: UIButton) {
-        setTrue = true
-        timer?.start(timeBool: setTrue)
+    
         self.view.removeFromSuperview()
-        //performSegue(withIdentifier: "seg4", sender: self)
+        performSegue(withIdentifier: "seg4", sender: self)
     }
-    
-    
     
     @IBAction func cancelGame(_ sender: UIButton) {
          performSegue(withIdentifier: "seg3", sender: self)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
+        if segue.identifier == "seg4" {
+            
+        }
+    }
     
     /*
     // MARK: - Navigation
