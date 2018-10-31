@@ -20,7 +20,9 @@ class SettingsView: UIViewController {
     @IBAction func EditUser(_ sender: Any) {
         if !uNameLbl.isHidden{
             uNameLbl.isHidden = true
+            uNameTextField.placeholder = "New Username"
             EditUserText.setTitle("Done", for: .normal)
+            uNameTextField.becomeFirstResponder()
         }
         else{
             uNameLbl.isHidden=false
@@ -30,6 +32,7 @@ class SettingsView: UIViewController {
                 ChangeUsername(newName: uNameTextField.text)
             }
             uNameTextField.text = ""
+            uNameTextField.resignFirstResponder()
         }
         
     }

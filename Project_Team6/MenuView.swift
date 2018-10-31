@@ -42,7 +42,7 @@ class MenuView: UIViewController {
         }
         
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
-        self.logoLbl.image = UIImage(named: "AppIcon.jpg")!
+        self.logoLbl.image = UIImage(named: "sqrtLogo.png")!
         // Do any additional setup after loading the view.
         
         

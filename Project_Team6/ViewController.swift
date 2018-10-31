@@ -64,6 +64,7 @@ class ViewController: UIViewController, difficultyLevel {
     }
     
     @IBAction func settingsBtn(_ sender: UIButton) {
+        performSegue(withIdentifier: "seg7", sender: self)
     }
     
     
@@ -82,6 +83,10 @@ class ViewController: UIViewController, difficultyLevel {
             /* Passing the User's data */
             let passUserInfo = segue.destination as! MenuView
             passUserInfo.menuUser = loggedInUser
+        }
+        if segue.identifier == "seg7" {
+            let passToSettings = segue.destination as! SettingsView
+            passToSettings.settingsUser = loggedInUser
         }
     }
     
@@ -106,8 +111,6 @@ class ViewController: UIViewController, difficultyLevel {
     @IBAction func menuBtn(_ sender: UIButton) {
         performSegue(withIdentifier: "seg2", sender: self)
     }
-
-    @IBOutlet weak var NumPiUser: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -132,7 +135,6 @@ class ViewController: UIViewController, difficultyLevel {
                     return
                 }
                 var name = String(describing: uname["username"]!)
-                self.NumPiUser.text = "Hello \(name)"
                 self.loggedInUser.currentUsername = name
             }
         }
