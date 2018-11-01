@@ -38,34 +38,66 @@ struct currentUser: Codable {
     var currentUsername: String?
     var currentUserscore: String?
     var currentUUID: String?
-    
-    init() {
+    var currentLVL: String?
+    init (){
     }
-    
-    init(userName: String, userScore: String, currentUUID: String) {
+    /*init(userName: String, userScore: String, currentUUID: String, currentLVL: String) {
         self.currentUsername = userName
         self.currentUserscore = userScore
         self.currentUUID = currentUUID
-    }
+        self.currentLVL = currentLVL
+    }*/
 }
 
 class ViewController: UIViewController, difficultyLevel {
+    
+    /* Create current User */
+    var loggedInUser = currentUser()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Set background img
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
+        self.logoLbl.image = UIImage(named: "logo.jpg")!
+        // Do any additional setup after loading the view, typically from a nib.
+        let todosEndpoint: String = "http://98.197.90.65:8000/register"
+        let uid = UIDevice.current.identifierForVendor?.uuidString
+        let newTodo = "uuid=\(String(describing: uid!))"
+        let pfd = PostFOrData(str: todosEndpoint, post: newTodo)
+        pfd.forData { jsonString in
+            let dict = jsonString.toJSON() as? [String:AnyObject]
+            print(jsonString)
+            print("================================================")
+            print(dict!)
+            DispatchQueue.main.async {
+                guard let uname = dict!["data"] as? [String: Any] else {
+                    print("Could not get data as Data from JSON")
+                    return
+                }
+                var name = String(describing: uname["username"]!)
+                self.loggedInUser.currentUsername = name
+                self.loggedInUser.currentUserscore = "0"
+                self.loggedInUser.currentLVL = ""
+                self.loggedInUser.currentUUID = uid
+                //self.loggedInUser.currentUsername = name
+            }
+        }
+    }
     
     // Delegate Functions and Variables
     var level:String?
     var lvl: difficultyLevel?
     
-    /* Create current User */
-    var loggedInUser = currentUser()
+  
     
     func setLevel(choice: String){
         // set the different game levels
         level = choice
     }
     
-    @IBAction func settingsBtn(_ sender: UIButton) {
-        performSegue(withIdentifier: "seg7", sender: self)
-    }
+  
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -111,34 +143,10 @@ class ViewController: UIViewController, difficultyLevel {
     @IBAction func menuBtn(_ sender: UIButton) {
         performSegue(withIdentifier: "seg2", sender: self)
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Set background img
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
-
-        self.logoLbl.image = UIImage(named: "logo.jpg")!
-        // Do any additional setup after loading the view, typically from a nib.
-        let todosEndpoint: String = "http://98.197.90.65:8000/register"
-        let uid = UIDevice.current.identifierForVendor?.uuidString
-        let newTodo = "uuid=\(String(describing: uid!))"
-        let pfd = PostFOrData(str: todosEndpoint, post: newTodo)
-        pfd.forData { jsonString in
-            let dict = jsonString.toJSON() as? [String:AnyObject]
-            print(jsonString)
-            print("================================================")
-            print(dict!)
-            DispatchQueue.main.async {
-                guard let uname = dict!["data"] as? [String: Any] else {
-                    print("Could not get data as Data from JSON")
-                    return
-                }
-                var name = String(describing: uname["username"]!)
-                self.loggedInUser.currentUsername = name
-            }
-        }
+    @IBAction func settingsBtn(_ sender: UIButton) {
+        performSegue(withIdentifier: "seg7", sender: self)
     }
+    
 }
 
 extension UIViewController {
@@ -355,4 +363,5 @@ class dropDownBtn: UIButton, dropDownProtocol {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
 }
