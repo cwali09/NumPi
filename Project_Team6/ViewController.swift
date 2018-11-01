@@ -97,9 +97,7 @@ class ViewController: UIViewController, difficultyLevel {
         level = choice
     }
     
-    @IBAction func settingsBtn(_ sender: UIButton) {
-        performSegue(withIdentifier: "seg7", sender: self)
-    }
+  
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -145,7 +143,9 @@ class ViewController: UIViewController, difficultyLevel {
     @IBAction func menuBtn(_ sender: UIButton) {
         performSegue(withIdentifier: "seg2", sender: self)
     }
-    
+    @IBAction func settingsBtn(_ sender: UIButton) {
+        performSegue(withIdentifier: "seg7", sender: self)
+    }
     
 }
 
@@ -363,4 +363,5 @@ class dropDownBtn: UIButton, dropDownProtocol {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
 }

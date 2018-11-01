@@ -30,20 +30,45 @@ class SettingsView: UIViewController {
             //change username here
             if(uNameTextField.text != ""){
                 ChangeUsername(newName: uNameTextField.text)
+                
             }
             uNameTextField.text = ""
             uNameTextField.resignFirstResponder()
         }
-        
     }
     
     func ChangeUsername(newName: String?){
         print(newName!)
+        self.settingsUser.currentUsername = newName!
+        
+        let todosEndpoint: String = "http://98.197.90.65:8000/changeUsername"
+        let newTodo = "uuid=\(String(describing: uid!))&&username=\(self.settingsUser.currentUsername!)"
+        print("dfdfd")
+        print(newTodo)
+        print("TODOTODOTODOTODOTODOTODOTODO343")
+        let pfd = PostFOrData(str: todosEndpoint, post: newTodo)
+        pfd.forData { jsonString in
+            //let dict = jsonString.toJSON() as? [String:AnyObject]
+            print(jsonString)
+            print("================================================")
+            //print(dict["data"]!)
+            
+            DispatchQueue.main.async {
+                //guard let uname = dict!["data"] as? [String: String] else {
+                //   print("Could not get data as Data from JSON")
+                //    return
+                //}
+//                print("=-=-==-=-=-=-==-")
+//                print(uname)
+//                print("=-=-==-=-=-=-==2323232323-")
+                self.uNameLbl.text = self.settingsUser.currentUsername!
+            }
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        uNameLbl.text = settingsUser.currentUsername!
+        uNameLbl.text = self.settingsUser.currentUsername!
         
         /*
          DROP DOWN MENU CONFIG
@@ -69,6 +94,7 @@ class SettingsView: UIViewController {
         button.dropView.dropDownOptions = ["Home", "Score", "Settings"]
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
     }
     
     @IBOutlet weak var creatorLbl: UILabel!
@@ -77,7 +103,7 @@ class SettingsView: UIViewController {
         
     }
     override func viewDidAppear(_ animated: Bool) {
-        creatorLbl.text = "Julian: ________ \nKrishna: ________ \nLeo: ________ \nRichard: ________ \nWali: ________ "
+        creatorLbl.text = "Iptihar: Front End \nJulian: Database \nKrishna: User Interface \nLeo: Question Engine \nRichard: Back End / Front End \nWali: Back End "
         creatorLbl.sizeToFit()
     }
     /*
@@ -99,6 +125,12 @@ class SettingsView: UIViewController {
             let passToHome = segue.destination as! ViewController
             passToHome.loggedInUser = settingsUser
         }
+    }
+
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
 
 }

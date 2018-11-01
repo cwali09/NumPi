@@ -70,7 +70,9 @@ class GameView: UIViewController {
     @IBOutlet weak var timerLbl: UILabel!
     
     override func viewDidLoad() {
-        rs.seed = 123456789
+        let currentDateTime = Date()
+        //currentDateTime.timeIntervalSinceReferenceDate
+        rs.seed =  UInt64(currentDateTime.timeIntervalSinceReferenceDate)
         super.viewDidLoad()
         print(gameUser.currentUsername!)
         // Set background img
@@ -277,5 +279,11 @@ class GameView: UIViewController {
         // Set up the URL request
         
     }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
 }
 
