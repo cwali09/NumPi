@@ -147,7 +147,6 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource {
         print(self.menuUser)
         print("\n_______________")
         
-        //self.menuUser.currentUserscore = "0"
         
         let todosEndpoint: String = "http://98.197.90.65:8000/highscore"
         let newTodo = "type=score&&uuid=\(String(describing: uid!))&&level=Easy"
@@ -171,7 +170,7 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 print("=-=-==-=-=-=-==2323232323-")
                 //var score = String(describing: uname["username"]!)
                 if uname.isEmpty {
-                    //do nothing
+                    self.highScore.text = "0"
                 }
                 else {
                     self.menuUser.currentUserscore = "\(uname[0]["score"]!)"

@@ -29,7 +29,7 @@
                                     <constraint firstAttribute="width" constant="222" id="OS3-My-3Un"/>
                                 </constraints>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="k3d-dH-fhR">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="k3d-dH-fhR">
                                 <rect key="frame" x="62.5" y="209" width="250" height="384"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S08-gc-sAg">
@@ -143,9 +143,9 @@
                                                     <constraint firstAttribute="height" constant="100" id="BlP-Dw-s4c"/>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="vKG-fU-0mR"/>
                                                 </constraints>
+                                                <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="25"/>
                                                 <state key="normal" title="Button" backgroundImage="answerButton">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -163,6 +163,7 @@
                                                     <constraint firstAttribute="width" constant="100" id="a02-gQ-CM7"/>
                                                     <constraint firstAttribute="height" constant="100" id="iIw-5W-Fky"/>
                                                 </constraints>
+                                                <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="25"/>
                                                 <state key="normal" title="Button" backgroundImage="answerButton">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
@@ -182,6 +183,7 @@
                                                     <constraint firstAttribute="height" constant="100" id="2Mm-e7-Aar"/>
                                                     <constraint firstAttribute="width" constant="100" id="3Vq-rK-3vX"/>
                                                 </constraints>
+                                                <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="25"/>
                                                 <state key="normal" title="Button" backgroundImage="answerButton">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
@@ -209,6 +211,7 @@
                                                     <constraint firstAttribute="height" constant="100" id="I4l-Cc-7A2"/>
                                                     <constraint firstAttribute="width" constant="100" id="RTm-6U-1Yf"/>
                                                 </constraints>
+                                                <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="25"/>
                                                 <state key="normal" title="Button" backgroundImage="answerButton">
                                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 </state>
@@ -228,6 +231,7 @@
                                                     <constraint firstAttribute="height" constant="100" id="0LL-mS-edb"/>
                                                     <constraint firstAttribute="width" constant="100" id="E8A-3g-EXk"/>
                                                 </constraints>
+                                                <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="25"/>
                                                 <state key="normal" title="Button" backgroundImage="answerButton">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
@@ -247,8 +251,9 @@
                                                     <constraint firstAttribute="width" constant="100" id="aIS-ep-xZI"/>
                                                     <constraint firstAttribute="height" constant="100" id="mg6-ai-2fD"/>
                                                 </constraints>
+                                                <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="25"/>
                                                 <state key="normal" title="Button" backgroundImage="answerButton">
-                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -273,7 +278,7 @@
                                     <constraint firstAttribute="width" constant="285" id="1ok-HY-PXC"/>
                                     <constraint firstAttribute="height" constant="191" id="b7w-1d-veX"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="50"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -284,7 +289,7 @@
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="O57-ja-5jh"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="TWp-tg-qbj"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
@@ -486,42 +491,43 @@
                                                         <constraint firstAttribute="width" constant="140" id="SGV-lv-01o"/>
                                                         <constraint firstAttribute="height" constant="35" id="VSP-nr-97h"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="48" translatesAutoresizingMaskIntoConstraints="NO" id="lNv-il-AvS">
-                                                    <rect key="frame" x="265" y="4.5" width="64" height="35"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sDW-Tr-nP2">
-                                                            <rect key="frame" x="0.0" y="0.0" width="8" height="35"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="35" id="yGC-vr-xXp"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mZM-Av-sTu">
-                                                            <rect key="frame" x="56" y="0.0" width="8" height="35"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="35" id="hHD-GW-NV9"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
-                                                </stackView>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mZM-Av-sTu">
+                                                    <rect key="frame" x="254" y="4.5" width="75" height="35"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="35" id="hHD-GW-NV9"/>
+                                                        <constraint firstAttribute="width" constant="75" id="mmF-o2-a73"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sDW-Tr-nP2">
+                                                    <rect key="frame" x="163" y="4.5" width="75" height="35"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="75" id="MZW-Fi-rhK"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="35" id="c94-FT-ZJz"/>
+                                                        <constraint firstAttribute="height" constant="35" id="yGC-vr-xXp"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="lNv-il-AvS" firstAttribute="top" secondItem="AQf-GP-rPT" secondAttribute="top" constant="4.25" id="8bv-Nw-UmK"/>
-                                                <constraint firstAttribute="trailing" secondItem="lNv-il-AvS" secondAttribute="trailing" constant="15" id="Gph-8A-vyN"/>
-                                                <constraint firstItem="TMD-5R-8Xm" firstAttribute="top" secondItem="lNv-il-AvS" secondAttribute="bottom" constant="-35" id="M7O-0L-2GZ"/>
+                                                <constraint firstAttribute="bottom" secondItem="mZM-Av-sTu" secondAttribute="bottom" constant="4.25" id="8hK-XW-7wS"/>
+                                                <constraint firstAttribute="trailing" secondItem="mZM-Av-sTu" secondAttribute="trailing" constant="15" id="G8S-ij-xqC"/>
+                                                <constraint firstAttribute="bottom" secondItem="sDW-Tr-nP2" secondAttribute="bottom" constant="4.25" id="RGE-RC-dVa"/>
                                                 <constraint firstItem="TMD-5R-8Xm" firstAttribute="leading" secondItem="AQf-GP-rPT" secondAttribute="leading" constant="15" id="RU3-pw-4Uf"/>
+                                                <constraint firstItem="mZM-Av-sTu" firstAttribute="top" secondItem="AQf-GP-rPT" secondAttribute="top" constant="4.25" id="aQe-MQ-mgF"/>
                                                 <constraint firstItem="TMD-5R-8Xm" firstAttribute="top" secondItem="AQf-GP-rPT" secondAttribute="top" constant="4.25" id="bzp-Ej-CMt"/>
                                                 <constraint firstAttribute="bottom" secondItem="TMD-5R-8Xm" secondAttribute="bottom" constant="4.25" id="fQo-eH-zIz"/>
-                                                <constraint firstAttribute="bottom" secondItem="lNv-il-AvS" secondAttribute="bottom" constant="4.25" id="qVb-YT-dYc"/>
+                                                <constraint firstItem="mZM-Av-sTu" firstAttribute="leading" secondItem="sDW-Tr-nP2" secondAttribute="trailing" constant="16" id="haY-Xn-Pcx"/>
+                                                <constraint firstItem="sDW-Tr-nP2" firstAttribute="leading" secondItem="TMD-5R-8Xm" secondAttribute="trailing" constant="8" id="snx-Zw-Ajg"/>
+                                                <constraint firstItem="sDW-Tr-nP2" firstAttribute="top" secondItem="AQf-GP-rPT" secondAttribute="top" constant="4.25" id="xFI-sb-kRd"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -577,7 +583,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="8zq-qY-OZG"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -587,6 +593,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="aPB-4E-ydz"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="17"/>
                                         <state key="normal" title="Edit UserName">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -643,6 +650,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="RdY-zx-fQg"/>
                                                 </constraints>
+                                                <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="17"/>
                                                 <state key="normal" title="Search Users">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
@@ -671,7 +679,7 @@
                                     <constraint firstAttribute="height" constant="35" id="LLQ-dU-hvf"/>
                                     <constraint firstAttribute="width" constant="85" id="ccc-Tf-Gzu"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -681,7 +689,7 @@
                                     <constraint firstAttribute="width" constant="85" id="9hQ-pA-Jg3"/>
                                     <constraint firstAttribute="height" constant="35" id="qwp-sD-VLz"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -694,7 +702,7 @@
                                             <constraint firstAttribute="height" constant="35" id="D21-uH-eYN"/>
                                             <constraint firstAttribute="width" constant="350" id="Mdi-ag-iXs"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -704,7 +712,7 @@
                                             <constraint firstAttribute="width" constant="350" id="JcI-Jr-vpd"/>
                                             <constraint firstAttribute="height" constant="207" id="L2v-R1-xwC"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -778,9 +786,9 @@
         <image name="settings" width="245" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="8Am-Vn-IHa"/>
+        <segue reference="nxn-ac-tZm"/>
         <segue reference="86y-xj-fQe"/>
         <segue reference="G6k-bP-DLD"/>
-        <segue reference="rr3-4N-as2"/>
+        <segue reference="3Tw-0g-EGs"/>
     </inferredMetricsTieBreakers>
 </document>

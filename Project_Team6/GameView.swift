@@ -235,7 +235,7 @@ class GameView: UIViewController {
     }*/
     
     var countdownTimer: Timer!
-    var totalTime = 10
+    var totalTime = 20
     
     @objc func startTimer() {
         countdownTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
@@ -264,7 +264,7 @@ class GameView: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         //self.problemScreen.text = SetLevel!
-        self.timerLbl.text = "01:00"
+        self.timerLbl.text = "00:20"
         
         
         /*let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popUpStart") as! PopUpView
