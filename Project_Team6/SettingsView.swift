@@ -9,7 +9,7 @@
 import UIKit
 
 class SettingsView: UIViewController {
-
+    
     /* Drop down menu button */
     var button = dropDownBtn()
     
@@ -58,9 +58,9 @@ class SettingsView: UIViewController {
                 //   print("Could not get data as Data from JSON")
                 //    return
                 //}
-//                print("=-=-==-=-=-=-==-")
-//                print(uname)
-//                print("=-=-==-=-=-=-==2323232323-")
+                //                print("=-=-==-=-=-=-==-")
+                //                print(uname)
+                //                print("=-=-==-=-=-=-==2323232323-")
                 self.uNameLbl.text = self.settingsUser.currentUsername!
             }
         }
@@ -72,7 +72,7 @@ class SettingsView: UIViewController {
         
         /*
          DROP DOWN MENU CONFIG
-        */
+         */
         
         button = dropDownBtn.init(frame: CGRect(x: 120, y: 120, width: 120, height: 120))
         button.setTitle("Menu", for: .normal)
@@ -103,18 +103,18 @@ class SettingsView: UIViewController {
         
     }
     override func viewDidAppear(_ animated: Bool) {
-        creatorLbl.text = "Iptihar: Front End \nJulian: Database \nKrishna: User Interface \nLeo: Question Engine \nRichard: Back End / Front End \nWali: Back End "
+        creatorLbl.text = "Iptihar: Front End \nJulian: Back End / Database \nKrishna: User Interface \nLeo: Question Engine \nRichard: Back End / Front End \nWali: Back End "
         creatorLbl.sizeToFit()
     }
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "seg6" {
@@ -126,11 +126,11 @@ class SettingsView: UIViewController {
             passToHome.loggedInUser = settingsUser
         }
     }
-
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
 }

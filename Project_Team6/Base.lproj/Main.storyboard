@@ -471,12 +471,13 @@
                                     <constraint firstAttribute="height" constant="80" id="fnz-Xz-QOv"/>
                                 </constraints>
                             </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ryt-5z-UYA">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ryt-5z-UYA">
                                 <rect key="frame" x="15.5" y="270" width="344" height="387"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="387" id="gRE-Jw-8w8"/>
                                 </constraints>
+                                <color key="separatorColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="YIr-dX-fX5">
                                         <rect key="frame" x="0.0" y="28" width="344" height="44"/>
@@ -756,7 +757,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gVy-yg-Wog" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3886" y="-522"/>
+            <point key="canvasLocation" x="3884" y="-522"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="DdZ-CY-kc4">
@@ -786,9 +787,9 @@
         <image name="settings" width="245" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="nxn-ac-tZm"/>
-        <segue reference="86y-xj-fQe"/>
+        <segue reference="8Am-Vn-IHa"/>
+        <segue reference="gs5-jt-BTY"/>
         <segue reference="G6k-bP-DLD"/>
-        <segue reference="3Tw-0g-EGs"/>
+        <segue reference="rr3-4N-as2"/>
     </inferredMetricsTieBreakers>
 </document>

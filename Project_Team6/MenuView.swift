@@ -19,14 +19,18 @@ struct QuestionLog {
     }
 }
 
+/* Store all the values all questions */
+var questionInfoArrayGV = [problemInfo]()
+var showRecent: String!
+
 class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
-       
-    
+     
     let uid = UIDevice.current.identifierForVendor?.uuidString
     var level: String?
     
     @IBOutlet weak var tableView: UITableView!
+    
+    
     
     // Drop Down Menu Button
     var button = dropDownBtn()
@@ -35,7 +39,7 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     // Value sent through delegate
     var showHighest: String!
-    var showRecent: String!
+   
     
     // Logo Labes
     @IBOutlet weak var logoLbl: UIImageView!
@@ -50,22 +54,6 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         tableView.dataSource = self
         tableView.delegate = self
-        
-        /*tableView.beginUpdates()
-    
-        
-        
-        tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
-        tableView.insertRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
-        tableView.insertRows(at: [IndexPath(row: 2, section: 0)], with: .automatic)
-        tableView.insertRows(at: [IndexPath(row: 3, section: 0)], with: .automatic)
-        tableView.insertRows(at: [IndexPath(row: 4, section: 0)], with: .automatic)
-        
-        tableView.endUpdates()*/
-        
-        //let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0))
-        //let lbl = cell?.viewWithTag(1) as! UILabel
-        //lbl.text = "hello"
         
         print(menuUser.currentUsername!)
         // Set background img
@@ -85,7 +73,7 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         /*
          DROP DOWN MENU CONFIG
-        */
+         */
         
         button = dropDownBtn.init(frame: CGRect(x: 120, y: 120, width: 120, height: 120))
         button.setTitle("Menu", for: .normal)
@@ -107,38 +95,6 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
-    
-    /*override func viewDidAppear(_ animated: Bool) {
-        var tempHigh:Int
-        var tempRecent: Int
-        
-        if showHighest == nil {
-            if showRecent == nil {
-                showHighest = "0"
-            }
-            else{
-                showHighest = showRecent
-                
-                // NEED TO PASS THIS TO STRUCT OR GLOBAL OR WHATEVER
-                self.highScore.text = showHighest
-            }
-        }
-        else {
-            tempHigh = Int(showHighest!)!
-            tempRecent = Int(showRecent!)!
-            if(tempHigh > tempRecent){
-                showHighest = showRecent
-                
-                // NEED TO PASS THIS TO STRUCT OR GLOBAL OR WHATEVER
-                self.highScore.text = showHighest
-            }
-            else {
-                
-                // NEED TO PASS THIS TO STRUCT OR GLOBAL OR WHATEVER
-                self.highScore.text = self.highScore.text
-            }
-        }
-    }*/
     
     override func viewDidAppear(_ animated: Bool) {
         var tempHigh:Int
@@ -186,6 +142,7 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         if showHighest == nil {
             if showRecent == nil {
+                showRecent = "0"
                 showHighest = "0"
             }
             else{
@@ -243,11 +200,28 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return questionInfoArrayGV.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.isUserInteractionEnabled = false
+        
+        /* Set cell properties */
+        let lblProblem = cell.viewWithTag(1) as! UILabel
+        let lblCorrectAnswer = cell.viewWithTag(2) as! UILabel
+        let lblUserAnswer = cell.viewWithTag(3) as! UILabel
+        
+        lblProblem.text = questionInfoArrayGV[indexPath.row].problem
+        lblCorrectAnswer.text = questionInfoArrayGV[indexPath.row].correctAnswer
+        lblUserAnswer.text = questionInfoArrayGV[indexPath.row].userAnswer
+        
+        if (questionInfoArrayGV[indexPath.row].isCorrect!) {
+            cell.backgroundColor = UIColor(red: 0.18, green: 0.8, blue: 0.44, alpha: 1.0)
+        } else {
+            cell.backgroundColor = UIColor(red: 0.96, green: 0.2, blue: 0.2, alpha: 1.0)
+        }
+        
         return cell
     }
 }

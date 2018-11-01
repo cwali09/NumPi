@@ -10,13 +10,13 @@ import UIKit
 import GameKit
 
 // Scoreboard Protocol used to set score on MenuView
-    // Sender GameView -> MenuView
+// Sender GameView -> MenuView
 protocol scoreBoard {
     func setScore(currentScore: String)
 }
 
 // Difficulty Protocol used to set level on GameView
-    // Sender ViewController -> GameView
+// Sender ViewController -> GameView
 protocol difficultyLevel {
     func setLevel(choice: String)
 }
@@ -24,26 +24,28 @@ protocol difficultyLevel {
 class GameView: UIViewController {
     // Game Seed
     let rs = GKMersenneTwisterRandomSource()
-   
+    
+    /* Store all the problem information and User Input to pass to the Settings View */
+    var questionInfo = problemInfo()
     
     // Delegate Variables
     var score: scoreBoard?
     //var lvl: difficultyLevel?
     var SetLevel: String?
     var SetScore: String?
-
+    
     // Drop-down Menu Button
     var button = dropDownBtn()
     
     var gameUser = currentUser()
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if segue.identifier == "menuSeg" {
             let passToMenu = segue.destination as! MenuView
-            passToMenu.showRecent = "0"
+            //passToMenu.showRecent = "0"
             score?.setScore(currentScore: "0")
             SetScore = "\(pointSystem)"
-            passToMenu.showRecent = SetScore!
+            showRecent = SetScore!
             score?.setScore(currentScore: SetScore!)
             passToMenu.menuUser = gameUser
             passToMenu.level = SetLevel
@@ -59,7 +61,7 @@ class GameView: UIViewController {
     }
     
     // Answser buttons -- Link these buttons to some sort of random variables
-        // correct answer will need to be set in stone
+    // correct answer will need to be set in stone
     // Each button stored in boxes, Access by Index 1 - 6
     @IBOutlet var boxes : [UIButton]!
     
@@ -78,6 +80,7 @@ class GameView: UIViewController {
         // Set background img
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         // Iterate through buttons and change text
+        questionInfoArrayGV.removeAll()
         generateProblem()
         startTimer()
         
@@ -118,14 +121,19 @@ class GameView: UIViewController {
         
         if(self.SetLevel=="Easy"){
             self.problemScreen.text=randomEasyProblem()
+            questionInfo.problem = self.problemScreen.text
+            
         }
         else
             if(self.SetLevel=="Medium"){
                 self.problemScreen.text=randomMedProblem()
+                questionInfo.problem = self.problemScreen.text
+                
             }
             else
                 if(self.SetLevel=="Hard"){
                     self.problemScreen.text=randomHardProblem()
+                    questionInfo.problem = self.problemScreen.text
         }
         // Iterate through buttons and change text
         var answerChoice: Int?;
@@ -214,25 +222,23 @@ class GameView: UIViewController {
         //sender.isSelected = !sender.isSelected
         let index = boxes.index(of: sender)!
         //print(boxes[index].titleLabel!)
+        questionInfo.correctAnswer = "\(correctAns!)"
+        questionInfo.userAnswer = boxes[index].titleLabel?.text
         if boxes[index].titleLabel?.text=="\(correctAns!)"{
             print("correct answer chosen")
-            generateProblem()
+            questionInfo.isCorrect = true
             pointSystem += 1
         }
         else{
             print("Wrong Answer!")
-            generateProblem()
+            questionInfo.isCorrect = false
         }
+        /* Push questionInfo object to array to pass into MenuView */
+        questionInfoArrayGV.append(questionInfo)
+        generateProblem()
     }
     
-     /*@IBAction func boxTouched(_ sender: UIButton) {
-        sender.isSelected = !sender.isSelected
-        let index = boxes.index(of: sender)!
-        switch index {
-        }
-        default:
-        <#code#>
-    }*/
+ 
     
     var countdownTimer: Timer!
     var totalTime = 20
@@ -268,11 +274,11 @@ class GameView: UIViewController {
         
         
         /*let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popUpStart") as! PopUpView
-        self.addChild(popOverVC)
-        popOverVC.view.frame = self.view.frame
-        self.view.addSubview(popOverVC.view)
-        popOverVC.didMove(toParent: self)*/
-    
+         self.addChild(popOverVC)
+         popOverVC.view.frame = self.view.frame
+         self.view.addSubview(popOverVC.view)
+         popOverVC.didMove(toParent: self)*/
+        
         
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -284,6 +290,6 @@ class GameView: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
 }
 

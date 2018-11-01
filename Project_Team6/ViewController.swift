@@ -6,7 +6,26 @@
 //  Copyright © 2018 Team6. All rights reserved.
 //
 
+/* COPY */
+
 import UIKit
+
+struct problemInfo {
+    var problem: String?
+    var isCorrect: Bool?
+    var userAnswer: String?
+    var correctAnswer: String?
+    
+    init(problem: String, isCorrect: Bool, userAnswer: String, correctAnswer: String) {
+        self.problem = problem
+        self.isCorrect = isCorrect
+        self.userAnswer = userAnswer
+        self.correctAnswer = correctAnswer
+    }
+    init(){
+        /* Default Constructor */
+    }
+}
 
 class PostFOrData {
     let url: String
@@ -41,18 +60,18 @@ struct currentUser: Codable {
     var currentLVL: String?
     init (){
     }
-    /*init(userName: String, userScore: String, currentUUID: String, currentLVL: String) {
-        self.currentUsername = userName
-        self.currentUserscore = userScore
-        self.currentUUID = currentUUID
-        self.currentLVL = currentLVL
-    }*/
 }
 
 class ViewController: UIViewController, difficultyLevel {
     
     /* Create current User */
     var loggedInUser = currentUser()
+    
+    
+    /* Store all the problem information and User Input to pass to the Settings View */
+    var questionInfo = problemInfo()
+    var questionInfoArray = [problemInfo]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,14 +109,14 @@ class ViewController: UIViewController, difficultyLevel {
     var level:String?
     var lvl: difficultyLevel?
     
-  
+    
     
     func setLevel(choice: String){
         // set the different game levels
         level = choice
     }
     
-  
+    
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -234,6 +253,8 @@ class dropDownView: UIView, UITableViewDelegate, UITableViewDataSource  {
         
         cell.textLabel?.text = dropDownOptions[indexPath.row]
         cell.backgroundColor = UIColor.darkGray
+        cell.textLabel!.textColor = UIColor.white
+        
         return cell
     }
     
@@ -248,7 +269,7 @@ protocol dropDownProtocol {
 }
 
 class dropDownBtn: UIButton, dropDownProtocol {
-
+    
     
     func dropDownPressed(title: String) {
         if (title == "Home") {
@@ -363,5 +384,5 @@ class dropDownBtn: UIButton, dropDownProtocol {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
 }
