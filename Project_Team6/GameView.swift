@@ -39,6 +39,8 @@ class GameView: UIViewController {
     
     var gameUser = currentUser()
     
+    @IBOutlet weak var scrollView: UIImageView!
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if segue.identifier == "menuSeg" {
             let passToMenu = segue.destination as! MenuView
@@ -79,6 +81,7 @@ class GameView: UIViewController {
         print(gameUser.currentUsername!)
         // Set background img
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
+        scrollView.image = UIImage(named: "scrollProblems.jpg")
         // Iterate through buttons and change text
         questionInfoArrayGV.removeAll()
         generateProblem()
@@ -171,6 +174,7 @@ class GameView: UIViewController {
             }
         }
     }
+    @IBOutlet weak var answerOutput: UILabel!
     
     //function to make an easy problem with numbers between 0 to 20
     //function to make an easy problem with numbers between 0 to 20
@@ -225,11 +229,13 @@ class GameView: UIViewController {
         questionInfo.correctAnswer = "\(correctAns!)"
         questionInfo.userAnswer = boxes[index].titleLabel?.text
         if boxes[index].titleLabel?.text=="\(correctAns!)"{
+            answerOutput.text = "Correct!"
             print("correct answer chosen")
             questionInfo.isCorrect = true
             pointSystem += 1
         }
         else{
+            answerOutput.text = "Wrong!"
             print("Wrong Answer!")
             questionInfo.isCorrect = false
         }

@@ -163,9 +163,12 @@ class ViewController: UIViewController, difficultyLevel {
         performSegue(withIdentifier: "seg2", sender: self)
     }
     @IBAction func settingsBtn(_ sender: UIButton) {
-        performSegue(withIdentifier: "seg7", sender: self)
+        
     }
     
+    @IBAction func settingsWheel(_ sender: UIButton) {
+        performSegue(withIdentifier: "seg7", sender: self)
+    }
 }
 
 extension UIViewController {
