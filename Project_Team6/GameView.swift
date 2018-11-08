@@ -47,6 +47,10 @@ class GameView: UIViewController {
             //passToMenu.showRecent = "0"
             score?.setScore(currentScore: "0")
             SetScore = "\(pointSystem)"
+            gameUser.scores["\(SetLevel!)"] = pointSystem //This needs to either be stored globally, or passed properly. This does not appear to be the same instance of the currentUser struct
+            print("--------------------==-")
+            print(gameUser.scores)
+            print("--------------------==-")
             showRecent = SetScore!
             score?.setScore(currentScore: SetScore!)
             passToMenu.menuUser = gameUser

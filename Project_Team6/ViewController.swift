@@ -53,11 +53,13 @@ class PostFOrData {
     }
 }
 
-struct currentUser: Codable {
+struct currentUser {
     var currentUsername: String?
     var currentUserscore: String?
     var currentUUID: String?
     var currentLVL: String?
+    
+    var scores: [String: Int] = [:] //dictionary to store scores by level, easy medium and hard will be stored seperately. 
     init (){
     }
 }
