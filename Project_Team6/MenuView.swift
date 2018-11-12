@@ -23,7 +23,7 @@ struct QuestionLog {
 var questionInfoArrayGV = [problemInfo]()
 var showRecent: String!
 
-class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, userDelegate {
      
     let uid = UIDevice.current.identifierForVendor?.uuidString
     var level: String?
@@ -48,6 +48,9 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var recentScore: UILabel!
     @IBOutlet weak var highScore: UILabel!
     
+    func setUser(user: currentUser) {
+        self.menuUser = user
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,9 +66,12 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource {
             showRecent = ""
         }
         else {
-            self.recentScore.text = showRecent
+            self.recentScore.text = showRecent //this line turns self.recentScore.text to "" for some reason
+            if (self.recentScore.text == "") {
+                self.recentScore.text = "0"
+            }
         }
-        
+        //self.recentScore.text = showRecent
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         self.logoLbl.image = UIImage(named: "sqrtLogo.png")!
         // Do any additional setup after loading the view.
@@ -97,6 +103,8 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        
+        
         var tempHigh:Int
         var tempRecent: Int
         print("_____________\n")
@@ -106,9 +114,7 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         let todosEndpoint: String = "http://98.197.90.65:8000/highscore"
         let newTodo = "type=score&&uuid=\(String(describing: uid!))&&level=Easy"
-        print("dddd")
-        print(newTodo)
-        print("TODOTODOTODOTODOTODOTODOTODO")
+
         let pfd = PostFOrData(str: todosEndpoint, post: newTodo)
         pfd.forData { jsonString in
             let dict = jsonString.toJSON() as? [String:AnyObject]
@@ -129,8 +135,13 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     self.highScore.text = "0"
                 }
                 else {
-                    self.menuUser.currentUserscore = "\(uname[0]["score"]!)"
-                    print(self.menuUser.currentUserscore!)
+                    if(self.menuUser.currentUserscore == ""){
+                         self.highScore.text = "0"
+                    }
+                    else{
+                        self.menuUser.currentUserscore = "\(uname[0]["score"]!)"
+                        print(self.menuUser.currentUserscore!)
+                    }
                     print("eeee")
                     self.showHighest = "\(uname[0]["score"]!)"
                     print(self.showHighest!)
@@ -190,11 +201,13 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "settingsToHome" {
             let passToView = segue.destination as! ViewController
-            passToView.loggedInUser = menuUser
+            passToView.setUser(user: self.menuUser)
+//            passToView.loggedInUser = menuUser
         }
         if segue.identifier == "seg5" {
             let passToSettings = segue.destination as! SettingsView
-            passToSettings.settingsUser = menuUser
+            passToSettings.setUser(user: self.menuUser)
+//            passToSettings.settingsUser = menuUser
         }
     }
     

@@ -21,7 +21,7 @@ protocol difficultyLevel {
     func setLevel(choice: String)
 }
 
-class GameView: UIViewController {
+class GameView: UIViewController, userDelegate {
     // Game Seed
     let rs = GKMersenneTwisterRandomSource()
     
@@ -30,6 +30,7 @@ class GameView: UIViewController {
     
     // Delegate Variables
     var score: scoreBoard?
+    
     //var lvl: difficultyLevel?
     var SetLevel: String?
     var SetScore: String?
@@ -41,6 +42,12 @@ class GameView: UIViewController {
     
     @IBOutlet weak var scrollView: UIImageView!
     
+    var loggedInUser:currentUser = currentUser()
+    
+    func setUser(user: currentUser) {
+        self.loggedInUser = user
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if segue.identifier == "menuSeg" {
             let passToMenu = segue.destination as! MenuView
@@ -49,16 +56,18 @@ class GameView: UIViewController {
             SetScore = "\(pointSystem)"
             showRecent = SetScore!
             score?.setScore(currentScore: SetScore!)
-            passToMenu.menuUser = gameUser
+            passToMenu.setUser(user: self.loggedInUser)
             passToMenu.level = SetLevel
         }
         if segue.identifier == "home" {
             let passToView = segue.destination as! ViewController
-            passToView.loggedInUser = gameUser
+            passToView.setUser(user: self.loggedInUser)
+
         }
         if segue.identifier == "gameToSettings" {
             let passToSettings = segue.destination as! SettingsView
-            passToSettings.settingsUser = gameUser
+            passToSettings.setUser(user: self.loggedInUser)
+
         }
     }
     
@@ -78,7 +87,6 @@ class GameView: UIViewController {
         //currentDateTime.timeIntervalSinceReferenceDate
         rs.seed =  UInt64(currentDateTime.timeIntervalSinceReferenceDate)
         super.viewDidLoad()
-        print(gameUser.currentUsername!)
         // Set background img
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         scrollView.image = UIImage(named: "scrollProblems.jpg")

@@ -10,6 +10,14 @@
 
 import UIKit
 
+protocol userDelegate {
+    func setUser(user: currentUser)
+}
+
+protocol problemDelegate {
+    func problemInformation(problem: problemInfo)
+}
+
 struct problemInfo {
     var problem: String?
     var isCorrect: Bool?
@@ -62,16 +70,24 @@ struct currentUser: Codable {
     }
 }
 
-class ViewController: UIViewController, difficultyLevel {
+class ViewController: UIViewController, difficultyLevel, userDelegate {
     
     /* Create current User */
-    var loggedInUser = currentUser()
+    var loggedInUser:currentUser = currentUser()
+    
+    /* Delegate to pass user data */
+    var delegate : userDelegate?
     
     
     /* Store all the problem information and User Input to pass to the Settings View */
     var questionInfo = problemInfo()
     var questionInfoArray = [problemInfo]()
     
+    
+    /* Set this ViewController's user to the one passed in (From another ViewController) */
+    func setUser(user: currentUser) {
+        self.loggedInUser = user
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,7 +120,6 @@ class ViewController: UIViewController, difficultyLevel {
             }
         }
     }
-    
     // Delegate Functions and Variables
     var level:String?
     var lvl: difficultyLevel?
@@ -116,28 +131,30 @@ class ViewController: UIViewController, difficultyLevel {
         level = choice
     }
     
-    
-    
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         /* Goes to GameView */
         if segue.identifier == "seg1" {
             let passRequestedLevel = segue.destination as! GameView
             passRequestedLevel.SetLevel = level!
             lvl?.setLevel(choice: level!)
+            
             let passUsertoGame = segue.destination as! GameView
-            passUsertoGame.gameUser = loggedInUser
+            passUsertoGame.setUser(user: self.loggedInUser)
         }
         
         /* Goes to Menu/Scores */
         if segue.identifier == "seg2" {
             /* Passing the User's data */
             let passUserInfo = segue.destination as! MenuView
-            passUserInfo.menuUser = loggedInUser
+            passUserInfo.setUser(user: self.loggedInUser)
         }
         if segue.identifier == "seg7" {
+//            let passToSettings = segue.destination as! SettingsView
+//            passToSettings.settingsUser = loggedInUser
             let passToSettings = segue.destination as! SettingsView
-            passToSettings.settingsUser = loggedInUser
+            /* We define a delegate variable in the Settings VC. Then, we use the function setUser() to set the SettingsVC user(settingsUser) to the one in the */
+            // passToSettings.delegate?.setUser(user: self.loggedInUser)
+            passToSettings.setUser(user: self.loggedInUser)
         }
     }
     

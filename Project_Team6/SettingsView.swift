@@ -8,12 +8,21 @@
 
 import UIKit
 
-class SettingsView: UIViewController {
+class SettingsView: UIViewController, userDelegate {
     
     /* Drop down menu button */
     var button = dropDownBtn()
     
+    /* Delegate to pass user data */
+    var delegate : userDelegate?
+    
+    /* Function implemented in delegate to set user data */
+    func setUser(user: currentUser) {
+        self.settingsUser = user
+    }
+    
     var settingsUser = currentUser()
+    
     @IBOutlet weak var EditUserText: UIButton!
     @IBOutlet weak var uNameLbl: UILabel!
     @IBOutlet weak var uNameTextField: UITextField!
@@ -68,6 +77,11 @@ class SettingsView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("SETTINGSUSER2: ")
+        print(settingsUser.currentUsername)
+        print("!!!!")
+        
         uNameLbl.text = self.settingsUser.currentUsername!
         
         /*
@@ -119,12 +133,15 @@ class SettingsView: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "seg6" {
             let passToMenu = segue.destination as! MenuView
-            passToMenu.menuUser = settingsUser
+            passToMenu.setUser(user: self.settingsUser)
+
         }
         if segue.identifier == "settingsToHome" {
             let passToHome = segue.destination as! ViewController
-            passToHome.loggedInUser = settingsUser
+            passToHome.setUser(user: self.settingsUser)
         }
+        
+        
     }
     
     
