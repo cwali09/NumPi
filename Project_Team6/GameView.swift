@@ -237,13 +237,23 @@ class GameView: UIViewController, userDelegate {
         questionInfo.correctAnswer = "\(correctAns!)"
         questionInfo.userAnswer = boxes[index].titleLabel?.text
         if boxes[index].titleLabel?.text=="\(correctAns!)"{
-            answerOutput.text = "Correct!"
+            answerOutput.fadeOut(completion: {
+                (finished: Bool) -> Void in
+                self.answerOutput.text = "Correct!"
+                self.answerOutput.fadeIn()
+            })
+            //answerOutput.text = "Correct!"
             print("correct answer chosen")
             questionInfo.isCorrect = true
             pointSystem += 1
         }
         else{
-            answerOutput.text = "Wrong!"
+            answerOutput.fadeOut(completion: {
+                (finished: Bool) -> Void in
+                self.answerOutput.text = "Wrong!"
+                self.answerOutput.fadeIn()
+            })
+            //answerOutput.text = "Wrong!"
             print("Wrong Answer!")
             questionInfo.isCorrect = false
         }
@@ -307,3 +317,15 @@ class GameView: UIViewController, userDelegate {
     
 }
 
+extension UIView {
+    func fadeIn(_ duration: TimeInterval = 0.5, delay: TimeInterval = 0.0, completion: @escaping ((Bool) -> Void) = {(finished: Bool) -> Void in}) {
+        UIView.animate(withDuration: duration, delay: delay, options: UIView.AnimationOptions.curveEaseIn, animations: {
+            self.alpha = 0.0
+        }, completion: completion)  }
+    
+    func fadeOut(_ duration: TimeInterval = 0.0, delay: TimeInterval = 0.0, completion: @escaping (Bool) -> Void = {(finished: Bool) -> Void in}) {
+        UIView.animate(withDuration: duration, delay: delay, options: UIView.AnimationOptions.curveEaseIn, animations: {
+            self.alpha = 1.0
+        }, completion: completion)
+    }
+}
