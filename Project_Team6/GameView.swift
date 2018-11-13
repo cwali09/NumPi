@@ -82,6 +82,10 @@ class GameView: UIViewController, userDelegate {
     // Show timer
     @IBOutlet weak var timerLbl: UILabel!
     
+    
+    /* Audio for the coin sound (correct answer) */
+    var coinPlayer = AVAudioPlayer()
+    
     override func viewDidLoad() {
         let currentDateTime = Date()
         //currentDateTime.timeIntervalSinceReferenceDate
@@ -94,6 +98,15 @@ class GameView: UIViewController, userDelegate {
         questionInfoArrayGV.removeAll()
         generateProblem()
         startTimer()
+        
+        /* Set up the Coin audio player */
+        do {
+            self.coinPlayer = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: "coin-effect2", ofType: "mp3")!))
+            self.coinPlayer.prepareToPlay()
+        } catch {
+            print(error)
+        }
+        
         
         /*
          DROP DOWN MENU CONFIG
@@ -240,6 +253,8 @@ class GameView: UIViewController, userDelegate {
             answerOutput.fadeOut(completion: {
                 (finished: Bool) -> Void in
                 self.answerOutput.text = "Correct!"
+                /* Coin player plays when answer is correct */
+                self.coinPlayer.play()
                 self.answerOutput.fadeIn()
             })
             //answerOutput.text = "Correct!"

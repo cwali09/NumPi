@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 let uid = UIDevice.current.identifierForVendor?.uuidString
 
@@ -23,8 +24,9 @@ struct QuestionLog {
 var questionInfoArrayGV = [problemInfo]()
 var showRecent: String!
 
-class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, userDelegate {
-     
+class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, userDelegate, audioControlDelegate {
+    
+    
     let uid = UIDevice.current.identifierForVendor?.uuidString
     var level: String?
     
@@ -47,6 +49,13 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
     // Score Labels
     @IBOutlet weak var recentScore: UILabel!
     @IBOutlet weak var highScore: UILabel!
+    
+    /* Audio Control */
+    var audioControl = SharedAudioControl.sharedAudioPlayer
+
+    func setAudioControl(audioControl: AVAudioPlayer) {
+        self.audioControl = audioControl
+    }
     
     func setUser(user: currentUser) {
         self.menuUser = user
@@ -202,6 +211,7 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
         if segue.identifier == "settingsToHome" {
             let passToView = segue.destination as! ViewController
             passToView.setUser(user: self.menuUser)
+            passToView.setAudioControl(audioControl: self.audioControl)
 //            passToView.loggedInUser = menuUser
         }
         if segue.identifier == "seg5" {
