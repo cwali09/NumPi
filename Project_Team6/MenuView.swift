@@ -67,7 +67,7 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
         tableView.dataSource = self
         tableView.delegate = self
         
-        print(menuUser.currentUsername!)
+      //  print(menuUser.currentUsername!)
         // Set background img
         self.recentScore.text = "0"
         self.highScore.text = ""
@@ -212,12 +212,12 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
             let passToView = segue.destination as! ViewController
             passToView.setUser(user: self.menuUser)
             passToView.setAudioControl(audioControl: self.audioControl)
-//            passToView.loggedInUser = menuUser
+            passToView.loggedInUser = menuUser
         }
         if segue.identifier == "seg5" {
             let passToSettings = segue.destination as! SettingsView
             passToSettings.setUser(user: self.menuUser)
-//            passToSettings.settingsUser = menuUser
+            passToSettings.settingsUser = menuUser
         }
     }
     

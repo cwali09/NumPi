@@ -177,8 +177,8 @@ class ViewController: UIViewController, difficultyLevel, userDelegate, audioCont
             passRequestedLevel.SetLevel = level!
             lvl?.setLevel(choice: level!)
             
-            let passUsertoGame = segue.destination as! GameView
-            passUsertoGame.setUser(user: self.loggedInUser)
+//            let passUsertoGame = segue.destination as! GameView
+//            passUsertoGame.setUser(user: self.loggedInUser)
         }
         
         /* Goes to Menu/Scores */

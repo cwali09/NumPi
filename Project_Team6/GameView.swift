@@ -47,6 +47,7 @@ class GameView: UIViewController, userDelegate {
     func setUser(user: currentUser) {
         self.loggedInUser = user
     }
+
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if segue.identifier == "menuSeg" {
@@ -86,11 +87,36 @@ class GameView: UIViewController, userDelegate {
     /* Audio for the coin sound (correct answer) */
     var coinPlayer = AVAudioPlayer()
     
+    /* Voice Recognition */
+    private let audioEngine = AVAudioEngine()
+    
     override func viewDidLoad() {
         let currentDateTime = Date()
         //currentDateTime.timeIntervalSinceReferenceDate
         rs.seed =  UInt64(currentDateTime.timeIntervalSinceReferenceDate)
         super.viewDidLoad()
+        
+        
+        
+        // Configure the audio session for the app.
+//        let audioSession = AVAudioSession.sharedInstance()
+//        audioSession.setCategory(.record, mode: .measurement, options: .duckOthers)
+//        audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+//        let inputNode = audioEngine.inputNode
+//        // Create and configure the speech recognition request.
+//        recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
+//        guard let recognitionRequest = recognitionRequest else { fatalError("Unable to created a SFSpeechAudioBufferRecognitionRequest object") }
+//        recognitionRequest.shouldReportPartialResults = true
+//        let recordingFormat = inputNode.outputFormat(forBus: 0)
+//        inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer: AVAudioPCMBuffer, when: AVAudioTime) in
+//            recognitionRequest?.append(buffer)
+//        }
+//        
+//        audioEngine.prepare()
+//        try audioEngine.start()
+//        
+        
+        
         // Set background img
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         scrollView.image = UIImage(named: "scrollProblems.jpg")
