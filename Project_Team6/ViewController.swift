@@ -6,6 +6,8 @@
 //  Copyright © 2018 Team6. All rights reserved.
 //
 
+/* COPY */
+
 import UIKit
 import AVFoundation
 
@@ -149,15 +151,6 @@ class ViewController: UIViewController, difficultyLevel, userDelegate, audioCont
                     return
                 }
                 var name = String(describing: uname["username"]!)
-                
-                UserDefaults.standard.set(name, forKey: "currentUsername")
-                UserDefaults.standard.set("0", forKey: "currentUserscore")
-                UserDefaults.standard.set("", forKey: "currentLVL")
-                UserDefaults.standard.set(uid, forKey: "currentUUID")
-                //UserDefaults.standard.set("0", forKey: "easyScore")
-                //UserDefaults.standard.set("0", forKey: "medScore")
-                //UserDefaults.standard.set("0", forKey: "highScore")
-                
                 self.loggedInUser.currentUsername = name
                 self.loggedInUser.currentUserscore = "0"
                 self.loggedInUser.currentLVL = ""
@@ -193,7 +186,10 @@ class ViewController: UIViewController, difficultyLevel, userDelegate, audioCont
             /* Passing the User's data */
             let passUserInfo = segue.destination as! MenuView
             passUserInfo.setUser(user: self.loggedInUser)
+<<<<<<< HEAD
             passUserInfo.setAudioControl(audioControl: self.audioControl)
+=======
+>>>>>>> parent of 39288c2... Changes to friends, UILayout, Images
         }
         if segue.identifier == "seg7" {
 //            let passToSettings = segue.destination as! SettingsView
@@ -210,24 +206,24 @@ class ViewController: UIViewController, difficultyLevel, userDelegate, audioCont
     
     // Set and choose different levels
     @IBAction func easyBtn(_ sender: UIButton) {
-        //level = "Easy"
-        UserDefaults.standard.set("Easy", forKey: "currentLVL")
+        level = "Easy"
         performSegue(withIdentifier: "seg1", sender: self)
     }
     @IBAction func medBtn(_ sender: UIButton) {
-        //level = "Medium"
-        UserDefaults.standard.set("Medium", forKey: "currentLVL")
+        level = "Medium"
         performSegue(withIdentifier: "seg1", sender: self)
     }
     @IBAction func hardBtn(_ sender: UIButton) {
-        //level = "Hard"
-        UserDefaults.standard.set("Hard", forKey: "currentLVL")
+        level = "Hard"
         performSegue(withIdentifier: "seg1", sender: self)
     }
     
     // Go to game menu
     @IBAction func menuBtn(_ sender: UIButton) {
         performSegue(withIdentifier: "seg2", sender: self)
+    }
+    @IBAction func settingsBtn(_ sender: UIButton) {
+        
     }
     
     @IBAction func settingsWheel(_ sender: UIButton) {
@@ -259,4 +255,197 @@ extension String {
         guard let data = self.data(using: .utf8, allowLossyConversion: false) else { return nil }
         return try? JSONSerialization.jsonObject(with: data, options: .mutableContainers)
     }
+}
+
+
+extension UIApplication {
+    func topMostViewController() -> UIViewController? {
+        return self.keyWindow?.rootViewController?.topMostViewController()
+    }
+}
+
+
+//
+// DROP DOWN MENU
+//
+/* Define dropDownView class to hold all dropDown*/
+
+class dropDownView: UIView, UITableViewDelegate, UITableViewDataSource  {
+    
+    var dropDownOptions = [String]()
+    
+    var tableView = UITableView()
+    
+    var delegate : dropDownProtocol!
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        tableView.backgroundColor = UIColor.darkGray
+        self.backgroundColor = UIColor.darkGray
+        
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.addSubview(tableView)
+        
+        tableView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        tableView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dropDownOptions.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        
+        cell.textLabel?.text = dropDownOptions[indexPath.row]
+        cell.backgroundColor = UIColor.darkGray
+        cell.textLabel!.textColor = UIColor.white
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.delegate.dropDownPressed(title: dropDownOptions[indexPath.row])
+        self.tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+protocol dropDownProtocol {
+    func dropDownPressed(title : String)
+}
+
+class dropDownBtn: UIButton, dropDownProtocol {
+    
+    
+    func dropDownPressed(title: String) {
+        if (title == "Home") {
+            if let a = UIApplication.shared.topMostViewController() as? MenuView {
+                UIApplication.shared.topMostViewController()?.performSegue(withIdentifier: "menuBack", sender: self)
+            }
+            if let a = UIApplication.shared.topMostViewController() as? GameView {
+                UIApplication.shared.topMostViewController()?.performSegue(withIdentifier: "home", sender: self)
+                print("We're in the Game View")
+            }
+            
+            if let a = UIApplication.shared.topMostViewController() as? SettingsView {
+                UIApplication.shared.topMostViewController()?.performSegue(withIdentifier: "settingsToHome", sender: self)
+            }
+        }
+        
+        if (title == "Score") {
+            if let a = UIApplication.shared.topMostViewController() as? MenuView {
+                print("We're in the Scores View")
+            }
+            if let a = UIApplication.shared.topMostViewController() as? GameView {
+                UIApplication.shared.topMostViewController()?.performSegue(withIdentifier: "menuSeg", sender: self)
+            }
+            if let a = UIApplication.shared.topMostViewController() as? SettingsView {
+                UIApplication.shared.topMostViewController()?.performSegue(withIdentifier: "seg6", sender: self)
+            }
+        }
+        
+        if (title == "Settings") {
+            if let a = UIApplication.shared.topMostViewController() as? MenuView {
+                UIApplication.shared.topMostViewController()?.performSegue(withIdentifier: "seg5", sender: self)
+            }
+            
+            if let a = UIApplication.shared.topMostViewController() as? GameView {
+                UIApplication.shared.topMostViewController()?.performSegue(withIdentifier: "gameToSettings", sender: self)
+            }
+            
+            if let a = UIApplication.shared.topMostViewController() as? SettingsView {
+                print("We're in the Settings View")
+            }
+        }
+    }
+    var dropView = dropDownView()
+    var height = NSLayoutConstraint()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.backgroundColor = UIColor.darkGray
+        
+        dropView = dropDownView.init(frame: CGRect.init(x: 0, y: 0, width: 0, height: 0))
+        dropView.delegate = self
+        dropView.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    override func didMoveToSuperview() {
+        self.superview?.addSubview(dropView)
+        self.superview?.bringSubviewToFront(dropView)
+        // Reset the dropviews constraints
+        dropView.topAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        dropView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        dropView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        height = dropView.heightAnchor.constraint(equalToConstant: 0)
+    }
+    
+    var isOpen = false
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if isOpen == false {
+            
+            isOpen = true
+            
+            NSLayoutConstraint.deactivate([self.height])
+            
+            if self.dropView.tableView.contentSize.height > 150 {
+                self.height.constant = 150
+            } else {
+                self.height.constant = self.dropView.tableView.contentSize.height
+            }
+            
+            
+            NSLayoutConstraint.activate([self.height])
+            
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
+                self.dropView.layoutIfNeeded()
+                self.dropView.center.y += self.dropView.frame.height / 2
+            }, completion: nil)
+            
+        } else {
+            isOpen = false
+            
+            NSLayoutConstraint.deactivate([self.height])
+            self.height.constant = 0
+            NSLayoutConstraint.activate([self.height])
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
+                self.dropView.center.y -= self.dropView.frame.height / 2
+                self.dropView.layoutIfNeeded()
+            }, completion: nil)
+            
+        }
+    }
+    
+    func dismissDropDown() {
+        isOpen = false
+        NSLayoutConstraint.deactivate([self.height])
+        self.height.constant = 0
+        NSLayoutConstraint.activate([self.height])
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
+            self.dropView.center.y -= self.dropView.frame.height / 2
+            self.dropView.layoutIfNeeded()
+        }, completion: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 }

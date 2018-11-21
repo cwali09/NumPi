@@ -33,12 +33,9 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
     @IBOutlet weak var tableView: UITableView!
     
     
-    @IBAction func back(_ sender: UIButton) {
-        performSegue(withIdentifier: "scoreBack", sender: self)
-    }
     
     // Drop Down Menu Button
-//    var button = dropDownBtn()
+    var button = dropDownBtn()
     var Questions = QuestionLog()
     var menuUser = currentUser()
     
@@ -47,13 +44,11 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
    
     
     // Logo Labes
-   // @IBOutlet weak var logoLbl: UIImageView!
+    @IBOutlet weak var logoLbl: UIImageView!
     
+    // Score Labels
     @IBOutlet weak var recentScore: UILabel!
     @IBOutlet weak var highScore: UILabel!
-    @IBOutlet weak var easyScore: UILabel!
-    @IBOutlet weak var medScore: UILabel!
-    @IBOutlet weak var hardScore: UILabel!
     
     /* Audio Control */
     var audioControl = SharedAudioControl.sharedAudioPlayer
@@ -69,11 +64,6 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        menuUser.currentUsername =  UserDefaults.standard.string(forKey: "currentUsername")
-        menuUser.currentUserscore = UserDefaults.standard.string(forKey: "currentUserscore")
-        menuUser.currentLVL = UserDefaults.standard.string(forKey: "currentLVL")
-        menuUser.currentUUID = UserDefaults.standard.string(forKey: "currentUUID")
-        
         tableView.dataSource = self
         tableView.delegate = self
         
@@ -81,22 +71,42 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
         // Set background img
         self.recentScore.text = "0"
         self.highScore.text = ""
-        self.easyScore.text = "0"
-        self.medScore.text = "0"
-        self.hardScore.text = "0"
-        
         if showRecent == nil {
             showRecent = ""
         }
         else {
-            self.recentScore.text = showRecent
+            self.recentScore.text = showRecent //this line turns self.recentScore.text to "" for some reason
             if (self.recentScore.text == "") {
                 self.recentScore.text = "0"
             }
         }
+        //self.recentScore.text = showRecent
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
+        self.logoLbl.image = UIImage(named: "sqrtLogo.png")!
+        // Do any additional setup after loading the view.
         
-        //self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
- 
+        
+        /*
+         DROP DOWN MENU CONFIG
+         */
+        
+        button = dropDownBtn.init(frame: CGRect(x: 120, y: 120, width: 120, height: 120))
+        button.setTitle("Menu", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.sizeToFit()
+        //Add Button to the View Controller
+        self.view.addSubview(button)
+        
+        /* Change below to move left and right */
+        button.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16).isActive = true
+        
+        /* Change below to move Up and Down */
+        button.bottomAnchor.constraint(equalTo: self.view.topAnchor, constant: 75).isActive = true
+        button.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        //Set the drop down menu's options
+        button.dropView.dropDownOptions = ["Home", "Score", "Settings"]
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
@@ -126,9 +136,9 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
                     print("Could not get data as Data from JSON")
                     return
                 }
-                //print("=-=-==-=-=-=-==-")
-                //print(uname)
-                //print("=-=-==-=-=-=-==2323232323-")
+                print("=-=-==-=-=-=-==-")
+                print(uname)
+                print("=-=-==-=-=-=-==2323232323-")
                 //var score = String(describing: uname["username"]!)
                 if uname.isEmpty {
                     self.highScore.text = "0"
@@ -139,11 +149,11 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
                     }
                     else{
                         self.menuUser.currentUserscore = "\(uname[0]["score"]!)"
-                        //print(self.menuUser.currentUserscore!)
+                        print(self.menuUser.currentUserscore!)
                     }
-                    
+                    print("eeee")
                     self.showHighest = "\(uname[0]["score"]!)"
-                    //print(self.showHighest!)
+                    print(self.showHighest!)
                     self.highScore.text = "\(self.menuUser.currentUserscore!)"
                 }
                 
@@ -183,8 +193,14 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
             }
         }
         else {
-            if(Int("\(self.menuUser.currentUserscore!)")! > Int(showRecent!)!){
+            tempHigh = Int("\(self.menuUser.currentUserscore!)")!
+            tempRecent = Int(showRecent!)!
+            if(tempHigh > tempRecent){
                 showHighest = showRecent
+                
+                self.highScore.text = "\(self.menuUser.currentUserscore!)"//showHighest
+            }
+            else {
                 
                 self.highScore.text = "\(self.menuUser.currentUserscore!)"
             }
@@ -193,14 +209,21 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "settingsToHome" {
+<<<<<<< HEAD
 
             let passToView = segue.destination as! ViewController
             passToView.setUser(user: self.menuUser)
             passToView.setAudioControl(audioControl: self.audioControl)
+=======
+            let passToView = segue.destination as! ViewController
+            passToView.setUser(user: self.menuUser)
+>>>>>>> parent of 39288c2... Changes to friends, UILayout, Images
 //            passToView.loggedInUser = menuUser
         }
         if segue.identifier == "seg5" {
-
+            let passToSettings = segue.destination as! SettingsView
+            passToSettings.setUser(user: self.menuUser)
+//            passToSettings.settingsUser = menuUser
         }
     }
     
