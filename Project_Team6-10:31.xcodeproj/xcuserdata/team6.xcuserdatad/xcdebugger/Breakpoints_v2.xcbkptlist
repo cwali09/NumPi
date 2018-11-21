@@ -26,11 +26,19 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project_Team6/MenuView.swift"
+<<<<<<< HEAD
             timestampString = "564451136.403212"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "73"
             endingLineNumber = "73"
+=======
+            timestampString = "563778207.235479"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+>>>>>>> master
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,6 +50,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project_Team6/MenuView.swift"
+<<<<<<< HEAD
             timestampString = "564451136.404201"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
@@ -63,6 +72,13 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "177"
             endingLineNumber = "177"
+=======
+            timestampString = "563778207.235571"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
+>>>>>>> master
             landmarkName = "viewDidAppear(_:)"
             landmarkType = "7">
          </BreakpointContent>

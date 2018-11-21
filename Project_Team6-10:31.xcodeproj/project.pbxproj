@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		240E7B012187B95700BA79B9 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240E7B002187B95700BA79B9 /* SettingsView.swift */; };
+		2426245F219A6EA30072EF5D /* 8-bit-sound-adventure.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2426245E219A6EA30072EF5D /* 8-bit-sound-adventure.mp3 */; };
+		24262465219A93A50072EF5D /* coin-effect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 24262464219A93A50072EF5D /* coin-effect.mp3 */; };
 		24912B04216BB98C00C34B6C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24912B03216BB98C00C34B6C /* AppDelegate.swift */; };
 		24912B06216BB98C00C34B6C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24912B05216BB98C00C34B6C /* ViewController.swift */; };
 		24912B09216BB98C00C34B6C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24912B07216BB98C00C34B6C /* Main.storyboard */; };
@@ -35,6 +37,7 @@
 		249EAB1221A4ACC7006156B5 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249EAB1121A4ACC7006156B5 /* FriendsView.swift */; };
 		249EAB1421A4AFE3006156B5 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249EAB1321A4AFE3006156B5 /* TableViewController.swift */; };
 		24C07B40216BE42000C4B216 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C07B3F216BE42000C4B216 /* MenuView.swift */; };
+		DA778B7221A60C55004C09FA /* coin-effect2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DA778B7121A60C55004C09FA /* coin-effect2.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +59,8 @@
 
 /* Begin PBXFileReference section */
 		240E7B002187B95700BA79B9 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		2426245E219A6EA30072EF5D /* 8-bit-sound-adventure.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "8-bit-sound-adventure.mp3"; path = "Project_Team6/music/8-bit-sound-adventure.mp3"; sourceTree = SOURCE_ROOT; };
+		24262464219A93A50072EF5D /* coin-effect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "coin-effect.mp3"; path = "Project_Team6/music/coin-effect.mp3"; sourceTree = SOURCE_ROOT; };
 		24912B00216BB98C00C34B6C /* Project_Team6.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project_Team6.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24912B03216BB98C00C34B6C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		24912B05216BB98C00C34B6C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -90,6 +95,7 @@
 		249EAB1121A4ACC7006156B5 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		249EAB1321A4AFE3006156B5 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		24C07B3F216BE42000C4B216 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		DA778B7121A60C55004C09FA /* coin-effect2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "coin-effect2.mp3"; path = "Project_Team6/music/coin-effect2.mp3"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +123,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2426245D219A6E350072EF5D /* Music */ = {
+			isa = PBXGroup;
+			children = (
+				DA778B7121A60C55004C09FA /* coin-effect2.mp3 */,
+				2426245E219A6EA30072EF5D /* 8-bit-sound-adventure.mp3 */,
+				24262464219A93A50072EF5D /* coin-effect.mp3 */,
+			);
+			name = Music;
+			path = Project_Team6/music;
+			sourceTree = SOURCE_ROOT;
+		};
 		24912AF7216BB98C00C34B6C = {
 			isa = PBXGroup;
 			children = (
@@ -151,6 +168,7 @@
 				24912B0A216BB98D00C34B6C /* Assets.xcassets */,
 				24912B0C216BB98D00C34B6C /* LaunchScreen.storyboard */,
 				24912B0F216BB98D00C34B6C /* Info.plist */,
+				2426245D219A6E350072EF5D /* Music */,
 			);
 			path = Project_Team6;
 			sourceTree = "<group>";
@@ -313,11 +331,14 @@
 				249E7214218A490200DB111B /* K2D-MediumItalic.ttf in Resources */,
 				249E7215218A490200DB111B /* K2D-ThinItalic.ttf in Resources */,
 				249E7216218A490200DB111B /* K2D-BoldItalic.ttf in Resources */,
+				24262465219A93A50072EF5D /* coin-effect.mp3 in Resources */,
 				249E7217218A490200DB111B /* OFL.txt in Resources */,
 				249E7218218A490200DB111B /* K2D-SemiBoldItalic.ttf in Resources */,
+				DA778B7221A60C55004C09FA /* coin-effect2.mp3 in Resources */,
 				249E7219218A490200DB111B /* K2D-Light.ttf in Resources */,
 				249E721A218A490200DB111B /* K2D-ExtraBoldItalic.ttf in Resources */,
 				249E721B218A490200DB111B /* K2D-Medium.ttf in Resources */,
+				2426245F219A6EA30072EF5D /* 8-bit-sound-adventure.mp3 in Resources */,
 				24912B0E216BB98D00C34B6C /* LaunchScreen.storyboard in Resources */,
 				24912B0B216BB98D00C34B6C /* Assets.xcassets in Resources */,
 				24912B09216BB98C00C34B6C /* Main.storyboard in Resources */,
@@ -527,7 +548,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = BPAY6PD6S9;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Project_Team6/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -545,7 +566,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = BPAY6PD6S9;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Project_Team6/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
