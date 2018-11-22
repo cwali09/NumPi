@@ -7,6 +7,11 @@
 //
 
 import UIKit
+import AVFoundation
+
+protocol audioControlDelegate {
+    func setAudioControl(audioControl: AVAudioPlayer)
+}
 
 protocol userDelegate {
     func setUser(user: currentUser)
@@ -68,7 +73,17 @@ struct currentUser: Codable {
     }
 }
 
-class ViewController: UIViewController, difficultyLevel, userDelegate {
+/* For later: Create music control instances in all VC and adjust audiosettings from there*/
+struct SharedAudioControl {
+    static var sharedAudioPlayer = AVAudioPlayer()
+    static var currentlyPlaying = false//sharedAudioPlayer.isPlaying
+    static func getSharedAudioPlayer() -> AVAudioPlayer {
+        return self.sharedAudioPlayer
+    }
+}
+
+
+class ViewController: UIViewController, difficultyLevel, userDelegate, audioControlDelegate {
     
     /* Create current User */
     var loggedInUser:currentUser = currentUser()
@@ -82,13 +97,37 @@ class ViewController: UIViewController, difficultyLevel, userDelegate {
     var questionInfoArray = [problemInfo]()
     
     
+    /* Music Player */
+    var audioControl = SharedAudioControl.sharedAudioPlayer
+    
     /* Set this ViewController's user to the one passed in (From another ViewController) */
     func setUser(user: currentUser) {
         self.loggedInUser = user
     }
     
+    func setAudioControl(audioControl: AVAudioPlayer) {
+        self.audioControl = audioControl
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        /* Set the audio player */
+        /*do {
+            self.audioControl = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: "8-bit-sound-adventure", ofType: "mp3")!))
+
+            self.audioControl.prepareToPlay()
+            print("TESTING AUDIO IS PLAYING")
+            print(self.audioControl.isPlaying)
+            if (!self.audioControl.isPlaying && !SharedAudioControl.currentlyPlaying) {
+                self.audioControl.numberOfLoops = -1
+                self.audioControl.play()
+                SharedAudioControl.currentlyPlaying = true
+            }
+        } catch {
+            print(error)
+        }*/
+        
         // Set background img
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
@@ -139,7 +178,32 @@ class ViewController: UIViewController, difficultyLevel, userDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-      
+        //****TODO****
+        // Goes to GameView 
+        /*if segue.identifier == "seg1" {
+            let passRequestedLevel = segue.destination as! GameView
+            passRequestedLevel.SetLevel = level!
+            lvl?.setLevel(choice: level!)
+            
+            let passUsertoGame = segue.destination as! GameView
+            passUsertoGame.setUser(user: self.loggedInUser)
+        }
+        
+        // Goes to Menu/Scores 
+        if segue.identifier == "seg2" {
+            // Passing the User's data 
+            let passUserInfo = segue.destination as! MenuView
+            passUserInfo.setUser(user: self.loggedInUser)
+            passUserInfo.setAudioControl(audioControl: self.audioControl)
+        }
+        if segue.identifier == "seg7" {
+            //let passToSettings = segue.destination as! SettingsView
+            //passToSettings.settingsUser = loggedInUser
+            let passToSettings = segue.destination as! SettingsView
+            // We define a delegate variable in the Settings VC. Then, we use the function setUser() to set the SettingsVC user(settingsUser) to the one in the 
+            // passToSettings.delegate?.setUser(user: self.loggedInUser)
+            passToSettings.setUser(user: self.loggedInUser)
+        }*/
     }
     
     // Set logo for menu
