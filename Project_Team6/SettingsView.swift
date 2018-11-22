@@ -8,17 +8,17 @@
 
 import UIKit
 
-class SettingsView: UIViewController, userDelegate {
-    
-    /* Drop down menu button */
-    var button = dropDownBtn()
-    
-    /* Delegate to pass user data */
+class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource, userDelegate {
+
+
     var delegate : userDelegate?
     
-    /* Function implemented in delegate to set user data */
     func setUser(user: currentUser) {
         self.settingsUser = user
+    }
+    
+    @IBAction func back(_ sender: UIButton) {
+        performSegue(withIdentifier: "settingsToHome", sender: self)
     }
     
     var settingsUser = currentUser()
@@ -36,7 +36,6 @@ class SettingsView: UIViewController, userDelegate {
         else{
             uNameLbl.isHidden=false
             EditUserText.setTitle("Edit UserName", for: .normal)
-            //change username here
             if(uNameTextField.text != ""){
                 ChangeUsername(newName: uNameTextField.text)
                 
@@ -90,19 +89,9 @@ class SettingsView: UIViewController, userDelegate {
         print("TODOTODOTODOTODOTODOTODOTODO343")
         let pfd = PostFOrData(str: todosEndpoint, post: newTodo)
         pfd.forData { jsonString in
-            //let dict = jsonString.toJSON() as? [String:AnyObject]
             print(jsonString)
             print("================================================")
-            //print(dict["data"]!)
-            
             DispatchQueue.main.async {
-                //guard let uname = dict!["data"] as? [String: String] else {
-                //   print("Could not get data as Data from JSON")
-                //    return
-                //}
-                //                print("=-=-==-=-=-=-==-")
-                //                print(uname)
-                //                print("=-=-==-=-=-=-==2323232323-")
                 self.uNameLbl.text = self.settingsUser.currentUsername!
             }
         }
@@ -111,76 +100,87 @@ class SettingsView: UIViewController, userDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("SETTINGSUSER2: ")
-        print(settingsUser.currentUsername)
-        print("!!!!")
+        friendsTable.dataSource = self
+        friendsTable.delegate = self
         
+        settingsUser.currentUsername =  UserDefaults.standard.string(forKey: "currentUsername")
+        settingsUser.currentUserscore = UserDefaults.standard.string(forKey: "currentUserscore")
+        settingsUser.currentLVL = UserDefaults.standard.string(forKey: "currentLVL")
+        settingsUser.currentUUID = UserDefaults.standard.string(forKey: "currentUUID")
+
         uNameLbl.text = self.settingsUser.currentUsername!
-        
-        /*
-         DROP DOWN MENU CONFIG
-         */
-        
-        button = dropDownBtn.init(frame: CGRect(x: 120, y: 120, width: 120, height: 120))
-        button.setTitle("Menu", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.sizeToFit()
-        //Add Button to the View Controller
-        self.view.addSubview(button)
-        
-        //button Constraints
-        print(self.view.centerXAnchor)
-        //button.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        button.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16).isActive = true
-        button.bottomAnchor.constraint(equalTo: self.view.topAnchor, constant: 75).isActive = true
-        // button.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
-        button.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
-        //Set the drop down menu's options
-        button.dropView.dropDownOptions = ["Home", "Score", "Settings"]
+
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         
     }
     
-    @IBOutlet weak var creatorLbl: UILabel!
     
     @IBAction func editNameFunc(_ sender: UIButton) {
         
     }
     override func viewDidAppear(_ animated: Bool) {
-        creatorLbl.text = "Iptihar: Front End \nJulian: Back End / Database \nKrishna: User Interface \nLeo: Question Engine \nRichard: Back End / Front End \nWali: Back End "
-        creatorLbl.sizeToFit()
+
     }
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
+
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "seg6" {
-            let passToMenu = segue.destination as! MenuView
-            passToMenu.setUser(user: self.settingsUser)
-
-        }
-        if segue.identifier == "settingsToHome" {
-            let passToHome = segue.destination as! ViewController
-            passToHome.setUser(user: self.settingsUser)
-        }
-        
-        
+       
     }
     
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+    }
+    
+    
+    
+    @IBOutlet weak var friendsTable: UITableView!
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sectionName.count
+    }
+    
+    var sectionName = ["Friend Requests", "Friends List"]
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = UILabel()
+        header.text = sectionName[section]
+        header.frame = CGRect(x: 115, y: 8, width: 200, height: 35)
+        //header.textAlignment = .center
+        header.textColor = UIColor.white
+        header.font = UIFont(name: "K2D Medium", size: 18)
+        let view = UIView()
+        view.backgroundColor = UIColor.clear
+        let image = UIImageView(image: UIImage(named: "plank"))
+        image.frame = CGRect(x: 0, y: 0, width: 350, height: 50)
+        view.addSubview(image)
+        view.addSubview(header)
+        
+        
+        return view
+    }
+    
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "friends", for: indexPath)
+        cell.isUserInteractionEnabled = true
+        
+        let friendsLabel = cell.viewWithTag(5) as! UILabel
+        friendsLabel.text = "friend"
+        
+        
+        return cell
     }
     
 }

@@ -22,11 +22,16 @@ protocol difficultyLevel {
 }
 
 class GameView: UIViewController, userDelegate {
+    @IBAction func menu(_ sender: UIButton) {
+        performSegue(withIdentifier: "home", sender: self)
+    }
     // Game Seed
     let rs = GKMersenneTwisterRandomSource()
     
     /* Store all the problem information and User Input to pass to the Settings View */
     var questionInfo = problemInfo()
+    
+//    var button = dropDownBtn()
     
     // Delegate Variables
     var score: scoreBoard?
@@ -36,9 +41,9 @@ class GameView: UIViewController, userDelegate {
     var SetScore: String?
     
     // Drop-down Menu Button
-    var button = dropDownBtn()
+    //var button = dropDownBtn()
     
-    var gameUser = currentUser()
+    //    var gameUser = currentUser()
     
     @IBOutlet weak var scrollView: UIImageView!
     
@@ -56,18 +61,8 @@ class GameView: UIViewController, userDelegate {
             SetScore = "\(pointSystem)"
             showRecent = SetScore!
             score?.setScore(currentScore: SetScore!)
-            passToMenu.setUser(user: self.loggedInUser)
-            passToMenu.level = SetLevel
-        }
-        if segue.identifier == "home" {
-            let passToView = segue.destination as! ViewController
-            passToView.setUser(user: self.loggedInUser)
-
-        }
-        if segue.identifier == "gameToSettings" {
-            let passToSettings = segue.destination as! SettingsView
-            passToSettings.setUser(user: self.loggedInUser)
-
+//            passToMenu.setUser(user: self.loggedInUser)
+//            passToMenu.level = SetLevel
         }
     }
     
@@ -91,28 +86,38 @@ class GameView: UIViewController, userDelegate {
         //currentDateTime.timeIntervalSinceReferenceDate
         rs.seed =  UInt64(currentDateTime.timeIntervalSinceReferenceDate)
         super.viewDidLoad()
+        
+        loggedInUser.currentUsername =  UserDefaults.standard.string(forKey: "currentUsername")
+        loggedInUser.currentUserscore = UserDefaults.standard.string(forKey: "currentUserscore")
+        loggedInUser.currentLVL = UserDefaults.standard.string(forKey: "currentLVL")
+        loggedInUser.currentUUID = UserDefaults.standard.string(forKey: "currentUUID")
+        
+        
         // Set background img
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         scrollView.image = UIImage(named: "scrollProblems.jpg")
+        
         // Iterate through buttons and change text
         questionInfoArrayGV.removeAll()
         generateProblem()
         startTimer()
+        print("USERNAME IS: ")
+        print(loggedInUser.currentUsername!)
         
         /* Set up the Coin audio player */
-        do {
+        /*do {
             self.coinPlayer = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: "coin-effect2", ofType: "mp3")!))
             self.coinPlayer.prepareToPlay()
         } catch {
             print(error)
-        }
+        }*/
         
         
         /*
          DROP DOWN MENU CONFIG
          */
         
-        button = dropDownBtn.init(frame: CGRect(x: 120, y: 120, width: 120, height: 120))
+        /*button = dropDownBtn.init(frame: CGRect(x: 120, y: 120, width: 120, height: 120))
         button.setTitle("Menu", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.sizeToFit()
@@ -121,17 +126,18 @@ class GameView: UIViewController, userDelegate {
         
         //button.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         
-        /* This is to modify the left and right aspects of the button */
+        // This is to modify the left and right aspects of the button 
         button.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16).isActive = true
         
-        /* This is to modify the UP and DOWN aspects of the button */
+        // This is to modify the UP and DOWN aspects of the button 
         button.bottomAnchor.constraint(equalTo: self.view.topAnchor, constant: 75).isActive = true
         // button.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
         button.widthAnchor.constraint(equalToConstant: 100).isActive = true
         button.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         //Set the drop down menu's options
-        button.dropView.dropDownOptions = ["Home", "Score", "Settings"]
+        button.dropView.dropDownOptions = ["Home", "Score", "Settings"]*/
+
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
@@ -142,7 +148,8 @@ class GameView: UIViewController, userDelegate {
     var correctAns: Int?
     
     func generateProblem(){
-        
+        SetLevel = UserDefaults.standard.string(forKey: "currentLVL")
+        print("USERDEFAULT:" + SetLevel!)
         if(self.SetLevel=="Easy"){
             self.problemScreen.text=randomEasyProblem()
             questionInfo.problem = self.problemScreen.text
@@ -246,15 +253,16 @@ class GameView: UIViewController, userDelegate {
     @IBAction func boxTouched(_ sender: UIButton) {
         //sender.isSelected = !sender.isSelected
         let index = boxes.index(of: sender)!
-        //print(boxes[index].titleLabel!)
         questionInfo.correctAnswer = "\(correctAns!)"
         questionInfo.userAnswer = boxes[index].titleLabel?.text
         if boxes[index].titleLabel?.text=="\(correctAns!)"{
             answerOutput.fadeOut(completion: {
                 (finished: Bool) -> Void in
                 self.answerOutput.text = "Correct!"
+
                 /* Coin player plays when answer is correct */
-                self.coinPlayer.play()
+                //self.coinPlayer.play()
+                
                 self.answerOutput.fadeIn()
             })
             //answerOutput.text = "Correct!"
@@ -277,7 +285,7 @@ class GameView: UIViewController, userDelegate {
         generateProblem()
     }
     
- 
+    
     
     var countdownTimer: Timer!
     var totalTime = 20
@@ -308,26 +316,13 @@ class GameView: UIViewController, userDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        //self.problemScreen.text = SetLevel!
         self.timerLbl.text = "00:20"
         
-        
-        /*let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popUpStart") as! PopUpView
-         self.addChild(popOverVC)
-         popOverVC.view.frame = self.view.frame
-         self.view.addSubview(popOverVC.view)
-         popOverVC.didMove(toParent: self)*/
-        
-        
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        // Set up the URL request
-        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
 }

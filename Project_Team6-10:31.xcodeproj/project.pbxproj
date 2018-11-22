@@ -8,10 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		240E7B012187B95700BA79B9 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240E7B002187B95700BA79B9 /* SettingsView.swift */; };
-		2426245F219A6EA30072EF5D /* 8-bit-sound-adventure.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2426245E219A6EA30072EF5D /* 8-bit-sound-adventure.mp3 */; };
-		24262463219A93650072EF5D /* coin-effect2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 24262462219A93650072EF5D /* coin-effect2.mp3 */; };
-		24262465219A93A50072EF5D /* coin-effect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 24262464219A93A50072EF5D /* coin-effect.mp3 */; };
-		242C7E87217E326F001B380A /* PopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242C7E86217E326F001B380A /* PopUpView.swift */; };
 		24912B04216BB98C00C34B6C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24912B03216BB98C00C34B6C /* AppDelegate.swift */; };
 		24912B06216BB98C00C34B6C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24912B05216BB98C00C34B6C /* ViewController.swift */; };
 		24912B09216BB98C00C34B6C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24912B07216BB98C00C34B6C /* Main.storyboard */; };
@@ -36,6 +32,8 @@
 		249E7219218A490200DB111B /* K2D-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 249E71F7218A47D300DB111B /* K2D-Light.ttf */; };
 		249E721A218A490200DB111B /* K2D-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 249E71F8218A47D300DB111B /* K2D-ExtraBoldItalic.ttf */; };
 		249E721B218A490200DB111B /* K2D-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 249E71F9218A47D300DB111B /* K2D-Medium.ttf */; };
+		249EAB1221A4ACC7006156B5 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249EAB1121A4ACC7006156B5 /* FriendsView.swift */; };
+		249EAB1421A4AFE3006156B5 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249EAB1321A4AFE3006156B5 /* TableViewController.swift */; };
 		24C07B40216BE42000C4B216 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C07B3F216BE42000C4B216 /* MenuView.swift */; };
 /* End PBXBuildFile section */
 
@@ -58,10 +56,6 @@
 
 /* Begin PBXFileReference section */
 		240E7B002187B95700BA79B9 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		2426245E219A6EA30072EF5D /* 8-bit-sound-adventure.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "8-bit-sound-adventure.mp3"; path = "../../../../Downloads/8-bit-sound-adventure.mp3"; sourceTree = "<group>"; };
-		24262462219A93650072EF5D /* coin-effect2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "coin-effect2.mp3"; path = "../../../../Downloads/coin-effect2.mp3"; sourceTree = "<group>"; };
-		24262464219A93A50072EF5D /* coin-effect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "coin-effect.mp3"; path = "../../../coin-effect.mp3"; sourceTree = "<group>"; };
-		242C7E86217E326F001B380A /* PopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpView.swift; sourceTree = "<group>"; };
 		24912B00216BB98C00C34B6C /* Project_Team6.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project_Team6.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24912B03216BB98C00C34B6C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		24912B05216BB98C00C34B6C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -93,6 +87,8 @@
 		249E71F8218A47D300DB111B /* K2D-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "K2D-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		249E71F9218A47D300DB111B /* K2D-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "K2D-Medium.ttf"; sourceTree = "<group>"; };
 		249E720B218A48A300DB111B /* Project_Team6 copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Project_Team6 copy-Info.plist"; path = "/Users/team6/Desktop/NumPi/Project_Team6 copy-Info.plist"; sourceTree = "<absolute>"; };
+		249EAB1121A4ACC7006156B5 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
+		249EAB1321A4AFE3006156B5 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		24C07B3F216BE42000C4B216 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -121,16 +117,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2426245D219A6E350072EF5D /* Music */ = {
-			isa = PBXGroup;
-			children = (
-				2426245E219A6EA30072EF5D /* 8-bit-sound-adventure.mp3 */,
-				24262462219A93650072EF5D /* coin-effect2.mp3 */,
-				24262464219A93A50072EF5D /* coin-effect.mp3 */,
-			);
-			path = Music;
-			sourceTree = "<group>";
-		};
 		24912AF7216BB98C00C34B6C = {
 			isa = PBXGroup;
 			children = (
@@ -159,13 +145,12 @@
 				24912B05216BB98C00C34B6C /* ViewController.swift */,
 				24C07B3F216BE42000C4B216 /* MenuView.swift */,
 				24912B31216BC27C00C34B6C /* GameView.swift */,
-				242C7E86217E326F001B380A /* PopUpView.swift */,
 				240E7B002187B95700BA79B9 /* SettingsView.swift */,
+				249EAB1121A4ACC7006156B5 /* FriendsView.swift */,
 				24912B07216BB98C00C34B6C /* Main.storyboard */,
 				24912B0A216BB98D00C34B6C /* Assets.xcassets */,
 				24912B0C216BB98D00C34B6C /* LaunchScreen.storyboard */,
 				24912B0F216BB98D00C34B6C /* Info.plist */,
-				2426245D219A6E350072EF5D /* Music */,
 			);
 			path = Project_Team6;
 			sourceTree = "<group>";
@@ -208,6 +193,7 @@
 				249E71F7218A47D300DB111B /* K2D-Light.ttf */,
 				249E71F8218A47D300DB111B /* K2D-ExtraBoldItalic.ttf */,
 				249E71F9218A47D300DB111B /* K2D-Medium.ttf */,
+				249EAB1321A4AFE3006156B5 /* TableViewController.swift */,
 			);
 			path = K2D;
 			sourceTree = "<group>";
@@ -316,7 +302,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24262463219A93650072EF5D /* coin-effect2.mp3 in Resources */,
 				249E720C218A490200DB111B /* K2D-SemiBold.ttf in Resources */,
 				249E720D218A490200DB111B /* K2D-Bold.ttf in Resources */,
 				249E720E218A490200DB111B /* K2D-Thin.ttf in Resources */,
@@ -328,13 +313,11 @@
 				249E7214218A490200DB111B /* K2D-MediumItalic.ttf in Resources */,
 				249E7215218A490200DB111B /* K2D-ThinItalic.ttf in Resources */,
 				249E7216218A490200DB111B /* K2D-BoldItalic.ttf in Resources */,
-				24262465219A93A50072EF5D /* coin-effect.mp3 in Resources */,
 				249E7217218A490200DB111B /* OFL.txt in Resources */,
 				249E7218218A490200DB111B /* K2D-SemiBoldItalic.ttf in Resources */,
 				249E7219218A490200DB111B /* K2D-Light.ttf in Resources */,
 				249E721A218A490200DB111B /* K2D-ExtraBoldItalic.ttf in Resources */,
 				249E721B218A490200DB111B /* K2D-Medium.ttf in Resources */,
-				2426245F219A6EA30072EF5D /* 8-bit-sound-adventure.mp3 in Resources */,
 				24912B0E216BB98D00C34B6C /* LaunchScreen.storyboard in Resources */,
 				24912B0B216BB98D00C34B6C /* Assets.xcassets in Resources */,
 				24912B09216BB98C00C34B6C /* Main.storyboard in Resources */,
@@ -362,7 +345,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				242C7E87217E326F001B380A /* PopUpView.swift in Sources */,
+				249EAB1221A4ACC7006156B5 /* FriendsView.swift in Sources */,
+				249EAB1421A4AFE3006156B5 /* TableViewController.swift in Sources */,
 				24912B06216BB98C00C34B6C /* ViewController.swift in Sources */,
 				24C07B40216BE42000C4B216 /* MenuView.swift in Sources */,
 				240E7B012187B95700BA79B9 /* SettingsView.swift in Sources */,
