@@ -56,9 +56,17 @@ class GameView: UIViewController, userDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if segue.identifier == "menuSeg" {
             let passToMenu = segue.destination as! MenuView
+            
+            //pass level and score
+            passToMenu.passedScore = "\(currentScore)"
+            passToMenu.passedLevel = SetLevel!
+            dump(self)
+            
+            
+            
             //passToMenu.showRecent = "0"
             score?.setScore(currentScore: "0")
-            SetScore = "\(pointSystem)"
+            SetScore = "\(currentScore)"
             showRecent = SetScore!
             score?.setScore(currentScore: SetScore!)
 //            passToMenu.setUser(user: self.loggedInUser)
@@ -249,7 +257,7 @@ class GameView: UIViewController, userDelegate {
         }
         return "\(self.num1!) \(self.currentProblem!) \(self.num2!)"
     }
-    var pointSystem = 0
+    var currentScore = 0
     @IBAction func boxTouched(_ sender: UIButton) {
         //sender.isSelected = !sender.isSelected
         let index = boxes.index(of: sender)!
@@ -268,7 +276,7 @@ class GameView: UIViewController, userDelegate {
             //answerOutput.text = "Correct!"
             print("correct answer chosen")
             questionInfo.isCorrect = true
-            pointSystem += 1
+            currentScore += 1
         }
         else{
             answerOutput.fadeOut(completion: {

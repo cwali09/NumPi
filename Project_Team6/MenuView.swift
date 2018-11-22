@@ -27,6 +27,9 @@ var showRecent: String!
 class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, userDelegate, audioControlDelegate {
     
     
+    var passedScore: String?
+    var passedLevel: String?
+    
     let uid = UIDevice.current.identifierForVendor?.uuidString
     var level: String?
     
@@ -101,94 +104,56 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool)
+    {
         
-        
-        var tempHigh:Int
-        var tempRecent: Int
-        print("_____________\n")
+        /*print("_____________\n")
+        dump(self)
         print(self.menuUser)
-        print("\n_______________")
+        print("\n_______________")*/
         
-        
-        let todosEndpoint: String = "http://98.197.90.65:8000/highscore"
-        let newTodo = "type=score&&uuid=\(String(describing: uid!))&&level=Easy"
-
-        let pfd = PostFOrData(str: todosEndpoint, post: newTodo)
-        pfd.forData { jsonString in
-            let dict = jsonString.toJSON() as? [String:AnyObject]
-            print(jsonString)
-            print("================================================")
-            print(dict!["data"])
-            
-            DispatchQueue.main.async {
-                guard let uname = dict!["data"] as? [[String: Any]] else {
-                    print("Could not get data as Data from JSON")
-                    return
-                }
-                //print("=-=-==-=-=-=-==-")
-                //print(uname)
-                //print("=-=-==-=-=-=-==2323232323-")
-                //var score = String(describing: uname["username"]!)
-                if uname.isEmpty {
-                    self.highScore.text = "0"
-                }
-                else {
-                    if(self.menuUser.currentUserscore == ""){
-                         self.highScore.text = "0"
-                    }
-                    else{
-                        self.menuUser.currentUserscore = "\(uname[0]["score"]!)"
-                        //print(self.menuUser.currentUserscore!)
-                    }
-                    
-                    self.showHighest = "\(uname[0]["score"]!)"
-                    //print(self.showHighest!)
-                    self.highScore.text = "\(self.menuUser.currentUserscore!)"
-                }
-                
-            }
+        if (passedScore != nil && passedLevel != nil)
+        {
+            doAddHighscore(score: passedScore!, level: passedLevel!)
         }
         
-        if showHighest == nil {
-            if showRecent == nil {
+        //****TODO****
+        let hardcodedlevelforscore = "Easy" //This is used for when we visit the score screen directly, we need to figure out how to handle this
+        if (passedLevel != nil)
+        {
+            getHighscore(level: passedLevel!, scoreLabel: self.highScore)
+        }
+        else
+        {
+            getHighscore(level: hardcodedlevelforscore, scoreLabel: self.highScore)
+        }
+
+        //redesigning
+        /*if showHighest == nil
+        {
+            if showRecent == nil
+            {
                 showRecent = "0"
                 showHighest = "0"
             }
-            else{
+            else
+            {
                 showHighest = showRecent
-                if (level != nil && showRecent != nil){
-                    // NEED TO PASS THIS TO STRUCT OR GLOBAL OR WHATEVER
-                    let todosEndpoint: String = "http://98.197.90.65:8000/addHighscore"
-                    let newTodo = "score=\(showRecent!)&&uuid=\(String(describing: uid!))&&level=\(level!)"
-                    let pfd = PostFOrData(str: todosEndpoint, post: newTodo)
-                    pfd.forData { jsonString in
-                        let dict = jsonString.toJSON() as? [String:AnyObject]
-                        print(jsonString)
-                        print("================================================")
-                        print(dict!)
-                        DispatchQueue.main.async {
-                            guard let uname = dict!["debug"] as? [String: String] else {
-                                print("Could not get data as Data from JSON")
-                                return
-                            }
-                            self.highScore.text = "\(self.menuUser.currentUserscore!)"
-                            print(uname)
-                        }
-                    }
+                if (level != nil && showRecent != nil)
+                {
+                    //doAddHighscore(level: passedLevel)
                 }
-                
                 //elf.highScore.text = "\(self.menuUser.currentUserscore!)"
-                
             }
         }
-        else {
-            if(Int("\(self.menuUser.currentUserscore!)")! > Int(showRecent!)!){
+        else
+        {
+            if(Int("\(self.menuUser.currentUserscore!)")! > Int(showRecent!)!)
+            {
                 showHighest = showRecent
-                
                 self.highScore.text = "\(self.menuUser.currentUserscore!)"
             }
-        }
+        }*/
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -232,5 +197,89 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
         }
         
         return cell
+    }
+    
+    func getHighscore(level: String, scoreLabel: UILabel)
+    {
+        scoreLabel.text = "Loading"
+        let todosEndpoint: String = "http://98.197.90.65:8000/highscore"
+        let newTodo = "type=score&&uuid=\(String(describing: uid!))&&level=\(level)&&limit=1"
+        
+        let pfd = PostFOrData(str: todosEndpoint, post: newTodo)
+        pfd.forData { jsonString in
+            let dict = jsonString.toJSON() as? [String:AnyObject]
+            //print(jsonString)
+            //print("================================================")
+            //print(dict!["data"])
+            
+            DispatchQueue.main.async {
+                //print("------highscore------")
+                //dump(dict)
+                //print("---------------------")
+                guard let uname = dict!["data"] as? [[String: Any]] else {
+                    print("Could not get data as Data from JSON")
+                    return
+                }
+                scoreLabel.text = "\(uname[0]["score"]!)"
+                
+                /*print("------uname------")
+                dump(uname[0]["score"]!)
+                print("---------------------")*/
+                
+                
+                //****TODO****
+                self.view.setNeedsDisplay() //this doesnt work, maybe it's just my simulator. We need to fix this
+                
+                
+                
+                /*if uname.isEmpty
+                {
+                    self.highScore.text = "0"
+                }
+                else
+                {
+                    /*if(self.menuUser.currentUserscore == "")
+                    {
+                        self.highScore.text = "0"
+                    }
+                    else
+                    {
+                        self.menuUser.currentUserscore = "\(uname[0]["score"]!)"
+                        //print(self.menuUser.currentUserscore!)
+                    }*/
+                    
+                    //self.showHighest = "\(uname[0]["score"]!)"
+                    //self.highScore.text = "\(self.menuUser.currentUserscore!)"
+                    self.highScore.text = "\(uname[0]["score"]!)"
+                }*/
+                
+            }
+        }
+    }
+    
+    
+    func doAddHighscore(score: String, level: String)
+    {
+        let todosEndpoint: String = "http://98.197.90.65:8000/addHighscore"
+        let newTodo = "score=\(score)&&uuid=\(String(describing: uid!))&&level=\(level)"
+        let pfd = PostFOrData(str: todosEndpoint, post: newTodo)
+        pfd.forData
+            { jsonString in
+            let dict = jsonString.toJSON() as? [String:AnyObject]
+            //print(jsonString)
+            //print("================================================")
+            //print(dict!)
+            DispatchQueue.main.async
+            {
+                guard let uname = dict!["debug"] as? [String: String] else
+                {
+                    print("Could not get data as Data from JSON")
+                    return
+                }
+                //nothing really needs to happen here.
+                //self.highScore.text = "\(self.menuUser.currentUserscore!)"
+                //print(uname)
+            }
+        }
     }
 }
