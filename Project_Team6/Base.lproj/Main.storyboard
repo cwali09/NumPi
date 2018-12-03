@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FlX-zh-1h7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FlX-zh-1h7">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -127,9 +127,18 @@
                                 </constraints>
                                 <state key="normal" title="Music"/>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="an5-8C-Lgl">
+                                <rect key="frame" x="144" y="617" width="87" height="30"/>
+                                <state key="normal" title="Leaderboard"/>
+                                <connections>
+                                    <action selector="leaderboardButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VK8-Rv-2LL"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="an5-8C-Lgl" secondAttribute="bottom" constant="20" id="4FV-W5-4k9"/>
+                            <constraint firstItem="an5-8C-Lgl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7EV-IF-Jbg"/>
                             <constraint firstAttribute="bottom" secondItem="qYc-zE-kt2" secondAttribute="bottom" constant="10" id="JEt-d5-Ixx"/>
                             <constraint firstItem="6Mz-MY-OxK" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="10" id="LCy-JQ-822"/>
                             <constraint firstItem="k3d-dH-fhR" firstAttribute="top" secondItem="7gy-9n-kfK" secondAttribute="bottom" constant="36" id="Rha-hy-KA4"/>
@@ -175,6 +184,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="100" id="BlP-Dw-s4c"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="vKG-fU-0mR"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="25"/>
                                                 <state key="normal" title="Button" backgroundImage="answerButton">
@@ -580,19 +590,19 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="KNT-P9-aqR">
                                         <rect key="frame" x="8" y="37" width="60" height="75"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Easy:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i5W-BL-4aY">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Easy:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i5W-BL-4aY">
                                                 <rect key="frame" x="0.0" y="0.0" width="36" height="20"/>
                                                 <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Medium:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cKy-Xj-A1D">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Medium:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cKy-Xj-A1D">
                                                 <rect key="frame" x="0.0" y="28" width="56.5" height="19.5"/>
                                                 <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Hard:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pac-jE-RGC">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hard:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pac-jE-RGC">
                                                 <rect key="frame" x="0.0" y="55.5" width="36" height="19.5"/>
                                                 <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="15"/>
                                                 <nil key="textColor"/>
@@ -607,19 +617,19 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Zve-kG-IvO">
                                         <rect key="frame" x="290" y="37" width="50" height="75"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Zk-mi-0Y5">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Zk-mi-0Y5">
                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="20"/>
                                                 <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Es1-ee-2iV">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Es1-ee-2iV">
                                                 <rect key="frame" x="0.0" y="28" width="50" height="19.5"/>
                                                 <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dQv-Qt-dEm">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dQv-Qt-dEm">
                                                 <rect key="frame" x="0.0" y="55.5" width="50" height="19.5"/>
                                                 <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="15"/>
                                                 <nil key="textColor"/>
@@ -653,10 +663,6 @@
                                     <constraint firstAttribute="width" constant="75" id="izO-ba-1SH"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="playAgainBtn"/>
-                                <connections>
-                                    <action selector="playAgainBtn:" destination="04g-37-KJp" eventType="touchUpInside" id="fK9-cs-P2T"/>
-                                    <segue destination="189-at-5wv" kind="presentation" identifier="playAgainSeg" animates="NO" id="PfN-es-k36"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -695,7 +701,6 @@
                         <outlet property="hardScore" destination="dQv-Qt-dEm" id="U5g-vY-P99"/>
                         <outlet property="highScore" destination="jOC-Af-Ujv" id="V9s-hk-LR9"/>
                         <outlet property="medScore" destination="Es1-ee-2iV" id="NyV-DN-vQp"/>
-                        <outlet property="playAgain" destination="V2D-7K-Mrw" id="5az-cG-6ij"/>
                         <outlet property="recentScore" destination="Nu9-LV-IRe" id="YJ8-Wn-XHO"/>
                         <outlet property="tableView" destination="cfe-kS-J6G" id="Wm8-HQ-UBv"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="scoreBack" animates="NO" id="Xou-8O-HAL"/>
@@ -985,13 +990,12 @@
         <image name="easyBtn" width="1433" height="390"/>
         <image name="hardBtn" width="1437" height="389"/>
         <image name="mediumBtn" width="1449" height="389"/>
-        <image name="navigation" width="512" height="512"/>
+        <image name="navigation" width="323.368408203125" height="323.368408203125"/>
         <image name="playAgainBtn" width="1095" height="377"/>
-        <image name="score" width="980" height="658"/>
+        <image name="score" width="1960" height="1316"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="zUZ-Qq-I52"/>
-        <segue reference="PfN-es-k36"/>
-        <segue reference="rDm-qP-BT0"/>
+        <segue reference="Xou-8O-HAL"/>
     </inferredMetricsTieBreakers>
 </document>

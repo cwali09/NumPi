@@ -26,7 +26,6 @@ var showRecent: String!
 
 class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, userDelegate, audioControlDelegate {
     
-    var recentGame = false
     
     var passedScore: String?
     var passedLevel: String?
@@ -69,11 +68,6 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
     func setUser(user: currentUser) {
         self.menuUser = user
     }
-    @IBOutlet weak var playAgain: UIButton!
-    @IBAction func playAgainBtn(_ sender: UIButton) {
-        performSegue(withIdentifier: "playAgainSeg", sender: self)
-    }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,12 +106,6 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
     
     override func viewDidAppear(_ animated: Bool)
     {
-        if(recentGame == false){
-            self.playAgain.isHidden = true
-        }
-        else if (recentGame == true){
-            self.playAgain.isHidden = false
-        }
         
         /*print("_____________\n")
         dump(self)
