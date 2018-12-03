@@ -267,7 +267,7 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
         friendsLabel.text = "friend"
         if(indexPath.section == 0)
         {
-            friendsLabel.text = (self.requests![indexPath.row]["username"] as! String)
+            friendsLabel.text = self.requests![indexPath.row]["username"] as! String
         }
         if(indexPath.section == 1)
         {

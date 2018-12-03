@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GameKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

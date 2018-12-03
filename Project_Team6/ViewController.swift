@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import GameKit
 
 protocol audioControlDelegate {
     func setAudioControl(audioControl: AVAudioPlayer)
@@ -83,8 +84,8 @@ struct SharedAudioControl {
 }
 
 
-class ViewController: UIViewController, difficultyLevel, userDelegate, audioControlDelegate {
-    
+class ViewController: UIViewController, difficultyLevel, userDelegate, audioControlDelegate{
+    var Score = UserDefaults.standard.string(forKey: "currentUserscore")
     /* Create current User */
     var loggedInUser:currentUser = currentUser()
     
@@ -111,7 +112,7 @@ class ViewController: UIViewController, difficultyLevel, userDelegate, audioCont
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        authenticatePlayer()
         /* Set the audio player */
         /*do {
             self.audioControl = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: "8-bit-sound-adventure", ofType: "mp3")!))
@@ -234,6 +235,39 @@ class ViewController: UIViewController, difficultyLevel, userDelegate, audioCont
     @IBAction func settingsWheel(_ sender: UIButton) {
         performSegue(withIdentifier: "seg7", sender: self)
     }
+    
+    @IBAction func leaderboardButton(_ sender: Any) {
+        let GameCenterVC = GKGameCenterViewController()
+        GameCenterVC.gameCenterDelegate = self as! GKGameCenterControllerDelegate
+        //currentVC?.present(GameCenterVC, animated: true, completion: nil)
+        
+        self.present(GameCenterVC, animated: true, completion: nil)
+        }
+    
+}
+
+extension ViewController: GKGameCenterControllerDelegate
+{
+    
+    func authenticatePlayer()
+    {
+        let localPlayer = GKLocalPlayer.local
+        
+        localPlayer.authenticateHandler = {
+            (view, error) in
+            if view != nil
+            {
+                self.present(view!, animated: true, completion: nil)
+            } else {
+                print("AUTHENTICATED!")
+                print(GKLocalPlayer.local.isAuthenticated)
+            }
+        }
+    }
+    
+    func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
+        gameCenterViewController.dismiss(animated: true, completion: nil)
+    }
 }
 
 extension UIViewController {
@@ -252,6 +286,8 @@ extension UIViewController {
         }
         return self.presentedViewController!.topMostViewController()
     }
+    
+    
 }
 
 

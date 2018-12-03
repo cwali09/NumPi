@@ -35,6 +35,9 @@
 		249EAB1221A4ACC7006156B5 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249EAB1121A4ACC7006156B5 /* FriendsView.swift */; };
 		249EAB1421A4AFE3006156B5 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249EAB1321A4AFE3006156B5 /* TableViewController.swift */; };
 		24C07B40216BE42000C4B216 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C07B3F216BE42000C4B216 /* MenuView.swift */; };
+		4AEA94E521B5C15300A55D43 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AEA94E421B5C15300A55D43 /* GameKit.framework */; };
+		4AEA94E721B5C20B00A55D43 /* GameCenterStuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEA94E621B5C20B00A55D43 /* GameCenterStuff.swift */; };
+		4AEA94E921B5C56E00A55D43 /* testGameCenter.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 4AEA94E821B5C56E00A55D43 /* testGameCenter.xcdatamodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +93,9 @@
 		249EAB1121A4ACC7006156B5 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		249EAB1321A4AFE3006156B5 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		24C07B3F216BE42000C4B216 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		4AEA94E421B5C15300A55D43 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		4AEA94E621B5C20B00A55D43 /* GameCenterStuff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterStuff.swift; sourceTree = "<group>"; };
+		4AEA94E821B5C56E00A55D43 /* testGameCenter.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; name = testGameCenter.xcdatamodel; path = "../../testGameCenter-master/testGameCenter/testGameCenter.xcdatamodeld/testGameCenter.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AEA94E521B5C15300A55D43 /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,6 +131,7 @@
 				24912B22216BB98D00C34B6C /* Project_Team6UITests */,
 				24912B01216BB98C00C34B6C /* Products */,
 				249E720B218A48A300DB111B /* Project_Team6 copy-Info.plist */,
+				4AEA94E321B5C15300A55D43 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -140,6 +148,7 @@
 		24912B02216BB98C00C34B6C /* Project_Team6 */ = {
 			isa = PBXGroup;
 			children = (
+				4AEA94E821B5C56E00A55D43 /* testGameCenter.xcdatamodel */,
 				249E71E9218A47D300DB111B /* K2D */,
 				24912B03216BB98C00C34B6C /* AppDelegate.swift */,
 				24912B05216BB98C00C34B6C /* ViewController.swift */,
@@ -151,6 +160,7 @@
 				24912B0A216BB98D00C34B6C /* Assets.xcassets */,
 				24912B0C216BB98D00C34B6C /* LaunchScreen.storyboard */,
 				24912B0F216BB98D00C34B6C /* Info.plist */,
+				4AEA94E621B5C20B00A55D43 /* GameCenterStuff.swift */,
 			);
 			path = Project_Team6;
 			sourceTree = "<group>";
@@ -196,6 +206,14 @@
 				249EAB1321A4AFE3006156B5 /* TableViewController.swift */,
 			);
 			path = K2D;
+			sourceTree = "<group>";
+		};
+		4AEA94E321B5C15300A55D43 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4AEA94E421B5C15300A55D43 /* GameKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,6 +284,11 @@
 				TargetAttributes = {
 					24912AFF216BB98C00C34B6C = {
 						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.GameCenter.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					24912B13216BB98D00C34B6C = {
 						CreatedOnToolsVersion = 10.0;
@@ -346,8 +369,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				249EAB1221A4ACC7006156B5 /* FriendsView.swift in Sources */,
+				4AEA94E921B5C56E00A55D43 /* testGameCenter.xcdatamodel in Sources */,
 				249EAB1421A4AFE3006156B5 /* TableViewController.swift in Sources */,
 				24912B06216BB98C00C34B6C /* ViewController.swift in Sources */,
+				4AEA94E721B5C20B00A55D43 /* GameCenterStuff.swift in Sources */,
 				24C07B40216BE42000C4B216 /* MenuView.swift in Sources */,
 				240E7B012187B95700BA79B9 /* SettingsView.swift in Sources */,
 				24912B32216BC27C00C34B6C /* GameView.swift in Sources */,
@@ -527,13 +552,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = BPAY6PD6S9;
+				DEVELOPMENT_TEAM = 258S94TD9V;
 				INFOPLIST_FILE = Project_Team6/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Richard-Anderson";
+				PRODUCT_BUNDLE_IDENTIFIER = Marepalli.NumPi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -545,13 +570,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = BPAY6PD6S9;
+				DEVELOPMENT_TEAM = 258S94TD9V;
 				INFOPLIST_FILE = Project_Team6/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Richard-Anderson";
+				PRODUCT_BUNDLE_IDENTIFIER = Marepalli.NumPi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
