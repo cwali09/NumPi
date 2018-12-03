@@ -33,6 +33,12 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
     var friends:[String]?
     var delegate : userDelegate?
     
+    var uname2 = String()
+    var easy2 = String()
+    var medium2 = String()
+    var hard2 = String()
+    
+    
     func setUser(user: currentUser)
     {
         self.settingsUser = user
@@ -61,49 +67,57 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
         {
             uNameLbl.isHidden=false
             EditUserText.setTitle("Edit UserName", for: .normal)
-            if(uNameTextField.text != "")
+            if(uNameTextField.text != "" && uNameTextField.text!.isAlphanumeric)
             {
                 ChangeUsername(newName: uNameTextField.text)
                 
+            } else {
+                showToast(message : "No symbols!")
             }
             uNameTextField.text = ""
             uNameTextField.resignFirstResponder()
         }
     }
     
+    
+
+    @IBOutlet weak var addFriend: UITextField!
     @IBAction func SearchUser(_ sender: UIButton)
     {
+        if(addFriend.text != "")
+        {
+            addFriend(friendName: addFriend.text)
+        }
+        else {
+            print("empty add friend")
+            //need to add toast or alert pop up
+            showToast(message : "Cannot be Empty!")
+        }
+        addFriend.text  = ""
         
     }
     
-    func SearchUsername(newName: String?)
+    func addFriend(friendName: String?)
     {
-        print(newName!)
-        self.settingsUser.currentUsername = newName!
+        print("adding a friend")
+        let todosEndpoint: String = "http://98.197.90.65:8000/addFriend"
+        let newTodo = "uuid=\(String(describing: uid!))&&username=\(friendName!)"
         
-        let todosEndpoint: String = "http://98.197.90.65:8000/changeUsername"
-        let newTodo = "uuid=\(String(describing: uid!))&&username=\(self.settingsUser.currentUsername!)"
-        print("search user name")
-        print(newTodo)
-        print("after search user")
         let pfd = PostFOrData(str: todosEndpoint, post: newTodo)
-        pfd.forData { jsonString in
-            //let dict = jsonString.toJSON() as? [String:AnyObject]
-            print(jsonString)
-            print("================================================")
-            //print(dict["data"]!)
-            
-            DispatchQueue.main.async
-                {
-                //guard let uname = dict!["data"] as? [String: String] else {
-                //   print("Could not get data as Data from JSON")
-                //    return
-                //}
-                //                print("=-=-==-=-=-=-==-")
-                //                print(uname)
-                //                print("=-=-==-=-=-=-==2323232323-")
-                self.uNameLbl.text = self.settingsUser.currentUsername!
-            }
+        pfd.forData
+            { jsonString in
+                print("posted")
+                DispatchQueue.main.async {
+                    print("\(friendName!) friend request sent !")
+                    print(jsonString)
+                    // need to add toast or alert pop up
+                    let dict = jsonString.toJSON() as? [String:AnyObject]
+                    guard let rep = dict!["msg"] as? String else {
+                        print("Could not get msg from addFriend response")
+                        return
+                    }
+                    self.showToast(message : rep)
+                }
         }
     }
     
@@ -159,6 +173,13 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
+        if segue.identifier == "friendDetail" {
+            let dvc = segue.destination as! FriendsView
+            dvc.uname1 = uname2
+            dvc.easy1 = easy2
+            dvc.medium1 = medium2
+            dvc.hard1 = hard2
+        }
        
     }
     
@@ -269,11 +290,14 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
         
         //****TODO****
         // for some reason this is triggering when section is 1
+        let ac = cell.viewWithTag(6) as! friendButton
+        let rej = cell.viewWithTag(7) as! friendButton
+        
         if (indexPath.section == 0)
         {
-            let ac = cell.viewWithTag(6) as! friendButton
+            
             ac.addTarget(self, action: #selector(tapAccept), for: .touchUpInside)
-            let rej = cell.viewWithTag(7) as! friendButton
+            
             rej.addTarget(self, action: #selector(tapReject), for: .touchUpInside)
             
             dump(indexPath)
@@ -286,10 +310,23 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
             ac.otherBtn = rej //this allows us to ensure only one button is tapped, reducing error rates
             rej.otherBtn = ac
         }
+        else
+        {
+            ac.isHidden = true
+            rej.isHidden = true
+        }
         
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (indexPath.section == 1)
+        {
+            uname2 = self.friends![indexPath.row]
+            getOneFriend(uname: self.friends![indexPath.row])
+            
+        }
+    }
     
     
     @objc func tapReject(sender: friendButton!)
@@ -386,6 +423,82 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
         }
     }
     
+    func getOneFriend(uname: String)
+    {
+        print("getting one friend detail")
+        let todosEndpoint: String = "http://98.197.90.65:8000/getTopScore"
+        let newTodo = "username=\(uname)"
+        
+        let pfd = PostFOrData(str: todosEndpoint, post: newTodo)
+        pfd.forData
+            { jsonString in
+                print("posted")
+                DispatchQueue.main.async {
+                    print("\(uname) got details")
+                    print(jsonString)
+                    let dict = jsonString.toJSON() as? [String:AnyObject]
+                    print(dict!)
+                    guard let data = dict!["data"] as? [[String:AnyObject]] else {
+                        print("Could not get individual detail")
+                        return
+                    }
+                    
+                    //set easy score
+                    print("easyA")
+                    if(data[0]["easyCount"] as? Int == 1){
+                        print("easyX")
+                        guard let easy = data[0]["easy"]!["score"]!! as? Int else {
+                            print("could not get easy score")
+                            return
+                        }
+                        self.easy2 = String(easy)
+                        print(self.easy2)
+                    }
+                    else {
+                        self.easy2 = "0"
+                        print("easyZ")
+                    }
+                    
+                    
+                    //set medium score
+                    //                    print("|\(data[0]["medium"] as? String)|")
+                    //                    if(data[0]["medium"] as? String == nil){
+                    //                        print("validated")
+                    //                    }
+                    if(data[0]["mediumCount"] as? Int == 1){
+                        guard let medium = data[0]["medium"]!["score"]!! as? Int else {
+                            print("could not get medium score")
+                            return
+                        }
+                        self.medium2 = String(medium)
+                        print(self.medium2)
+                    }
+                    else {
+                        self.medium2 = "0"
+                    }
+                    
+                    
+                    //set high score
+                    if(data[0]["hardCount"] as? Int == 1){
+                        guard let hard = data[0]["hard"]!["score"]!! as? Int else {
+                            print("could not get easy score")
+                            return
+                        }
+                        self.hard2 = String(hard)
+                        print(self.hard2)
+                    }
+                    else {
+                        self.hard2 = "0"
+                    }
+                    self.performSegue(withIdentifier: "friendDetail", sender: self)
+                    
+                    //                    self.easy2 = data[0]["easy"]!["score"]!!
+                    //                    self.medium2 = data[0]["medium"]!["score"]!!
+                    //                    self.hard2 = data[0]["hard"]!["score"]!!
+                }
+        }
+    }
+    
     func getFriends()
     {
         let todosEndpoint: String = "http://98.197.90.65:8000/getFriends"
@@ -439,4 +552,31 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
         }
     }
     
+}
+extension UIViewController {
+    
+    func showToast(message : String) {
+        
+        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 120, y: self.view.frame.size.height-100, width: 250, height: 35))
+        toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        toastLabel.textColor = UIColor.white
+        toastLabel.textAlignment = .center;
+        toastLabel.font = UIFont(name: "Montserrat-Light", size: 12.0)
+        toastLabel.text = message
+        toastLabel.alpha = 1.0
+        toastLabel.layer.cornerRadius = 10;
+        toastLabel.clipsToBounds  =  true
+        self.view.addSubview(toastLabel)
+        UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
+            toastLabel.alpha = 0.0
+        }, completion: {(isCompleted) in
+            toastLabel.removeFromSuperview()
+        })
+    } }
+
+
+extension String {
+    var isAlphanumeric: Bool {
+        return !isEmpty && range(of: "[^a-zA-Z0-9]", options: .regularExpression) == nil
+    }
 }
