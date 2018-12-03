@@ -175,7 +175,6 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="100" id="BlP-Dw-s4c"/>
-                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="vKG-fU-0mR"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="25"/>
                                                 <state key="normal" title="Button" backgroundImage="answerButton">
@@ -654,6 +653,10 @@
                                     <constraint firstAttribute="width" constant="75" id="izO-ba-1SH"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="playAgainBtn"/>
+                                <connections>
+                                    <action selector="playAgainBtn:" destination="04g-37-KJp" eventType="touchUpInside" id="fK9-cs-P2T"/>
+                                    <segue destination="189-at-5wv" kind="presentation" identifier="playAgainSeg" animates="NO" id="PfN-es-k36"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -692,6 +695,7 @@
                         <outlet property="hardScore" destination="dQv-Qt-dEm" id="U5g-vY-P99"/>
                         <outlet property="highScore" destination="jOC-Af-Ujv" id="V9s-hk-LR9"/>
                         <outlet property="medScore" destination="Es1-ee-2iV" id="NyV-DN-vQp"/>
+                        <outlet property="playAgain" destination="V2D-7K-Mrw" id="5az-cG-6ij"/>
                         <outlet property="recentScore" destination="Nu9-LV-IRe" id="YJ8-Wn-XHO"/>
                         <outlet property="tableView" destination="cfe-kS-J6G" id="Wm8-HQ-UBv"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="scoreBack" animates="NO" id="Xou-8O-HAL"/>
@@ -987,6 +991,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="zUZ-Qq-I52"/>
-        <segue reference="vL8-f7-U9c"/>
+        <segue reference="PfN-es-k36"/>
+        <segue reference="rDm-qP-BT0"/>
     </inferredMetricsTieBreakers>
 </document>
