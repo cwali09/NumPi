@@ -8,20 +8,14 @@
 
 import UIKit
 
-//****TODO****
-//need art for accept/reject buttons
-//green checkmark and red x? Doesnt fit the theme though
-
 class friendButton: UIButton
 {
     var ID: String?
     var wasTapped: Bool = false
     var otherBtn: friendButton? //the other button
     
-    //init(ID: String)
     init()
     {
-        //self.ID = ID
         super.init(frame: .zero)
     }
     
@@ -120,9 +114,7 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
         
         let todosEndpoint: String = "http://98.197.90.65:8000/changeUsername"
         let newTodo = "uuid=\(String(describing: uid!))&&username=\(self.settingsUser.currentUsername!)"
-        print("dfdfd")
-        print(newTodo)
-        print("TODOTODOTODOTODOTODOTODOTODO343")
+
         let pfd = PostFOrData(str: todosEndpoint, post: newTodo)
         pfd.forData { jsonString in
             print(jsonString)
@@ -275,9 +267,6 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
         }
         
         
-        
-        
-        
         //****TODO****
         // for some reason this is triggering when section is 1
         if (indexPath.section == 0)
@@ -288,8 +277,8 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
             rej.addTarget(self, action: #selector(tapReject), for: .touchUpInside)
             
             dump(indexPath)
-            ac.ID = self.requests![indexPath.row]["id"] as! String
-            rej.ID = self.requests![indexPath.row]["id"] as! String
+            ac.ID = (self.requests![indexPath.row]["id"] as! String)
+            rej.ID = (self.requests![indexPath.row]["id"] as! String)
             
             ac.isHidden = false
             rej.isHidden = false
@@ -298,12 +287,6 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
             rej.otherBtn = ac
         }
         
-        
-        
-        //button.addTarget(self, action:"action_button", forControlEvents:.TouchUpInside)
-
-        
-        
         return cell
     }
     
@@ -311,12 +294,8 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     @objc func tapReject(sender: friendButton!)
     {
-        //dump(sender)
-        //print("A")
         if (!sender.wasTapped)
         {
-            //print("B")
-            
             if (sender.otherBtn == nil)
             {
                 return //other button was nil, not defined properly exit the function
@@ -326,13 +305,10 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
                 sender.wasTapped = true //set this one to tapped as well
                 return //other button was tapped, exit the function
             }
-            //print("D")
             if (sender.otherBtn != nil)
             {
-                //print("E")
                 sender.otherBtn?.wasTapped = true //set both buttons to tapped state
             }
-            //print("F")
             sender.wasTapped = true
             print("reject tapped")
             if (sender.ID != nil)
@@ -350,8 +326,6 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
     {
         if (!sender.wasTapped)
         {
-            //print("B")
-            
             if (sender.otherBtn == nil)
             {
                 return //other button was nil, not defined properly exit the function
@@ -361,13 +335,10 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
                 sender.wasTapped = true //set this one to tapped as well
                 return //other button was tapped, exit the function
             }
-            //print("D")
             if (sender.otherBtn != nil)
             {
-                //print("E")
                 sender.otherBtn?.wasTapped = true //set both buttons to tapped state
             }
-            //print("F")
             sender.wasTapped = true
             print("accept tapped")
             if (sender.ID != nil)
@@ -423,9 +394,6 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
         let pfd = PostFOrData(str: todosEndpoint, post: newTodo)
         pfd.forData { jsonString in
             let dict = jsonString.toJSON() as? [String:AnyObject]
-            //print(jsonString)
-            //print("================================================")
-            //print(dict!["data"])
             
             DispatchQueue.main.async {
                 print("------dict------")
@@ -465,19 +433,7 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
                 dump(requests)
                 print("---------------------")
                 
-                
-                
-                
-                
-                //scoreLabel.text = "\(uname[0]["score"]!)"
-                
-                /*print("------uname------")
-                 dump(uname[0]["score"]!)
-                 print("---------------------")*/
-                
-                
-                //****TODO****
-                self.view.setNeedsDisplay() //this doesnt work, maybe it's just my simulator. We need to fix this
+                self.view.setNeedsDisplay()
                 
             }
         }

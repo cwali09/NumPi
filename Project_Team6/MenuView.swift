@@ -42,7 +42,7 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
     }
     
     // Drop Down Menu Button
-//    var button = dropDownBtn()
+    // var button = dropDownBtn()
     var Questions = QuestionLog()
     var menuUser = currentUser()
     
@@ -51,8 +51,6 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
    
     
     // Logo Labes
-   // @IBOutlet weak var logoLbl: UIImageView!
-    
     @IBOutlet weak var recentScore: UILabel!
     @IBOutlet weak var highScore: UILabel!
     @IBOutlet weak var easyScore: UILabel!
@@ -87,6 +85,7 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
         tableView.delegate = self
         
         print(menuUser.currentUsername!)
+        
         // Set background img
         self.recentScore.text = "0"
         self.highScore.text = ""
@@ -103,8 +102,6 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
                 self.recentScore.text = "0"
             }
         }
-        
-        //self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
  
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
@@ -119,11 +116,6 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
             self.playAgain.isHidden = false
         }
         
-        /*print("_____________\n")
-        dump(self)
-        print(self.menuUser)
-        print("\n_______________")*/
-        
         if (passedScore != nil && passedLevel != nil)
         {
             doAddHighscore(score: passedScore!, level: passedLevel!)
@@ -131,6 +123,7 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
         
         //****TODO****
         let hardcodedlevelforscore = "Easy" //This is used for when we visit the score screen directly, we need to figure out how to handle this
+        
         if (passedLevel != nil)
         {
             getHighscore(level: passedLevel!, scoreLabel: self.highScore)
@@ -139,45 +132,11 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
         {
             getHighscore(level: hardcodedlevelforscore, scoreLabel: self.highScore)
         }
-
-        //redesigning
-        /*if showHighest == nil
-        {
-            if showRecent == nil
-            {
-                showRecent = "0"
-                showHighest = "0"
-            }
-            else
-            {
-                showHighest = showRecent
-                if (level != nil && showRecent != nil)
-                {
-                    //doAddHighscore(level: passedLevel)
-                }
-                //elf.highScore.text = "\(self.menuUser.currentUserscore!)"
-            }
-        }
-        else
-        {
-            if(Int("\(self.menuUser.currentUserscore!)")! > Int(showRecent!)!)
-            {
-                showHighest = showRecent
-                self.highScore.text = "\(self.menuUser.currentUserscore!)"
-            }
-        }*/
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "settingsToHome" {
-            //****TODO****
-
-            //is this completely audio?
-            /*let passToView = segue.destination as! ViewController
-            passToView.setUser(user: self.menuUser)
-            passToView.setAudioControl(audioControl: self.audioControl)
-            */
-//            passToView.loggedInUser = menuUser
+            
         }
         if segue.identifier == "seg5" {
 
@@ -220,51 +179,14 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
         let pfd = PostFOrData(str: todosEndpoint, post: newTodo)
         pfd.forData { jsonString in
             let dict = jsonString.toJSON() as? [String:AnyObject]
-            //print(jsonString)
-            //print("================================================")
-            //print(dict!["data"])
-            
             DispatchQueue.main.async {
-                //print("------highscore------")
-                //dump(dict)
-                //print("---------------------")
                 guard let uname = dict!["data"] as? [[String: Any]] else {
                     print("Could not get data as Data from JSON")
                     return
                 }
                 scoreLabel.text = "\(uname[0]["score"]!)"
                 
-                /*print("------uname------")
-                dump(uname[0]["score"]!)
-                print("---------------------")*/
-                
-                
-                //****TODO****
-                self.view.setNeedsDisplay() //this doesnt work, maybe it's just my simulator. We need to fix this
-                
-                
-                
-                /*if uname.isEmpty
-                {
-                    self.highScore.text = "0"
-                }
-                else
-                {
-                    /*if(self.menuUser.currentUserscore == "")
-                    {
-                        self.highScore.text = "0"
-                    }
-                    else
-                    {
-                        self.menuUser.currentUserscore = "\(uname[0]["score"]!)"
-                        //print(self.menuUser.currentUserscore!)
-                    }*/
-                    
-                    //self.showHighest = "\(uname[0]["score"]!)"
-                    //self.highScore.text = "\(self.menuUser.currentUserscore!)"
-                    self.highScore.text = "\(uname[0]["score"]!)"
-                }*/
-                
+                self.view.setNeedsDisplay()
             }
         }
     }
@@ -278,19 +200,13 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
         pfd.forData
             { jsonString in
             let dict = jsonString.toJSON() as? [String:AnyObject]
-            //print(jsonString)
-            //print("================================================")
-            //print(dict!)
             DispatchQueue.main.async
             {
-                guard let uname = dict!["debug"] as? [String: String] else
+                guard (dict!["debug"] as? [String: String]) != nil else
                 {
                     print("Could not get data as Data from JSON")
                     return
                 }
-                //nothing really needs to happen here.
-                //self.highScore.text = "\(self.menuUser.currentUserscore!)"
-                //print(uname)
             }
         }
     }

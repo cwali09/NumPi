@@ -148,29 +148,23 @@ class ViewController: UIViewController, difficultyLevel, userDelegate, audioCont
                     print("Could not get data as Data from JSON")
                     return
                 }
-                var name = String(describing: uname["username"]!)
+                let name = String(describing: uname["username"]!)
                 
                 UserDefaults.standard.set(name, forKey: "currentUsername")
                 UserDefaults.standard.set("0", forKey: "currentUserscore")
                 UserDefaults.standard.set("", forKey: "currentLVL")
                 UserDefaults.standard.set(uid, forKey: "currentUUID")
-                //UserDefaults.standard.set("0", forKey: "easyScore")
-                //UserDefaults.standard.set("0", forKey: "medScore")
-                //UserDefaults.standard.set("0", forKey: "highScore")
-                
                 self.loggedInUser.currentUsername = name
                 self.loggedInUser.currentUserscore = "0"
                 self.loggedInUser.currentLVL = ""
                 self.loggedInUser.currentUUID = uid
-                //self.loggedInUser.currentUsername = name
             }
         }
     }
+    
     // Delegate Functions and Variables
     var level:String?
     var lvl: difficultyLevel?
-    
-    
     
     func setLevel(choice: String){
         // set the different game levels
@@ -178,32 +172,6 @@ class ViewController: UIViewController, difficultyLevel, userDelegate, audioCont
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //****TODO****
-        // Goes to GameView 
-        /*if segue.identifier == "seg1" {
-            let passRequestedLevel = segue.destination as! GameView
-            passRequestedLevel.SetLevel = level!
-            lvl?.setLevel(choice: level!)
-            
-            let passUsertoGame = segue.destination as! GameView
-            passUsertoGame.setUser(user: self.loggedInUser)
-        }
-        
-        // Goes to Menu/Scores 
-        if segue.identifier == "seg2" {
-            // Passing the User's data 
-            let passUserInfo = segue.destination as! MenuView
-            passUserInfo.setUser(user: self.loggedInUser)
-            passUserInfo.setAudioControl(audioControl: self.audioControl)
-        }
-        if segue.identifier == "seg7" {
-            //let passToSettings = segue.destination as! SettingsView
-            //passToSettings.settingsUser = loggedInUser
-            let passToSettings = segue.destination as! SettingsView
-            // We define a delegate variable in the Settings VC. Then, we use the function setUser() to set the SettingsVC user(settingsUser) to the one in the 
-            // passToSettings.delegate?.setUser(user: self.loggedInUser)
-            passToSettings.setUser(user: self.loggedInUser)
-        }*/
     }
     
     // Set logo for menu
@@ -215,11 +183,13 @@ class ViewController: UIViewController, difficultyLevel, userDelegate, audioCont
         UserDefaults.standard.set("Easy", forKey: "currentLVL")
         performSegue(withIdentifier: "seg1", sender: self)
     }
+    
     @IBAction func medBtn(_ sender: UIButton) {
         //level = "Medium"
         UserDefaults.standard.set("Medium", forKey: "currentLVL")
         performSegue(withIdentifier: "seg1", sender: self)
     }
+    
     @IBAction func hardBtn(_ sender: UIButton) {
         //level = "Hard"
         UserDefaults.standard.set("Hard", forKey: "currentLVL")

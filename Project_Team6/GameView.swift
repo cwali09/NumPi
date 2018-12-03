@@ -111,40 +111,6 @@ class GameView: UIViewController, userDelegate {
         startTimer()
         print("USERNAME IS: ")
         print(loggedInUser.currentUsername!)
-        
-        /* Set up the Coin audio player */
-        /*do {
-            self.coinPlayer = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: "coin-effect2", ofType: "mp3")!))
-            self.coinPlayer.prepareToPlay()
-        } catch {
-            print(error)
-        }*/
-        
-        
-        /*
-         DROP DOWN MENU CONFIG
-         */
-        
-        /*button = dropDownBtn.init(frame: CGRect(x: 120, y: 120, width: 120, height: 120))
-        button.setTitle("Menu", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.sizeToFit()
-        //Add Button to the View Controller
-        self.view.addSubview(button)
-        
-        //button.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        
-        // This is to modify the left and right aspects of the button 
-        button.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16).isActive = true
-        
-        // This is to modify the UP and DOWN aspects of the button 
-        button.bottomAnchor.constraint(equalTo: self.view.topAnchor, constant: 75).isActive = true
-        // button.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
-        button.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
-        //Set the drop down menu's options
-        button.dropView.dropDownOptions = ["Home", "Score", "Settings"]*/
 
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
@@ -267,10 +233,6 @@ class GameView: UIViewController, userDelegate {
             answerOutput.fadeOut(completion: {
                 (finished: Bool) -> Void in
                 self.answerOutput.text = "Correct!"
-
-                /* Coin player plays when answer is correct */
-                //self.coinPlayer.play()
-                
                 self.answerOutput.fadeIn()
             })
             //answerOutput.text = "Correct!"
