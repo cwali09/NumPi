@@ -69,8 +69,8 @@ class GameView: UIViewController, userDelegate {
             SetScore = "\(currentScore)"
             showRecent = SetScore!
             score?.setScore(currentScore: SetScore!)
-//            passToMenu.setUser(user: self.loggedInUser)
-//            passToMenu.level = SetLevel
+
+            passToMenu.recentGame = true
         }
     }
     
@@ -312,9 +312,12 @@ class GameView: UIViewController, userDelegate {
         }
     }
     
+    var gameComplete = false
+    
     func endTimer() {
         countdownTimer.invalidate()
         performSegue(withIdentifier: "menuSeg", sender: self)
+        gameComplete = true
     }
     
     func timeFormatted(_ totalSeconds: Int) -> String {
