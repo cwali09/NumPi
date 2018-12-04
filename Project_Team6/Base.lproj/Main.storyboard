@@ -577,19 +577,19 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="KNT-P9-aqR">
                                         <rect key="frame" x="8" y="37" width="60" height="75"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Easy:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i5W-BL-4aY">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Easy:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i5W-BL-4aY">
                                                 <rect key="frame" x="0.0" y="0.0" width="36" height="20"/>
                                                 <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Medium:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cKy-Xj-A1D">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Medium:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cKy-Xj-A1D">
                                                 <rect key="frame" x="0.0" y="28" width="56.5" height="19.5"/>
                                                 <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Hard:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pac-jE-RGC">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hard:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pac-jE-RGC">
                                                 <rect key="frame" x="0.0" y="55.5" width="36" height="19.5"/>
                                                 <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="15"/>
                                                 <nil key="textColor"/>
@@ -604,19 +604,19 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Zve-kG-IvO">
                                         <rect key="frame" x="290" y="37" width="50" height="75"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Zk-mi-0Y5">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Zk-mi-0Y5">
                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="20"/>
                                                 <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Es1-ee-2iV">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Es1-ee-2iV">
                                                 <rect key="frame" x="0.0" y="28" width="50" height="19.5"/>
                                                 <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dQv-Qt-dEm">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dQv-Qt-dEm">
                                                 <rect key="frame" x="0.0" y="55.5" width="50" height="19.5"/>
                                                 <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="15"/>
                                                 <nil key="textColor"/>
@@ -714,13 +714,13 @@
                                 <rect key="frame" x="113" y="92" width="250" height="70"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eS0-Fl-skw">
-                                        <rect key="frame" x="0.0" y="0.0" width="250" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="250" height="29"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="315-eV-IxD">
-                                        <rect key="frame" x="0.0" y="3" width="250" height="35"/>
+                                        <rect key="frame" x="0.0" y="32" width="250" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="8zq-qY-OZG"/>
                                         </constraints>
@@ -729,7 +729,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OvB-cm-2JG">
-                                        <rect key="frame" x="0.0" y="41" width="250" height="29"/>
+                                        <rect key="frame" x="0.0" y="70" width="250" height="0.0"/>
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="17"/>
                                         <state key="normal" title="Edit UserName">
@@ -1070,10 +1070,9 @@
         <image name="score" width="980" height="658"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="zVk-N2-5i3"/>
         <segue reference="O8E-uR-ApR"/>
-        <segue reference="zUZ-Qq-I52"/>
+        <segue reference="RuU-Uy-VLJ"/>
         <segue reference="PfN-es-k36"/>
-        <segue reference="vL8-f7-U9c"/>
+        <segue reference="Xou-8O-HAL"/>
     </inferredMetricsTieBreakers>
 </document>
