@@ -30,7 +30,7 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
 {
 
     var requests:[[String:Any]]?
-    var friends:[String]?
+    var friends:[[String:Any]]?
     var delegate : userDelegate?
     
     var uname2 = String()
@@ -284,12 +284,10 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
         }
         if(indexPath.section == 1)
         {
-            friendsLabel.text = self.friends![indexPath.row]
+            friendsLabel.text = self.friends![indexPath.row]["username"] as! String
         }
+
         
-        
-        //****TODO****
-        // for some reason this is triggering when section is 1
         let ac = cell.viewWithTag(6) as! friendButton
         let rej = cell.viewWithTag(7) as! friendButton
         
@@ -312,8 +310,10 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
         }
         else
         {
+            rej.addTarget(self, action: #selector(tapReject), for: .touchUpInside)
+            rej.ID = (self.friends![indexPath.row]["id"] as! String)
             ac.isHidden = true
-            rej.isHidden = true
+            rej.isHidden = false
         }
         
         return cell
@@ -322,8 +322,8 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.section == 1)
         {
-            uname2 = self.friends![indexPath.row]
-            getOneFriend(uname: self.friends![indexPath.row])
+            uname2 = self.friends![indexPath.row]["username"] as! String
+            getOneFriend(uname: self.friends![indexPath.row]["username"] as! String)
             
         }
     }
@@ -509,21 +509,27 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
             let dict = jsonString.toJSON() as? [String:AnyObject]
             
             DispatchQueue.main.async {
-                print("------dict------")
-                dump(dict)
-                print("---------------------")
+                //print("------dict------")
+                //dump(dict)
+                //print("---------------------")
                 guard let data = dict!["data"] as? [[String: Any?]] else {
                     print("Could not get data as Data from JSON") //this will also call when friends are empty
                     return
                 }
                 
-                print("------data------")
-                dump(data)
-                print("---------------------")
+                //print("------data------")
+                //dump(data)
+                //print("---------------------")
                 
                 
-                guard let friends = data[0]["friends"] as? [String] else {
+                /*guard let friends = data[0]["friends"] as? [String] else {
                     print("Could not get data as frirends from data")
+                    return
+                }*/
+                
+                
+                guard let friends = data[0]["friends"] as? [[String: Any]] else {
+                    print("Could not get friends as Data from JSON") //this will also call when friends are empty
                     return
                 }
                 
