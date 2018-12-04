@@ -109,12 +109,25 @@ class ViewController: UIViewController, difficultyLevel, userDelegate, audioCont
         self.audioControl = audioControl
     }
     
+    var mute: Bool = false
+    
+    @IBAction func muteButton(_ sender: UIButton) {
+        mute = !mute
+        
+        if(mute == false){
+            self.audioControl.play()
+        }
+        else{
+            self.audioControl.pause()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         /* Set the audio player */
-        /*do {
-            self.audioControl = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: "8-bit-sound-adventure", ofType: "mp3")!))
+        do {
+            self.audioControl = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: "ocean", ofType: "mp3")!))
 
             self.audioControl.prepareToPlay()
             print("TESTING AUDIO IS PLAYING")
@@ -126,7 +139,7 @@ class ViewController: UIViewController, difficultyLevel, userDelegate, audioCont
             }
         } catch {
             print(error)
-        }*/
+        }
         
         // Set background img
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
@@ -172,6 +185,18 @@ class ViewController: UIViewController, difficultyLevel, userDelegate, audioCont
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        /* Goes to Menu/Scores */
+        if segue.identifier == "seg2" {
+            /* Passing the User's data */
+            let passUserInfo = segue.destination as! MenuView
+            passUserInfo.setUser(user: self.loggedInUser)
+            passUserInfo.setAudioControl(audioControl: self.audioControl)
+        }
+        else if segue.identifier == "seg1" {
+            let soundSettings = segue.destination as! GameView
+            soundSettings.SoundMuted = mute
+        }
     }
     
     // Set logo for menu
@@ -182,6 +207,7 @@ class ViewController: UIViewController, difficultyLevel, userDelegate, audioCont
         //level = "Easy"
         UserDefaults.standard.set("Easy", forKey: "currentLVL")
         performSegue(withIdentifier: "seg1", sender: self)
+        
     }
     
     @IBAction func medBtn(_ sender: UIButton) {

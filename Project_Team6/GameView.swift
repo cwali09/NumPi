@@ -31,7 +31,7 @@ class GameView: UIViewController, userDelegate {
     /* Store all the problem information and User Input to pass to the Settings View */
     var questionInfo = problemInfo()
     
-//    var button = dropDownBtn()
+    var SoundMuted: Bool = false
     
     // Delegate Variables
     var score: scoreBoard?
@@ -104,6 +104,14 @@ class GameView: UIViewController, userDelegate {
         // Set background img
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         scrollView.image = UIImage(named: "scrollProblems.jpg")
+        
+        /* Set up the Coin audio player */
+        do {
+            self.coinPlayer = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: "correctAnswer", ofType: "mp3")!))
+            self.coinPlayer.prepareToPlay()
+        } catch {
+            print(error)
+        }
         
         // Iterate through buttons and change text
         questionInfoArrayGV.removeAll()
@@ -224,6 +232,7 @@ class GameView: UIViewController, userDelegate {
         return "\(self.num1!) \(self.currentProblem!) \(self.num2!)"
     }
     var currentScore = 0
+    var tempScore = 0
     @IBAction func boxTouched(_ sender: UIButton) {
         //sender.isSelected = !sender.isSelected
         let index = boxes.index(of: sender)!
@@ -237,8 +246,20 @@ class GameView: UIViewController, userDelegate {
             })
             //answerOutput.text = "Correct!"
             print("correct answer chosen")
+            /* Coin player plays when answer is correct */
+            
+            if(SoundMuted == false){
+                self.coinPlayer.play()
+            }else{
+                self.coinPlayer.pause()
+            }
+            
             questionInfo.isCorrect = true
             currentScore += 1
+            tempScore+=1
+            if tempScore>3{
+                currentScore+=1
+            }
         }
         else{
             answerOutput.fadeOut(completion: {
@@ -248,6 +269,7 @@ class GameView: UIViewController, userDelegate {
             })
             //answerOutput.text = "Wrong!"
             print("Wrong Answer!")
+            tempScore=0
             questionInfo.isCorrect = false
         }
         /* Push questionInfo object to array to pass into MenuView */
