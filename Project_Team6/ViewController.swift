@@ -69,6 +69,7 @@ struct currentUser: Codable {
     var currentUserscore: String?
     var currentUUID: String?
     var currentLVL: String?
+    var mute: Bool?
     init (){
     }
 }
@@ -116,8 +117,8 @@ class ViewController: UIViewController, difficultyLevel, userDelegate, audioCont
     @IBOutlet weak var musicButtonImg: UIButton!
     @IBAction func muteButton(_ sender: UIButton) {
         mute = !mute
-        
-        if(mute == false){
+        UserDefaults.standard.set(mute, forKey: "mute")
+        if(!mute){
             musicButtonImg.setImage(musicimg, for: UIControl.State.normal)
             self.audioControl.play()
         }
@@ -129,7 +130,13 @@ class ViewController: UIViewController, difficultyLevel, userDelegate, audioCont
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        musicButtonImg.setImage(UIImage(named: "musicdoublenode.png"), for: UIControl.State.normal)
+        mute=UserDefaults.standard.bool(forKey: "mute")
+        if(!mute){
+            musicButtonImg.setImage(UIImage(named: "musicdoublenode.png"), for: UIControl.State.normal)
+        }
+        else{
+            musicButtonImg.setImage(UIImage(named: "muteddoublenode.png"), for: UIControl.State.normal)
+        }
         /* Set the audio player */
         do {
             self.audioControl = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: "ocean", ofType: "mp3")!))
@@ -172,10 +179,12 @@ class ViewController: UIViewController, difficultyLevel, userDelegate, audioCont
                 UserDefaults.standard.set("0", forKey: "currentUserscore")
                 UserDefaults.standard.set("", forKey: "currentLVL")
                 UserDefaults.standard.set(uid, forKey: "currentUUID")
+                UserDefaults.standard.set(false, forKey: "mute")
                 self.loggedInUser.currentUsername = name
                 self.loggedInUser.currentUserscore = "0"
                 self.loggedInUser.currentLVL = ""
                 self.loggedInUser.currentUUID = uid
+                self.loggedInUser.mute = false
             }
         }
     }

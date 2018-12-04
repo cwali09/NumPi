@@ -25,6 +25,8 @@ class GameView: UIViewController, userDelegate {
     @IBAction func menu(_ sender: UIButton) {
         performSegue(withIdentifier: "home", sender: self)
     }
+    /*create variable to see if it is muted*/
+    var muted: Bool?
     // Game Seed
     let rs = GKMersenneTwisterRandomSource()
     
@@ -99,8 +101,8 @@ class GameView: UIViewController, userDelegate {
         loggedInUser.currentUserscore = UserDefaults.standard.string(forKey: "currentUserscore")
         loggedInUser.currentLVL = UserDefaults.standard.string(forKey: "currentLVL")
         loggedInUser.currentUUID = UserDefaults.standard.string(forKey: "currentUUID")
-        
-        
+        loggedInUser.mute = UserDefaults.standard.bool(forKey: "mute")
+        self.muted = UserDefaults.standard.bool(forKey: "mute")
         // Set background img
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         scrollView.image = UIImage(named: "scrollProblems.jpg")
@@ -248,7 +250,7 @@ class GameView: UIViewController, userDelegate {
             print("correct answer chosen")
             /* Coin player plays when answer is correct */
             
-            if(SoundMuted == false){
+            if(!muted!){
                 self.coinPlayer.play()
             }else{
                 self.coinPlayer.pause()
