@@ -110,21 +110,26 @@ class ViewController: UIViewController, difficultyLevel, userDelegate, audioCont
     }
     
     var mute: Bool = false
+    let muteimg = UIImage(named: "muteddoublenode.png")
+    let musicimg = UIImage(named: "musicdoublenode.png")
     
+    @IBOutlet weak var musicButtonImg: UIButton!
     @IBAction func muteButton(_ sender: UIButton) {
         mute = !mute
         
         if(mute == false){
+            musicButtonImg.setImage(musicimg, for: UIControl.State.normal)
             self.audioControl.play()
         }
         else{
+            musicButtonImg.setImage(muteimg, for: UIControl.State.normal)
             self.audioControl.pause()
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        musicButtonImg.setImage(UIImage(named: "musicdoublenode.png"), for: UIControl.State.normal)
         /* Set the audio player */
         do {
             self.audioControl = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: "ocean", ofType: "mp3")!))
