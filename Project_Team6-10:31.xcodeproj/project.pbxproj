@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		240E7B012187B95700BA79B9 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240E7B002187B95700BA79B9 /* SettingsView.swift */; };
+		24458FC921B729A200972636 /* MultiplayerChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24458FC821B729A200972636 /* MultiplayerChoiceView.swift */; };
+		24458FCB21B7313E00972636 /* MultiplayerGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24458FCA21B7313E00972636 /* MultiplayerGameView.swift */; };
+		24458FCE21B7325E00972636 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24458FCD21B7325E00972636 /* GameKit.framework */; };
 		24912B04216BB98C00C34B6C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24912B03216BB98C00C34B6C /* AppDelegate.swift */; };
 		24912B06216BB98C00C34B6C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24912B05216BB98C00C34B6C /* ViewController.swift */; };
 		24912B09216BB98C00C34B6C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24912B07216BB98C00C34B6C /* Main.storyboard */; };
@@ -56,6 +59,9 @@
 
 /* Begin PBXFileReference section */
 		240E7B002187B95700BA79B9 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		24458FC821B729A200972636 /* MultiplayerChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerChoiceView.swift; sourceTree = "<group>"; };
+		24458FCA21B7313E00972636 /* MultiplayerGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerGameView.swift; sourceTree = "<group>"; };
+		24458FCD21B7325E00972636 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		24912B00216BB98C00C34B6C /* Project_Team6.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project_Team6.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24912B03216BB98C00C34B6C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		24912B05216BB98C00C34B6C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -97,6 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24458FCE21B7325E00972636 /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,6 +124,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		24458FCC21B7325E00972636 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				24458FCD21B7325E00972636 /* GameKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		24912AF7216BB98C00C34B6C = {
 			isa = PBXGroup;
 			children = (
@@ -124,6 +139,7 @@
 				24912B22216BB98D00C34B6C /* Project_Team6UITests */,
 				24912B01216BB98C00C34B6C /* Products */,
 				249E720B218A48A300DB111B /* Project_Team6 copy-Info.plist */,
+				24458FCC21B7325E00972636 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -147,6 +163,8 @@
 				24912B31216BC27C00C34B6C /* GameView.swift */,
 				240E7B002187B95700BA79B9 /* SettingsView.swift */,
 				249EAB1121A4ACC7006156B5 /* FriendsView.swift */,
+				24458FC821B729A200972636 /* MultiplayerChoiceView.swift */,
+				24458FCA21B7313E00972636 /* MultiplayerGameView.swift */,
 				24912B07216BB98C00C34B6C /* Main.storyboard */,
 				24912B0A216BB98D00C34B6C /* Assets.xcassets */,
 				24912B0C216BB98D00C34B6C /* LaunchScreen.storyboard */,
@@ -266,6 +284,11 @@
 				TargetAttributes = {
 					24912AFF216BB98C00C34B6C = {
 						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.GameCenter.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					24912B13216BB98D00C34B6C = {
 						CreatedOnToolsVersion = 10.0;
@@ -349,7 +372,9 @@
 				249EAB1421A4AFE3006156B5 /* TableViewController.swift in Sources */,
 				24912B06216BB98C00C34B6C /* ViewController.swift in Sources */,
 				24C07B40216BE42000C4B216 /* MenuView.swift in Sources */,
+				24458FC921B729A200972636 /* MultiplayerChoiceView.swift in Sources */,
 				240E7B012187B95700BA79B9 /* SettingsView.swift in Sources */,
+				24458FCB21B7313E00972636 /* MultiplayerGameView.swift in Sources */,
 				24912B32216BC27C00C34B6C /* GameView.swift in Sources */,
 				24912B04216BB98C00C34B6C /* AppDelegate.swift in Sources */,
 			);
@@ -527,13 +552,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = BPAY6PD6S9;
+				DEVELOPMENT_TEAM = 258S94TD9V;
 				INFOPLIST_FILE = Project_Team6/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Richard-Anderson";
+				PRODUCT_BUNDLE_IDENTIFIER = Marepalli.NumPi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -545,13 +570,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = BPAY6PD6S9;
+				DEVELOPMENT_TEAM = 258S94TD9V;
 				INFOPLIST_FILE = Project_Team6/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Richard-Anderson";
+				PRODUCT_BUNDLE_IDENTIFIER = Marepalli.NumPi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";

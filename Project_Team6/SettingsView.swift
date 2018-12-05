@@ -459,12 +459,6 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
                         print("easyZ")
                     }
                     
-                    
-                    //set medium score
-                    //                    print("|\(data[0]["medium"] as? String)|")
-                    //                    if(data[0]["medium"] as? String == nil){
-                    //                        print("validated")
-                    //                    }
                     if(data[0]["mediumCount"] as? Int == 1){
                         guard let medium = data[0]["medium"]!["score"]!! as? Int else {
                             print("could not get medium score")
@@ -491,10 +485,6 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
                         self.hard2 = "0"
                     }
                     self.performSegue(withIdentifier: "friendDetail", sender: self)
-                    
-                    //                    self.easy2 = data[0]["easy"]!["score"]!!
-                    //                    self.medium2 = data[0]["medium"]!["score"]!!
-                    //                    self.hard2 = data[0]["hard"]!["score"]!!
                 }
         }
     }

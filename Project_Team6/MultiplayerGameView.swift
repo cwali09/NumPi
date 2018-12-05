@@ -1,51 +1,36 @@
 //
-//  GameView.swift
+//  MultiplayerGameView.swift
 //  Project_Team6
 //
-//  Created by Team6 on 10/8/18.
+//  Created by Team6 on 12/4/18.
 //  Copyright © 2018 Team6. All rights reserved.
 //
 
 import UIKit
 import GameKit
+import MultipeerConnectivity
 
-// Scoreboard Protocol used to set score on MenuView
-// Sender GameView -> MenuView
-protocol scoreBoard {
-    func setScore(currentScore: String)
-}
-
-// Difficulty Protocol used to set level on GameView
-// Sender ViewController -> GameView
-protocol difficultyLevel {
-    func setLevel(choice: String)
-}
-
-class GameView: UIViewController, userDelegate {
-    @IBAction func menu(_ sender: UIButton) {
-        performSegue(withIdentifier: "home", sender: self)
-    }
-    // Game Seed
-    let rs = GKMersenneTwisterRandomSource()
+class MultiplayerGameView: UIViewController {
     
-    /* Store all the problem information and User Input to pass to the Settings View */
-    var questionInfo = problemInfo()
-    
-//    var button = dropDownBtn()
-    
-    // Delegate Variables
-    var score: scoreBoard?
-    
-    //var lvl: difficultyLevel?
-    var SetLevel: String?
-    var SetScore: String?
-    
-    // Drop-down Menu Button
-    //var button = dropDownBtn()
-    
-    //    var gameUser = currentUser()
-    
+    @IBOutlet var boxes : [UIButton]!
+    @IBOutlet weak var timerLabel: UILabel!
+    @IBOutlet weak var playerOneLabel: UILabel!
+    @IBOutlet weak var playerTwoLabel: UILabel!
+    @IBOutlet weak var answerOutput: UILabel!
     @IBOutlet weak var scrollView: UIImageView!
+    let rs = GKMersenneTwisterRandomSource()
+    var timerCountdown: Timer!
+    var gameComplete = false
+    var totalTime = 20
+    var questionData = problemInfo()
+    var currentProblem: String?
+    var currentScore = 0
+    var num1: Int?
+    var num2: Int?
+    var correctAns: Int?
+    var SetLevel: String?
+    var match: GKMatch?
+    @IBOutlet weak var RightOrWrong: UILabel!
     
     var loggedInUser:currentUser = currentUser()
     
@@ -53,62 +38,12 @@ class GameView: UIViewController, userDelegate {
         self.loggedInUser = user
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
-        if segue.identifier == "menuSeg" {
-            let passToMenu = segue.destination as! MenuView
-            
-            //pass level and score
-            passToMenu.passedScore = "\(currentScore)"
-            passToMenu.passedLevel = SetLevel!
-            dump(self)
-            
-            
-            
-            //passToMenu.showRecent = "0"
-            score?.setScore(currentScore: "0")
-            SetScore = "\(currentScore)"
-            showRecent = SetScore!
-            score?.setScore(currentScore: SetScore!)
-
-            passToMenu.recentGame = true
-        }
-    }
-    
-    // Answser buttons -- Link these buttons to some sort of random variables
-    // correct answer will need to be set in stone
-    // Each button stored in boxes, Access by Index 1 - 6
-    @IBOutlet var boxes : [UIButton]!
-    
-    // Show problems
-    @IBOutlet weak var problemScreen: UILabel!
-    
-    // Show timer
-    @IBOutlet weak var timerLbl: UILabel!
-    
-    
-    /* Audio for the coin sound (correct answer) */
-    var coinPlayer = AVAudioPlayer()
-    
     override func viewDidLoad() {
-        let currentDateTime = Date()
-        currentDateTime.timeIntervalSinceReferenceDate
+        super.viewDidLoad()
         
-//
-//        let interval = 10
-//        let formatter = DateComponentsFormatter()
-//        formatter.allowedUnits = [.hour, .minute, .second]
-//        formatter.unitsStyle = .full
-//
-//        let formattedString = formatter.string(from: TimeInterval(interval))!
-//        print("FORMATTED STRING")
-//        print(formattedString)
-//
-//        var seedInterval = TimeInterval(interval)
+        let currentDateTime = Date()
+        //currentDateTime.timeIntervalSinceReferenceDate
         rs.seed =  UInt64(currentDateTime.timeIntervalSinceReferenceDate)
-//        rs.seed =  UInt64(currentDateTime-seedInterval)
-        print(currentDateTime.timeIntervalSinceReferenceDate)
-        print("RS.SEED IS: ")
-        print(rs.seed)
         super.viewDidLoad()
         
         loggedInUser.currentUsername =  UserDefaults.standard.string(forKey: "currentUsername")
@@ -127,34 +62,76 @@ class GameView: UIViewController, userDelegate {
         startTimer()
         print("USERNAME IS: ")
         print(loggedInUser.currentUsername!)
+        
+        //loadPlayers()
 
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
-    var currentProblem: String?
-    var num1: Int?
-    var num2: Int?
-    var correctAns: Int?
+    override func viewDidAppear(_ animated: Bool) {
+        self.timerLabel.text = "00:20"
+        
+        super.viewDidLoad()
+    }
+    
+    func loadPlayers(){
+        //get players and add them to the P1: & P2 labels
+        let playerArray = match?.players
+        print ("The player array count is \(playerArray?.count ?? -99)")
+        if playerArray!.count > 0 {
+            playerOneLabel.text = GKLocalPlayer.local.alias
+            playerTwoLabel.text = playerArray?[0].alias
+        }
+    }
+    
+    func sendData(turnLog: Data) {
+        do {
+            if GKLocalPlayer.local.isAuthenticated {
+                print("Player is Authenticated")
+                if match != nil {
+                    print("Match is NOT nil")
+                    print("Match expected players: \(match?.expectedPlayerCount ?? -99)")
+                    
+                    try match?.sendData(toAllPlayers: turnLog, with: GKMatch.SendDataMode.reliable)
+                    print("DATA SENT!")
+                } else {
+                    print("MATCH IS NIL")
+                }
+            }
+        } catch {
+            print("ERROR: \(error.localizedDescription)")
+        }
+    }
+    
+    func receiveData(turnLog: Data, player: GKPlayer) {
+        let receivedString = NSString(data: turnLog as Data, encoding: String.Encoding.utf8.rawValue)
+        print ("Received: \(receivedString ?? "ERROR ERROR REDRUM REDRUM")")
+        parseReceivedData(dataString: receivedString! as String, player: player)
+    }
+    
+    func parseReceivedData(dataString: String, player: GKPlayer) {
+
+    }
     
     func generateProblem(){
         SetLevel = UserDefaults.standard.string(forKey: "currentLVL")
         print("USERDEFAULT:" + SetLevel!)
         if(self.SetLevel=="Easy"){
-            self.problemScreen.text=randomEasyProblem()
-            questionInfo.problem = self.problemScreen.text
+            self.answerOutput.text = randomEasyProblem()
+            questionData.problem = self.answerOutput.text
             
         }
         else
             if(self.SetLevel=="Medium"){
-                self.problemScreen.text=randomMedProblem()
-                questionInfo.problem = self.problemScreen.text
+                self.answerOutput.text = randomMedProblem()
+                questionData.problem = self.answerOutput.text
                 
             }
             else
                 if(self.SetLevel=="Hard"){
-                    self.problemScreen.text=randomHardProblem()
-                    questionInfo.problem = self.problemScreen.text
+                    self.answerOutput.text = randomHardProblem()
+                    questionData.problem = self.answerOutput.text
         }
         // Iterate through buttons and change text
         var answerChoice: Int?;
@@ -192,10 +169,7 @@ class GameView: UIViewController, userDelegate {
             }
         }
     }
-    @IBOutlet weak var answerOutput: UILabel!
     
-    //function to make an easy problem with numbers between 0 to 20
-    //function to make an easy problem with numbers between 0 to 20
     func randomEasyProblem()->String{
         let rd = GKRandomDistribution(randomSource: rs, lowestValue: 0, highestValue: 12)
         let array = ["+","-"]
@@ -211,7 +185,7 @@ class GameView: UIViewController, userDelegate {
     func randomMedProblem()->String{
         let rd = GKRandomDistribution(randomSource: rs, lowestValue: 0, highestValue: 12)
         let array = ["+","-","x",]
-        self.currentProblem=array.randomElement()!
+        self.currentProblem = array[rd.nextInt(upperBound: 3)]
         if self.currentProblem! != "x"{
             self.num1 = rd.nextInt(upperBound: 12) * 10 // 10*Int.random(in: 0...12)
         }
@@ -234,56 +208,52 @@ class GameView: UIViewController, userDelegate {
             self.num1! = self.num2!
             self.num2! = temp
         }
-        self.currentProblem=array.randomElement()!
+        self.currentProblem = array[rd.nextInt(upperBound: 4)]
         if self.currentProblem! == "/"{
             self.num1! = self.num1!/self.num2!*self.num2!
             
         }
         return "\(self.num1!) \(self.currentProblem!) \(self.num2!)"
     }
-    var currentScore = 0
+
     @IBAction func boxTouched(_ sender: UIButton) {
         //sender.isSelected = !sender.isSelected
         let index = boxes.index(of: sender)!
-        questionInfo.correctAnswer = "\(correctAns!)"
-        questionInfo.userAnswer = boxes[index].titleLabel?.text
+        questionData.correctAnswer = "\(correctAns!)"
+        questionData.userAnswer = boxes[index].titleLabel?.text
         if boxes[index].titleLabel?.text=="\(correctAns!)"{
-            answerOutput.fadeOut(completion: {
+            RightOrWrong.fadeOut(completion: {
                 (finished: Bool) -> Void in
-                self.answerOutput.text = "Correct!"
-                self.answerOutput.fadeIn()
+                self.RightOrWrong.text = "Correct!"
+                self.RightOrWrong.fadeIn()
             })
-            //answerOutput.text = "Correct!"
             print("correct answer chosen")
-            questionInfo.isCorrect = true
+            questionData.isCorrect = true
             currentScore += 1
         }
         else{
-            answerOutput.fadeOut(completion: {
+            RightOrWrong.fadeOut(completion: {
                 (finished: Bool) -> Void in
-                self.answerOutput.text = "Wrong!"
-                self.answerOutput.fadeIn()
+                self.RightOrWrong.text = "Wrong!"
+                self.RightOrWrong.fadeIn()
             })
             //answerOutput.text = "Wrong!"
             print("Wrong Answer!")
-            questionInfo.isCorrect = false
+            questionData.isCorrect = false
         }
         /* Push questionInfo object to array to pass into MenuView */
-        questionInfoArrayGV.append(questionInfo)
+        questionInfoArrayGV.append(questionData)
         generateProblem()
     }
     
-    
-    
-    var countdownTimer: Timer!
-    var totalTime = 20
+
     
     @objc func startTimer() {
-        countdownTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+        timerCountdown = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
     }
     
     @objc func updateTime() {
-        timerLbl.text = "\(timeFormatted(totalTime))"
+        timerLabel.text = "\(timeFormatted(totalTime))"
         
         if totalTime != 0 {
             totalTime -= 1
@@ -292,11 +262,9 @@ class GameView: UIViewController, userDelegate {
         }
     }
     
-    var gameComplete = false
-    
     func endTimer() {
-        countdownTimer.invalidate()
-        performSegue(withIdentifier: "menuSeg", sender: self)
+        timerCountdown.invalidate()
+        performSegue(withIdentifier: "scoreBoard", sender: self)
         gameComplete = true
     }
     
@@ -306,27 +274,52 @@ class GameView: UIViewController, userDelegate {
         return String(format: "%02d:%02d", minutes, seconds)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        self.timerLbl.text = "00:20"
-        
-        super.viewDidLoad()
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
 }
 
-extension UIView {
-    func fadeIn(_ duration: TimeInterval = 0.5, delay: TimeInterval = 0.0, completion: @escaping ((Bool) -> Void) = {(finished: Bool) -> Void in}) {
-        UIView.animate(withDuration: duration, delay: delay, options: UIView.AnimationOptions.curveEaseIn, animations: {
-            self.alpha = 0.0
-        }, completion: completion)  }
+extension MultiplayerGameView: GKMatchDelegate {
     
-    func fadeOut(_ duration: TimeInterval = 0.0, delay: TimeInterval = 0.0, completion: @escaping (Bool) -> Void = {(finished: Bool) -> Void in}) {
-        UIView.animate(withDuration: duration, delay: delay, options: UIView.AnimationOptions.curveEaseIn, animations: {
-            self.alpha = 1.0
-        }, completion: completion)
+    // The match received data sent from the player.
+    @available(iOS 8.0, *)
+    func match(_ match: GKMatch, didReceive data: Data, fromRemotePlayer player: GKPlayer) {
+        print ("RECEIVED DATA 8.0")
+        receiveData(turnLog: data, player: player)
+    }
+    
+    @available(iOS 9.0, *)
+    func match(_ match: GKMatch, didReceive data: Data, forRecipient recipient: GKPlayer, fromRemotePlayer player: GKPlayer) {
+        print("RECEIVED DATA 9.0")
+        receiveData(turnLog: data, player: player)
+    }
+    
+    // The player state changed (eg. connected or disconnected)
+    @available(iOS 4.1, *)
+    func match(_ match: GKMatch, player: GKPlayer, didChange state: GKPlayerConnectionState) {
+        
+        if match.expectedPlayerCount == 0 {
+            print("READY STEADY CAPTAIN!")
+            print("Players in Match: \(match.players.count)")
+        } else {
+            print ("SHIT SON, PLAYERS ARE MISSING!")
+            print("Players in Match: \(match.players.count)")
+        }
+    }
+    
+    
+    // The match was unable to be established with any players due to an error.
+    @available(iOS 4.1, *)
+    func match(_ match: GKMatch, didFailWithError error: Error?) {
+        print("FAILED")
+    }
+    
+    
+    // This method is called when the match is interrupted; if it returns YES, a new invite will be sent to attempt reconnection. This is supported only for 1v1 games
+    @available(iOS 8.0, *)
+    func match(_ match: GKMatch, shouldReinviteDisconnectedPlayer player: GKPlayer) -> Bool {
+        return true
     }
 }
+
+

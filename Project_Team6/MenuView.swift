@@ -89,9 +89,9 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
         // Set background img
         self.recentScore.text = "0"
         self.highScore.text = ""
-        self.easyScore.text = "0"
-        self.medScore.text = "0"
-        self.hardScore.text = "0"
+//        self.easyScore.text = "0"
+//        self.medScore.text = "0"
+//        self.hardScore.text = "0"
         
         if showRecent == nil {
             showRecent = ""
@@ -132,6 +132,8 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
         {
             getHighscore(level: hardcodedlevelforscore, scoreLabel: self.highScore)
         }
+        
+        getOneFriend(uname: menuUser.currentUsername!)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -184,7 +186,12 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
                     print("Could not get data as Data from JSON")
                     return
                 }
-                scoreLabel.text = "\(uname[0]["score"]!)"
+                if(uname.count == 0 ){
+                    scoreLabel.text = "0"
+                }
+                else {
+                    scoreLabel.text = "\(uname[0]["score"]!)"
+                }
                 
                 self.view.setNeedsDisplay()
             }
@@ -208,6 +215,64 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
                     return
                 }
             }
+        }
+    }
+    
+    func getOneFriend(uname: String)
+    {
+        print("getting one friend detail")
+        let todosEndpoint: String = "http://98.197.90.65:8000/getTopScore"
+        let newTodo = "username=\(uname)"
+        let pfd = PostFOrData(str: todosEndpoint, post: newTodo)
+        pfd.forData
+            { jsonString in
+                print("posted")
+                DispatchQueue.main.async {
+                    print("\(uname) got details")
+                    print(jsonString)
+                    let dict = jsonString.toJSON() as? [String:AnyObject]
+                    print(dict!)
+                    guard let data = dict!["data"] as? [[String:AnyObject]] else {
+                        print("Could not get individual detail")
+                        return
+                    }
+                    
+                    //set easy score
+                    if(data[0]["easyCount"] as? Int == 1){
+                        guard let easy = data[0]["easy"]!["score"]!! as? Int else {
+                            print("could not get easy score")
+                            return
+                        }
+                        self.easyScore.text = String(easy)
+                    }
+                    else {
+                        self.easyScore.text = "0"
+                    }
+                    
+                    if(data[0]["mediumCount"] as? Int == 1){
+                        guard let medium = data[0]["medium"]!["score"]!! as? Int else {
+                            print("could not get medium score")
+                            return
+                        }
+                        self.medScore.text = String(medium)
+                    }
+                    else {
+                        self.medScore.text = "0"
+                    }
+                    
+                    
+                    //set high score
+                    if(data[0]["hardCount"] as? Int == 1){
+                        guard let hard = data[0]["hard"]!["score"]!! as? Int else {
+                            print("could not get easy score")
+                            return
+                        }
+                        self.hardScore.text = String(hard)
+                    }
+                    else {
+                        self.hardScore.text = "0"
+                    }
+                }
         }
     }
 }
