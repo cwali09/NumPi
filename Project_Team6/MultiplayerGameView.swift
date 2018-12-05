@@ -10,7 +10,7 @@ import UIKit
 import GameKit
 import MultipeerConnectivity
 
-class MultiplayerGameView: UIViewController {
+class MultiplayerGameView: UIViewController{
     
     @IBOutlet var boxes : [UIButton]!
     @IBOutlet weak var timerLabel: UILabel!
@@ -31,6 +31,9 @@ class MultiplayerGameView: UIViewController {
     var SetLevel: String?
     var match: GKMatch?
     @IBOutlet weak var RightOrWrong: UILabel!
+    var currentMatch:GKMatch = StoreMatch.gkMatch
+    
+    var enemyScore = "0"
     
     var loggedInUser:currentUser = currentUser()
     
@@ -41,8 +44,18 @@ class MultiplayerGameView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if(StoreMatch.gkMatch != nil && StoreMatch.gkMatch.players.count != 0){
+            playerOneLabel.text = GKLocalPlayer.local.alias
+            playerTwoLabel.text = StoreMatch.gkMatch.players[0].alias
+        }
+        
+        if match != nil{
+            match!.delegate = self
+        }
+        
+        StoreMatch.gkMatch.delegate = self
+        
         let currentDateTime = Date()
-        //currentDateTime.timeIntervalSinceReferenceDate
         rs.seed =  UInt64(currentDateTime.timeIntervalSinceReferenceDate)
         super.viewDidLoad()
         
@@ -51,9 +64,7 @@ class MultiplayerGameView: UIViewController {
         loggedInUser.currentLVL = UserDefaults.standard.string(forKey: "currentLVL")
         loggedInUser.currentUUID = UserDefaults.standard.string(forKey: "currentUUID")
         
-        
         // Set background img
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         scrollView.image = UIImage(named: "scrollProblems.jpg")
         
         // Iterate through buttons and change text
@@ -63,8 +74,8 @@ class MultiplayerGameView: UIViewController {
         print("USERNAME IS: ")
         print(loggedInUser.currentUsername!)
         
-        //loadPlayers()
-
+        print(self.match)
+        
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
@@ -73,27 +84,18 @@ class MultiplayerGameView: UIViewController {
         self.timerLabel.text = "00:20"
         
         super.viewDidLoad()
-    }
-    
-    func loadPlayers(){
-        //get players and add them to the P1: & P2 labels
-        let playerArray = match?.players
-        print ("The player array count is \(playerArray?.count ?? -99)")
-        if playerArray!.count > 0 {
-            playerOneLabel.text = GKLocalPlayer.local.alias
-            playerTwoLabel.text = playerArray?[0].alias
-        }
+        //GKMatch.SendDataMode = GKMatch
     }
     
     func sendData(turnLog: Data) {
         do {
             if GKLocalPlayer.local.isAuthenticated {
                 print("Player is Authenticated")
-                if match != nil {
+                if true {
                     print("Match is NOT nil")
-                    print("Match expected players: \(match?.expectedPlayerCount ?? -99)")
+                    print("Match expected players: \(StoreMatch.gkMatch.expectedPlayerCount)")
                     
-                    try match?.sendData(toAllPlayers: turnLog, with: GKMatch.SendDataMode.reliable)
+                    try StoreMatch.gkMatch.sendData(toAllPlayers: turnLog, with: GKMatch.SendDataMode.reliable)
                     print("DATA SENT!")
                 } else {
                     print("MATCH IS NIL")
@@ -107,11 +109,17 @@ class MultiplayerGameView: UIViewController {
     func receiveData(turnLog: Data, player: GKPlayer) {
         let receivedString = NSString(data: turnLog as Data, encoding: String.Encoding.utf8.rawValue)
         print ("Received: \(receivedString ?? "ERROR ERROR REDRUM REDRUM")")
-        parseReceivedData(dataString: receivedString! as String, player: player)
+        self.enemyScore = receivedString as! String
+        print("enemy is at \(receivedString!)")
+        //update label
+        //parseReceivedData(dataString: receivedString! as String, player: player)
     }
     
     func parseReceivedData(dataString: String, player: GKPlayer) {
+        print("parsing")
 
+         let separatedData = dataString.split(separator: ",")
+        print(separatedData)
     }
     
     func generateProblem(){
@@ -217,6 +225,10 @@ class MultiplayerGameView: UIViewController {
     }
 
     @IBAction func boxTouched(_ sender: UIButton) {
+        
+        
+        
+        
         //sender.isSelected = !sender.isSelected
         let index = boxes.index(of: sender)!
         questionData.correctAnswer = "\(correctAns!)"
@@ -230,6 +242,9 @@ class MultiplayerGameView: UIViewController {
             print("correct answer chosen")
             questionData.isCorrect = true
             currentScore += 1
+            
+            
+            
         }
         else{
             RightOrWrong.fadeOut(completion: {
@@ -244,6 +259,10 @@ class MultiplayerGameView: UIViewController {
         /* Push questionInfo object to array to pass into MenuView */
         questionInfoArrayGV.append(questionData)
         generateProblem()
+        
+        let turnLog = "\(currentScore)"
+        let turnData = turnLog.data(using: .utf8)
+        sendData(turnLog: turnData!)
     }
     
 
@@ -264,6 +283,7 @@ class MultiplayerGameView: UIViewController {
     
     func endTimer() {
         timerCountdown.invalidate()
+        
         performSegue(withIdentifier: "scoreBoard", sender: self)
         gameComplete = true
     }
@@ -277,6 +297,17 @@ class MultiplayerGameView: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "scoreBoard") {
+            //sendData(turnLog: "abcdef".data(using: .utf8)!)
+            var tmp = segue.destination as! MultiplayerScoringView
+            tmp.enemyScore = self.enemyScore
+            tmp.userScore = "\(self.currentScore)"
+        }
+    }
+    
+    
 }
 
 extension MultiplayerGameView: GKMatchDelegate {
@@ -288,7 +319,6 @@ extension MultiplayerGameView: GKMatchDelegate {
         receiveData(turnLog: data, player: player)
     }
     
-    @available(iOS 9.0, *)
     func match(_ match: GKMatch, didReceive data: Data, forRecipient recipient: GKPlayer, fromRemotePlayer player: GKPlayer) {
         print("RECEIVED DATA 9.0")
         receiveData(turnLog: data, player: player)

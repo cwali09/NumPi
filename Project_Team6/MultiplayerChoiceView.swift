@@ -10,6 +10,10 @@ import UIKit
 import GameKit
 import MultipeerConnectivity
 
+struct StoreMatch {
+    static var gkMatch = GKMatch()
+}
+
 class MultiplayerChoiceView: UIViewController {
     
     @IBAction func easy(_ sender: UIButton) {
@@ -27,6 +31,17 @@ class MultiplayerChoiceView: UIViewController {
         UserDefaults.standard.set("Hard", forKey: "currentLVL")
         startTapped()
     }
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "MultiplayerGame" {
+//            let passToMultiplayer = segue.destination as! MultiplayerGameView
+//            if (currentMatch == nil)
+//            {
+//                print("CURRENT MATCH IS NIL!")
+//            }
+//            passToMultiplayer.match = currentMatch
+//        }
+//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,10 +71,17 @@ class MultiplayerChoiceView: UIViewController {
         gameScreenVC.definesPresentationContext = true
         gameScreenVC.modalPresentationStyle = UIModalPresentationStyle.fullScreen
         gameScreenVC.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
-        gameScreenVC.match = match
+        
+        StoreMatch.gkMatch = match
+        
+        print("PRINTING MATCH PLAYERS")
+        print("I am: ")
+        print(GKLocalPlayer.local.alias)
+        print("Opponent is: ")
+        print(StoreMatch.gkMatch.players[0].alias)
+        print(StoreMatch.gkMatch.players.count)
         self.present(gameScreenVC, animated: true, completion: nil)
     }
-
 }
 
 
