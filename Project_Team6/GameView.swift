@@ -91,8 +91,24 @@ class GameView: UIViewController, userDelegate {
     
     override func viewDidLoad() {
         let currentDateTime = Date()
-        //currentDateTime.timeIntervalSinceReferenceDate
+        currentDateTime.timeIntervalSinceReferenceDate
+        
+//
+//        let interval = 10
+//        let formatter = DateComponentsFormatter()
+//        formatter.allowedUnits = [.hour, .minute, .second]
+//        formatter.unitsStyle = .full
+//
+//        let formattedString = formatter.string(from: TimeInterval(interval))!
+//        print("FORMATTED STRING")
+//        print(formattedString)
+//
+//        var seedInterval = TimeInterval(interval)
         rs.seed =  UInt64(currentDateTime.timeIntervalSinceReferenceDate)
+//        rs.seed =  UInt64(currentDateTime-seedInterval)
+        print(currentDateTime.timeIntervalSinceReferenceDate)
+        print("RS.SEED IS: ")
+        print(rs.seed)
         super.viewDidLoad()
         
         loggedInUser.currentUsername =  UserDefaults.standard.string(forKey: "currentUsername")
@@ -193,23 +209,25 @@ class GameView: UIViewController, userDelegate {
         return "\(self.num1!) \(self.currentProblem!) \(self.num2!)"
     }
     func randomMedProblem()->String{
+        let rd = GKRandomDistribution(randomSource: rs, lowestValue: 0, highestValue: 12)
         let array = ["+","-","x",]
         self.currentProblem=array.randomElement()!
         if self.currentProblem! != "x"{
-            self.num1 = 10*Int.random(in: 0...12)
+            self.num1 = rd.nextInt(upperBound: 12) * 10 // 10*Int.random(in: 0...12)
         }
         else{
-            self.num1 = Int.random(in: 0...12)
+            self.num1 = rd.nextInt(upperBound: 12) * 10 // Int.random(in: 0...12)
         }
         //num2 cannot be 0 because may cause a divide by 0
-        self.num2 = Int.random(in: 0...12)
+        self.num2 = rd.nextInt(upperBound: 12) * 10 //Int.random(in: 0...12)
         return "\(self.num1!) \(self.currentProblem!) \(self.num2!)"
     }
     func randomHardProblem()->String{
+        let rd = GKRandomDistribution(randomSource: rs, lowestValue: 0, highestValue: 25)
         let array = ["+","-","x","/"]
-        self.num1 = (10*Int.random(in: 0...100))
+        self.num1 = 10 * rd.nextInt(upperBound: 25)
         //num2 cannot be 0 because may cause a divide by 0
-        self.num2 = (10*Int.random(in: 1...10))
+        self.num2 = 10 * rd.nextInt(upperBound: 25)
         //print(self.num2!)
         if self.num1! != 0 && self.num1! < self.num2!{
             let temp = self.num1!
@@ -224,6 +242,7 @@ class GameView: UIViewController, userDelegate {
         return "\(self.num1!) \(self.currentProblem!) \(self.num2!)"
     }
     var currentScore = 0
+    var tempScore = 0
     @IBAction func boxTouched(_ sender: UIButton) {
         //sender.isSelected = !sender.isSelected
         let index = boxes.index(of: sender)!
@@ -239,12 +258,17 @@ class GameView: UIViewController, userDelegate {
             print("correct answer chosen")
             questionInfo.isCorrect = true
             currentScore += 1
+            tempScore += 1
+            if tempScore > 3 {
+                currentScore += 1
+            }
         }
         else{
             answerOutput.fadeOut(completion: {
                 (finished: Bool) -> Void in
                 self.answerOutput.text = "Wrong!"
                 self.answerOutput.fadeIn()
+                self.tempScore = 0
             })
             //answerOutput.text = "Wrong!"
             print("Wrong Answer!")

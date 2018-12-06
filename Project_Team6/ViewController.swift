@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GameKit
 import AVFoundation
 
 protocol audioControlDelegate {
@@ -112,6 +113,8 @@ class ViewController: UIViewController, difficultyLevel, userDelegate, audioCont
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        authenticatePlayer()
         /* Set the audio player */
         /*do {
             self.audioControl = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: "8-bit-sound-adventure", ofType: "mp3")!))
@@ -229,5 +232,29 @@ extension String {
     func toJSON() -> Any? {
         guard let data = self.data(using: .utf8, allowLossyConversion: false) else { return nil }
         return try? JSONSerialization.jsonObject(with: data, options: .mutableContainers)
+    }
+}
+
+extension ViewController: GKGameCenterControllerDelegate
+{
+    
+    func authenticatePlayer()
+    {
+        let localPlayer = GKLocalPlayer.local
+        
+        localPlayer.authenticateHandler = {
+            (view, error) in
+            if view != nil
+            {
+                self.present(view!, animated: true, completion: nil)
+            } else {
+                print("AUTHENTICATED!")
+                print(GKLocalPlayer.local.isAuthenticated)
+            }
+        }
+    }
+    
+    func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
+        gameCenterViewController.dismiss(animated: true, completion: nil)
     }
 }
