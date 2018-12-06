@@ -223,11 +223,11 @@ class GameView: UIViewController, userDelegate {
         return "\(self.num1!) \(self.currentProblem!) \(self.num2!)"
     }
     func randomHardProblem()->String{
-        let rd = GKRandomDistribution(randomSource: rs, lowestValue: 0, highestValue: 100)
+        let rd = GKRandomDistribution(randomSource: rs, lowestValue: 0, highestValue: 25)
         let array = ["+","-","x","/"]
-        self.num1 = 10 * rd.nextInt(upperBound: 100)
+        self.num1 = 10 * rd.nextInt(upperBound: 25)
         //num2 cannot be 0 because may cause a divide by 0
-        self.num2 = 10 * rd.nextInt(upperBound: 100)
+        self.num2 = 10 * rd.nextInt(upperBound: 25)
         //print(self.num2!)
         if self.num1! != 0 && self.num1! < self.num2!{
             let temp = self.num1!
@@ -242,6 +242,7 @@ class GameView: UIViewController, userDelegate {
         return "\(self.num1!) \(self.currentProblem!) \(self.num2!)"
     }
     var currentScore = 0
+    var tempScore = 0
     @IBAction func boxTouched(_ sender: UIButton) {
         //sender.isSelected = !sender.isSelected
         let index = boxes.index(of: sender)!
@@ -257,12 +258,17 @@ class GameView: UIViewController, userDelegate {
             print("correct answer chosen")
             questionInfo.isCorrect = true
             currentScore += 1
+            tempScore += 1
+            if tempScore > 3 {
+                currentScore += 1
+            }
         }
         else{
             answerOutput.fadeOut(completion: {
                 (finished: Bool) -> Void in
                 self.answerOutput.text = "Wrong!"
                 self.answerOutput.fadeIn()
+                self.tempScore = 0
             })
             //answerOutput.text = "Wrong!"
             print("Wrong Answer!")

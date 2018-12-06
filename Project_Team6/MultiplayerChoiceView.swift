@@ -16,9 +16,12 @@ struct StoreMatch {
 
 class MultiplayerChoiceView: UIViewController {
     
+    var opponentLevel = ""
+    
     @IBAction func easy(_ sender: UIButton) {
         //level = "Easy"
         UserDefaults.standard.set("Easy", forKey: "currentLVL")
+        
         startTapped()
     }
     
@@ -31,22 +34,9 @@ class MultiplayerChoiceView: UIViewController {
         UserDefaults.standard.set("Hard", forKey: "currentLVL")
         startTapped()
     }
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "MultiplayerGame" {
-//            let passToMultiplayer = segue.destination as! MultiplayerGameView
-//            if (currentMatch == nil)
-//            {
-//                print("CURRENT MATCH IS NIL!")
-//            }
-//            passToMultiplayer.match = currentMatch
-//        }
-//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        authenticatePlayer()
         
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
@@ -54,11 +44,26 @@ class MultiplayerChoiceView: UIViewController {
     
     
     func startTapped() {
+        /*let lvl = UserDefaults.standard.string(forKey: "currentLVL")
+        let turnLog = "\(self.currentUser),\(lvl)"
+        let turnData = turnLog.data(using: .utf8)
+        sendData(turnLog: turnData!)*/
+        
+        
         let request = GKMatchRequest()
         request.maxPlayers = 2
         request.minPlayers = 2
         request.inviteMessage = "Lets Play NumPi!"
-        request.playerGroup = 1
+        if UserDefaults.standard.string(forKey: "currentLVL") == "Easy"{
+            request.playerGroup=1
+        }
+        else if UserDefaults.standard.string(forKey: "currentLVL") == "Medium"{
+            request.playerGroup=2
+        }
+        else{
+            request.playerGroup=3
+        }
+        //request.playerGroup = 1
         
         let mmvc = GKMatchmakerViewController(matchRequest: request)
         mmvc?.matchmakerDelegate = self
@@ -81,31 +86,6 @@ class MultiplayerChoiceView: UIViewController {
         print(StoreMatch.gkMatch.players[0].alias)
         print(StoreMatch.gkMatch.players.count)
         self.present(gameScreenVC, animated: true, completion: nil)
-    }
-}
-
-
-extension MultiplayerChoiceView: GKGameCenterControllerDelegate
-{
-    
-    func authenticatePlayer()
-    {
-        let localPlayer = GKLocalPlayer.local
-        
-        localPlayer.authenticateHandler = {
-            (view, error) in
-            if view != nil
-            {
-                self.present(view!, animated: true, completion: nil)
-            } else {
-                print("AUTHENTICATED!")
-                print(GKLocalPlayer.local.isAuthenticated)
-            }
-        }
-    }
-    
-    func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
-        gameCenterViewController.dismiss(animated: true, completion: nil)
     }
 }
 

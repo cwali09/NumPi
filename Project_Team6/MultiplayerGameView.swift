@@ -25,6 +25,7 @@ class MultiplayerGameView: UIViewController{
     var questionData = problemInfo()
     var currentProblem: String?
     var currentScore = 0
+    var tempScore = 0
     var num1: Int?
     var num2: Int?
     var correctAns: Int?
@@ -109,8 +110,28 @@ class MultiplayerGameView: UIViewController{
     func receiveData(turnLog: Data, player: GKPlayer) {
         let receivedString = NSString(data: turnLog as Data, encoding: String.Encoding.utf8.rawValue)
         print ("Received: \(receivedString ?? "ERROR ERROR REDRUM REDRUM")")
-        self.enemyScore = receivedString as! String
+        /*let splitdata = receivedString?.components(separatedBy: ",")
+        
+        self.enemyScore = splitdata![0]
+        if (splitdata![1] != UserDefaults.standard.string(forKey: "currentLVL"))
+        {
+            /*let lvl = UserDefaults.standard.string(forKey: "currentLVL")
+            let turnLog = "\(self.currentScore),\(lvl!)"
+            let turnData = turnLog.data(using: .utf8)
+            sendData(turnLog: turnData!)*/
+            
+            print("error, wrong levels")
+            //do not match
+            //cancel execution
+            StoreMatch.gkMatch.disconnect() //leave
+            
+            performSegue(withIdentifier: "goback", sender: self)
+            showToast(message: "Diffulty does not match")
+            
+        }*/
         print("enemy is at \(receivedString!)")
+        self.enemyScore = receivedString! as String
+        
         //update label
         //parseReceivedData(dataString: receivedString! as String, player: player)
     }
@@ -190,6 +211,7 @@ class MultiplayerGameView: UIViewController{
         self.currentProblem = array[rd.nextInt()%2]
         return "\(self.num1!) \(self.currentProblem!) \(self.num2!)"
     }
+    
     func randomMedProblem()->String{
         let rd = GKRandomDistribution(randomSource: rs, lowestValue: 0, highestValue: 12)
         let array = ["+","-","x",]
@@ -205,11 +227,11 @@ class MultiplayerGameView: UIViewController{
         return "\(self.num1!) \(self.currentProblem!) \(self.num2!)"
     }
     func randomHardProblem()->String{
-        let rd = GKRandomDistribution(randomSource: rs, lowestValue: 0, highestValue: 100)
+        let rd = GKRandomDistribution(randomSource: rs, lowestValue: 0, highestValue: 25)
         let array = ["+","-","x","/"]
-        self.num1 = 10 * rd.nextInt(upperBound: 100)
+        self.num1 = 10 * rd.nextInt(upperBound: 25)
         //num2 cannot be 0 because may cause a divide by 0
-        self.num2 = 10 * rd.nextInt(upperBound: 100)
+        self.num2 = 10 * rd.nextInt(upperBound: 25)
         //print(self.num2!)
         if self.num1! != 0 && self.num1! < self.num2!{
             let temp = self.num1!
@@ -225,10 +247,6 @@ class MultiplayerGameView: UIViewController{
     }
 
     @IBAction func boxTouched(_ sender: UIButton) {
-        
-        
-        
-        
         //sender.isSelected = !sender.isSelected
         let index = boxes.index(of: sender)!
         questionData.correctAnswer = "\(correctAns!)"
@@ -242,9 +260,10 @@ class MultiplayerGameView: UIViewController{
             print("correct answer chosen")
             questionData.isCorrect = true
             currentScore += 1
-            
-            
-            
+            tempScore += 1
+            if tempScore > 3 {
+                currentScore += 1
+            }
         }
         else{
             RightOrWrong.fadeOut(completion: {
@@ -255,14 +274,17 @@ class MultiplayerGameView: UIViewController{
             //answerOutput.text = "Wrong!"
             print("Wrong Answer!")
             questionData.isCorrect = false
+            tempScore = 0
         }
         /* Push questionInfo object to array to pass into MenuView */
         questionInfoArrayGV.append(questionData)
         generateProblem()
         
         let turnLog = "\(currentScore)"
+        print("SENDING: \(turnLog)")
         let turnData = turnLog.data(using: .utf8)
         sendData(turnLog: turnData!)
+
     }
     
 
@@ -281,9 +303,9 @@ class MultiplayerGameView: UIViewController{
         }
     }
     
+    
     func endTimer() {
         timerCountdown.invalidate()
-        
         performSegue(withIdentifier: "scoreBoard", sender: self)
         gameComplete = true
     }
@@ -351,5 +373,4 @@ extension MultiplayerGameView: GKMatchDelegate {
         return true
     }
 }
-
 
