@@ -17,13 +17,15 @@ struct StoreMatch {
 class MultiplayerChoiceView: UIViewController {
     
     var opponentLevel = ""
-    
+    @IBOutlet weak var multiplayerButton: UIButton!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         StoreMatch.gkMatch.delegate = nil
         authenticatePlayer()
         self.view.addBackground()
         
+        multiplayerButton.setBackgroundImage(UIImage(named: "LeaderBoard.png"), for: .normal)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
@@ -40,6 +42,13 @@ class MultiplayerChoiceView: UIViewController {
     @IBAction func hard(_ sender: UIButton) {
         UserDefaults.standard.set("Hard", forKey: "currentLVL")
         startTapped()
+    }
+    
+    @IBAction func leaderboardBtn(_ sender: UIButton) {
+        let GameCenterVC = GKGameCenterViewController()
+        GameCenterVC.gameCenterDelegate = self as! GKGameCenterControllerDelegate
+        
+        self.present(GameCenterVC, animated: true, completion: nil)
     }
     
     

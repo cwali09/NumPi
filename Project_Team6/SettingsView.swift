@@ -217,15 +217,17 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
             return nil//if empty section, no header
         }
         let header = UILabel()
+        let sectionWidth = (tableView.frame.width / 2) - 50
         header.text = sectionName[section]
-        header.frame = CGRect(x: 115, y: 8, width: 200, height: 35)
+        header.frame = CGRect(x: sectionWidth, y: 8, width: 200, height: 35)
         //header.textAlignment = .center
         header.textColor = UIColor.white
         header.font = UIFont(name: "K2D Medium", size: 18)
         let view = UIView()
         view.backgroundColor = UIColor.clear
         let image = UIImageView(image: UIImage(named: "plank"))
-        image.frame = CGRect(x: 0, y: 0, width: 350, height: 50)
+        let tWidth = tableView.frame.width
+        image.frame = CGRect(x: 0, y: 0, width: tWidth, height: 50)
         view.addSubview(image)
         view.addSubview(header)
         

@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -95,19 +94,32 @@
                                     <constraint firstAttribute="height" constant="70" id="HWv-8Y-Yhp"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MEr-qY-qlf">
+                                <rect key="frame" x="62.5" y="577" width="250" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="Cgf-jJ-ZfD"/>
+                                    <constraint firstAttribute="width" constant="250" id="u9A-mf-ftY"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="leaderboardBtn:" destination="tkB-QP-QEK" eventType="touchUpInside" id="jKo-il-wuT"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="MEr-qY-qlf" firstAttribute="centerX" secondItem="lm8-kN-FU6" secondAttribute="centerX" id="2kh-19-NVX"/>
                             <constraint firstItem="Ega-Ht-csy" firstAttribute="centerY" secondItem="lm8-kN-FU6" secondAttribute="centerY" id="3sB-he-owJ"/>
                             <constraint firstItem="P67-5t-EMY" firstAttribute="top" secondItem="lm8-kN-FU6" secondAttribute="top" constant="20" id="4XX-in-cr6"/>
                             <constraint firstItem="s96-RG-P0M" firstAttribute="centerX" secondItem="lm8-kN-FU6" secondAttribute="centerX" id="H8v-7a-4mu"/>
                             <constraint firstItem="Ega-Ht-csy" firstAttribute="centerX" secondItem="lm8-kN-FU6" secondAttribute="centerX" id="Km6-O7-OZN"/>
                             <constraint firstItem="P67-5t-EMY" firstAttribute="leading" secondItem="lm8-kN-FU6" secondAttribute="leading" constant="20" id="afd-7K-aU5"/>
+                            <constraint firstItem="BxW-jt-sb0" firstAttribute="bottom" secondItem="MEr-qY-qlf" secondAttribute="bottom" constant="20" id="ei3-qB-o4y"/>
                             <constraint firstItem="s96-RG-P0M" firstAttribute="top" secondItem="BxW-jt-sb0" secondAttribute="top" constant="60" id="zvC-w1-9rv"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="BxW-jt-sb0"/>
                     </view>
                     <connections>
+                        <outlet property="multiplayerButton" destination="MEr-qY-qlf" id="9Nx-MN-cYJ"/>
                         <segue destination="sZO-UI-45E" kind="show" identifier="MultiplayerGame" animates="NO" id="ctQ-IZ-JP8"/>
                     </connections>
                 </viewController>
@@ -1615,10 +1627,11 @@
         <image name="score" width="980" height="658"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="ctQ-IZ-JP8"/>
         <segue reference="O8E-uR-ApR"/>
         <segue reference="zUZ-Qq-I52"/>
         <segue reference="G6k-bP-DLD"/>
-        <segue reference="3Tw-0g-EGs"/>
+        <segue reference="Yw3-ZV-yxg"/>
         <segue reference="30S-2u-Umi"/>
     </inferredMetricsTieBreakers>
 </document>

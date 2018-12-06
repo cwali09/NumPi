@@ -302,11 +302,39 @@ class MultiplayerGameView: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "scoreBoard") {
             let tmp = segue.destination as! MultiplayerScoringView
             tmp.setPlayerScores(enemyScore: "\(self.enemyScore)", localScore: "\(self.currentScore)")
+            sendScoreToLeaderBoard()
+        }
+    }
+    
+    func sendScoreToLeaderBoard()
+    {
+        if GKLocalPlayer.local.isAuthenticated
+        {
+            //report a highscore
+            var scoreReporter = GKScore.init()
+            if(UserDefaults.standard.string(forKey: "currentLVL") == "Easy")
+            {
+                scoreReporter = GKScore.init(leaderboardIdentifier: "MultiplayerEasy")  //Identifier in ITunesConnect
+            }
+            else if(UserDefaults.standard.string(forKey: "currentLVL") == "Medium")
+            {
+                scoreReporter = GKScore.init(leaderboardIdentifier: "MultiplayerMedium")    //Identifier in ITunesConnect
+            }
+            else
+            {
+                scoreReporter = GKScore.init(leaderboardIdentifier: "MultiplayerHard")  //Identifier in ITunesConnect
+            }
+            scoreReporter.value = Int64(currentScore)
+            let scoreArray: [GKScore] = [scoreReporter]
+            GKScore.report(scoreArray, withCompletionHandler: nil)
+            
+            print("HighScore Reported")
+        } else {
+            print("ERROR REPORTING HIGHSCORE")
         }
     }
 }
@@ -337,7 +365,6 @@ extension MultiplayerGameView: GKMatchDelegate {
             print("Players in Match: \(match.players.count)")
         }
     }
-    
     
     // The match was unable to be established with any players due to an error.
     @available(iOS 4.1, *)
