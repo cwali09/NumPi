@@ -10,7 +10,7 @@ import UIKit
 import GameKit
 import MultipeerConnectivity
 
-class MultiplayerGameView: UIViewController{
+class MultiplayerGameView: UIViewController {
     
     @IBOutlet var boxes : [UIButton]!
     @IBOutlet weak var timerLabel: UILabel!
@@ -33,20 +33,24 @@ class MultiplayerGameView: UIViewController{
     var match: GKMatch?
     @IBOutlet weak var RightOrWrong: UILabel!
     var currentMatch:GKMatch = StoreMatch.gkMatch
-    
-    var enemyScore = "0"
-    
+    var enemyScore = 0
     var loggedInUser:currentUser = currentUser()
+    var coinPlayer = AVAudioPlayer()
     
     func setUser(user: currentUser) {
         self.loggedInUser = user
     }
-    
-    /* Audio for the coin sound (correct answer) */
-    var coinPlayer = AVAudioPlayer()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let turnLog = "\(currentScore)"
+        let turnData = turnLog.data(using: .utf8)
+        sendData(turnLog: turnData!)
+        
+        print("------------------------")
+        print(turnData!)
+        print("------------------------")
         
         self.view.addBackground()
         
@@ -97,16 +101,8 @@ class MultiplayerGameView: UIViewController{
     func sendData(turnLog: Data) {
         do {
             if GKLocalPlayer.local.isAuthenticated {
-                print("Player is Authenticated")
-                if true {
-                    print("Match is NOT nil")
-                    print("Match expected players: \(StoreMatch.gkMatch.expectedPlayerCount)")
-                    
-                    try StoreMatch.gkMatch.sendData(toAllPlayers: turnLog, with: GKMatch.SendDataMode.reliable)
-                    print("DATA SENT!")
-                } else {
-                    print("MATCH IS NIL")
-                }
+                try StoreMatch.gkMatch.sendData(toAllPlayers: turnLog, with: .reliable)
+                print("SENDING HERE")
             }
         } catch {
             print("ERROR: \(error.localizedDescription)")
@@ -115,43 +111,15 @@ class MultiplayerGameView: UIViewController{
     
     func receiveData(turnLog: Data, player: GKPlayer) {
         let receivedString = NSString(data: turnLog as Data, encoding: String.Encoding.utf8.rawValue)
-        print ("Received: \(receivedString ?? "ERROR ERROR REDRUM REDRUM")")
-        /*let splitdata = receivedString?.components(separatedBy: ",")
-        
-        self.enemyScore = splitdata![0]
-        if (splitdata![1] != UserDefaults.standard.string(forKey: "currentLVL"))
-        {
-            /*let lvl = UserDefaults.standard.string(forKey: "currentLVL")
-            let turnLog = "\(self.currentScore),\(lvl!)"
-            let turnData = turnLog.data(using: .utf8)
-            sendData(turnLog: turnData!)*/
-            
-            print("error, wrong levels")
-            //do not match
-            //cancel execution
-            StoreMatch.gkMatch.disconnect() //leave
-            
-            performSegue(withIdentifier: "goback", sender: self)
-            showToast(message: "Diffulty does not match")
-            
-        }*/
-        print("enemy is at \(receivedString!)")
-        self.enemyScore = receivedString! as String
-        
-        //update label
-        //parseReceivedData(dataString: receivedString! as String, player: player)
-    }
-    
-    func parseReceivedData(dataString: String, player: GKPlayer) {
-        print("parsing")
-
-         let separatedData = dataString.split(separator: ",")
-        print(separatedData)
+        let tempString = receivedString! as String
+        self.enemyScore = Int(tempString)!
+        print(receivedString!)
+        print(enemyScore)
+        print("RECEIVING HERE")
     }
     
     func generateProblem(){
         SetLevel = UserDefaults.standard.string(forKey: "currentLVL")
-        print("USERDEFAULT:" + SetLevel!)
         if(self.SetLevel=="Easy"){
             self.answerOutput.text = randomEasyProblem()
             questionData.problem = self.answerOutput.text
@@ -238,7 +206,6 @@ class MultiplayerGameView: UIViewController{
         self.num1 = 10 * rd.nextInt(upperBound: 25)
         //num2 cannot be 0 because may cause a divide by 0
         self.num2 = 10 * rd.nextInt(upperBound: 25)
-        //print(self.num2!)
         if self.num1! != 0 && self.num1! < self.num2!{
             let temp = self.num1!
             self.num1! = self.num2!
@@ -253,7 +220,6 @@ class MultiplayerGameView: UIViewController{
     }
 
     @IBAction func boxTouched(_ sender: UIButton) {
-        //sender.isSelected = !sender.isSelected
         let index = boxes.index(of: sender)!
         questionData.correctAnswer = "\(correctAns!)"
         questionData.userAnswer = boxes[index].titleLabel?.text
@@ -263,10 +229,8 @@ class MultiplayerGameView: UIViewController{
                 self.RightOrWrong.text = "Correct!"
                 self.RightOrWrong.fadeIn()
             })
-            print("correct answer chosen")
             
             /* Coin player plays when answer is correct */
-            
             if(!SharedAudioControl.mute){
                 self.coinPlayer.play()
             }else{
@@ -286,23 +250,22 @@ class MultiplayerGameView: UIViewController{
                 self.RightOrWrong.text = "Wrong!"
                 self.RightOrWrong.fadeIn()
             })
-            //answerOutput.text = "Wrong!"
-            print("Wrong Answer!")
             questionData.isCorrect = false
             tempScore = 0
         }
-        /* Push questionInfo object to array to pass into MenuView */
+        
         questionInfoArrayGV.append(questionData)
-        generateProblem()
         
         let turnLog = "\(currentScore)"
         print("SENDING: \(turnLog)")
         let turnData = turnLog.data(using: .utf8)
         sendData(turnLog: turnData!)
-
+        print("------------------------")
+        var a:String = String(decoding: turnData!, as: UTF8.self)
+        print(a)
+        print("------------------------")
+        generateProblem()
     }
-    
-
     
     @objc func startTimer() {
         timerCountdown = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
@@ -313,16 +276,20 @@ class MultiplayerGameView: UIViewController{
         
         if totalTime != 0 {
             totalTime -= 1
+            self.view.setNeedsDisplay()
         } else {
             endTimer()
         }
     }
     
-    
     func endTimer() {
         timerCountdown.invalidate()
+        for box in boxes {
+            box.isEnabled = false
+        }
         performSegue(withIdentifier: "scoreBoard", sender: self)
         gameComplete = true
+        self.removeFromParent()
     }
     
     func timeFormatted(_ totalSeconds: Int) -> String {
@@ -335,16 +302,13 @@ class MultiplayerGameView: UIViewController{
         super.didReceiveMemoryWarning()
     }
     
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "scoreBoard") {
-            //sendData(turnLog: "abcdef".data(using: .utf8)!)
             let tmp = segue.destination as! MultiplayerScoringView
-            tmp.enemyScore = self.enemyScore
-            tmp.userScore = "\(self.currentScore)"
+            tmp.setPlayerScores(enemyScore: "\(self.enemyScore)", localScore: "\(self.currentScore)")
         }
     }
-    
-    
 }
 
 extension MultiplayerGameView: GKMatchDelegate {
@@ -369,7 +333,7 @@ extension MultiplayerGameView: GKMatchDelegate {
             print("READY STEADY CAPTAIN!")
             print("Players in Match: \(match.players.count)")
         } else {
-            print ("SHIT SON, PLAYERS ARE MISSING!")
+            print ("PLAYERS ARE MISSING!")
             print("Players in Match: \(match.players.count)")
         }
     }

@@ -10,7 +10,6 @@ import UIKit
 
 class FriendsView: UIViewController {
     
-    
     @IBOutlet weak var uname: UILabel!
     @IBOutlet weak var easy: UILabel!
     @IBOutlet weak var medium: UILabel!

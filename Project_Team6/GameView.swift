@@ -22,85 +22,48 @@ protocol difficultyLevel {
 }
 
 class GameView: UIViewController, userDelegate {
+    
+    @IBOutlet var boxes : [UIButton]!
+    @IBOutlet weak var problemScreen: UILabel!
+    @IBOutlet weak var timerLbl: UILabel!
+    var muted: Bool?
+    var coinPlayer = AVAudioPlayer()
+    let rs = GKMersenneTwisterRandomSource()
+    var questionInfo = problemInfo()
+    var score: scoreBoard?
+    var SetLevel: String?
+    var SetScore: String?
+    @IBOutlet weak var scrollView: UIImageView!
+    var loggedInUser:currentUser = currentUser()
+    var currentProblem: String?
+    var num1: Int?
+    var num2: Int?
+    var correctAns: Int?
+    @IBOutlet weak var answerOutput: UILabel!
+    var currentScore = 0
+    var tempScore = 0
+    var countdownTimer: Timer!
+    var totalTime = 20
+    var gameComplete = false
+    
     @IBAction func menu(_ sender: UIButton) {
         performSegue(withIdentifier: "home", sender: self)
     }
-    // Game Seed
-    let rs = GKMersenneTwisterRandomSource()
-    
-    /* Store all the problem information and User Input to pass to the Settings View */
-    var questionInfo = problemInfo()
-    
-//    var button = dropDownBtn()
-    
-    // Delegate Variables
-    var score: scoreBoard?
-    
-    //var lvl: difficultyLevel?
-    var SetLevel: String?
-    var SetScore: String?
-    
-    // Drop-down Menu Button
-    //var button = dropDownBtn()
-    
-    //    var gameUser = currentUser()
-    
-    @IBOutlet weak var scrollView: UIImageView!
-    
-    var loggedInUser:currentUser = currentUser()
-    
+
     func setUser(user: currentUser) {
         self.loggedInUser = user
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
-        if segue.identifier == "menuSeg" {
-            let passToMenu = segue.destination as! MenuView
-            
-            //pass level and score
-            passToMenu.passedScore = "\(currentScore)"
-            passToMenu.passedLevel = SetLevel!
-            dump(self)
-            
-            
-            
-            //passToMenu.showRecent = "0"
-            score?.setScore(currentScore: "0")
-            SetScore = "\(currentScore)"
-            showRecent = SetScore!
-            score?.setScore(currentScore: SetScore!)
 
-            passToMenu.recentGame = true
-        }
-    }
-    
-    // Answser buttons -- Link these buttons to some sort of random variables
-    // correct answer will need to be set in stone
-    // Each button stored in boxes, Access by Index 1 - 6
-    @IBOutlet var boxes : [UIButton]!
-    
-    // Show problems
-    @IBOutlet weak var problemScreen: UILabel!
-    
-    // Show timer
-    @IBOutlet weak var timerLbl: UILabel!
-    
-    /*create variable to see if it is muted*/
-    var muted: Bool?
-    /* Audio for the coin sound (correct answer) */
-    var coinPlayer = AVAudioPlayer()
-    var SoundMuted: Bool = false
-
-    
     override func viewDidLoad() {
         let currentDateTime = Date()
         currentDateTime.timeIntervalSinceReferenceDate
         self.view.addBackground()
+        for box in boxes {
+            box.setBackgroundImage(UIImage(named: "answerButton"), for: .normal)
+            dump(box)
+        }
 
         rs.seed =  UInt64(currentDateTime.timeIntervalSinceReferenceDate)
-        print(currentDateTime.timeIntervalSinceReferenceDate)
-        print("RS.SEED IS: ")
-        print(rs.seed)
         super.viewDidLoad()
         
         loggedInUser.currentUsername =  UserDefaults.standard.string(forKey: "currentUsername")
@@ -109,11 +72,8 @@ class GameView: UIViewController, userDelegate {
         loggedInUser.currentUUID = UserDefaults.standard.string(forKey: "currentUUID")
         loggedInUser.mute = UserDefaults.standard.bool(forKey: "mute")
         self.muted = UserDefaults.standard.bool(forKey: "mute")
-        
-        
-        // Set background img
+
         scrollView.image = UIImage(named: "scrollProblems.jpg")
-        /* Set up the Coin audio player */
         do {
             self.coinPlayer = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: "correctAnswer", ofType: "mp3")!))
             self.coinPlayer.prepareToPlay()
@@ -121,24 +81,27 @@ class GameView: UIViewController, userDelegate {
             print(error)
         }
         
-        // Iterate through buttons and change text
         questionInfoArrayGV.removeAll()
         generateProblem()
         startTimer()
-        print("USERNAME IS: ")
-        print(loggedInUser.currentUsername!)
-
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
-    var currentProblem: String?
-    var num1: Int?
-    var num2: Int?
-    var correctAns: Int?
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
+        if segue.identifier == "menuSeg" {
+            let passToMenu = segue.destination as! MenuView
+            passToMenu.passedScore = "\(currentScore)"
+            passToMenu.passedLevel = SetLevel!
+            score?.setScore(currentScore: "0")
+            SetScore = "\(currentScore)"
+            showRecent = SetScore!
+            score?.setScore(currentScore: SetScore!)
+            passToMenu.recentGame = true
+        }
+    }
     
     func generateProblem(){
         SetLevel = UserDefaults.standard.string(forKey: "currentLVL")
-        print("USERDEFAULT:" + SetLevel!)
         if(self.SetLevel=="Easy"){
             self.problemScreen.text=randomEasyProblem()
             questionInfo.problem = self.problemScreen.text
@@ -191,10 +154,7 @@ class GameView: UIViewController, userDelegate {
             }
         }
     }
-    @IBOutlet weak var answerOutput: UILabel!
     
-    //function to make an easy problem with numbers between 0 to 20
-    //function to make an easy problem with numbers between 0 to 20
     func randomEasyProblem()->String{
         let rd = GKRandomDistribution(randomSource: rs, lowestValue: 0, highestValue: 12)
         let array = ["+","-"]
@@ -206,6 +166,7 @@ class GameView: UIViewController, userDelegate {
         self.currentProblem = array[rd.nextInt()%2]
         return "\(self.num1!) \(self.currentProblem!) \(self.num2!)"
     }
+    
     func randomMedProblem()->String{
         let rd = GKRandomDistribution(randomSource: rs, lowestValue: 0, highestValue: 12)
         let array = ["+","-","x",]
@@ -220,6 +181,7 @@ class GameView: UIViewController, userDelegate {
         self.num2 = rd.nextInt(upperBound: 12) * 10 //Int.random(in: 0...12)
         return "\(self.num1!) \(self.currentProblem!) \(self.num2!)"
     }
+    
     func randomHardProblem()->String{
         let rd = GKRandomDistribution(randomSource: rs, lowestValue: 0, highestValue: 25)
         let array = ["+","-","x","/"]
@@ -235,12 +197,10 @@ class GameView: UIViewController, userDelegate {
         self.currentProblem=array.randomElement()!
         if self.currentProblem! == "/"{
             self.num1! = self.num1!/self.num2!*self.num2!
-            
         }
         return "\(self.num1!) \(self.currentProblem!) \(self.num2!)"
     }
-    var currentScore = 0
-    var tempScore = 0
+    
     @IBAction func boxTouched(_ sender: UIButton) {
         //sender.isSelected = !sender.isSelected
         let index = boxes.index(of: sender)!
@@ -277,17 +237,12 @@ class GameView: UIViewController, userDelegate {
                 self.answerOutput.fadeIn()
                 self.tempScore = 0
             })
-            //answerOutput.text = "Wrong!"
-            print("Wrong Answer!")
             questionInfo.isCorrect = false
         }
         /* Push questionInfo object to array to pass into MenuView */
         questionInfoArrayGV.append(questionInfo)
         generateProblem()
     }
-
-    var countdownTimer: Timer!
-    var totalTime = 20
     
     @objc func startTimer() {
         countdownTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
@@ -302,8 +257,6 @@ class GameView: UIViewController, userDelegate {
             endTimer()
         }
     }
-    
-    var gameComplete = false
     
     func endTimer() {
         countdownTimer.invalidate()

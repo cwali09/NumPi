@@ -10,123 +10,26 @@ import UIKit
 import GameKit
 import AVFoundation
 
-protocol audioControlDelegate {
-    func setAudioControl(audioControl: AVAudioPlayer)
-}
-
-protocol userDelegate {
-    func setUser(user: currentUser)
-}
-
-protocol problemDelegate {
-    func problemInformation(problem: problemInfo)
-}
-
-struct problemInfo {
-    var problem: String?
-    var isCorrect: Bool?
-    var userAnswer: String?
-    var correctAnswer: String?
-    
-    init(problem: String, isCorrect: Bool, userAnswer: String, correctAnswer: String) {
-        self.problem = problem
-        self.isCorrect = isCorrect
-        self.userAnswer = userAnswer
-        self.correctAnswer = correctAnswer
-    }
-    init(){
-        /* Default Constructor */
-    }
-}
-
-class PostFOrData {
-    let url: String
-    let data: String
-    init(str: String, post: String) {
-        url = str
-        data = post
-    }
-    func forData(completion:  @escaping (String) -> ()) {
-        if let url = URL(string: url) {
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            let postString : String = data
-            request.httpBody = postString.data(using: String.Encoding.utf8)
-            let task = URLSession.shared.dataTask(with: request) {
-                data, response, error in
-                if let data = data, let jsonString = String(data: data, encoding: String.Encoding.utf8), error == nil {
-                    completion(jsonString)
-                } else {
-                    print("error=\(error!.localizedDescription)")
-                }
-            }
-            task.resume()
-        }
-    }
-}
-
-struct currentUser: Codable {
-    var currentUsername: String?
-    var currentUserscore: String?
-    var currentUUID: String?
-    var currentLVL: String?
-    var mute: Bool?
-    init (){
-    }
-}
-
-/* For later: Create music control instances in all VC and adjust audiosettings from there*/
-struct SharedAudioControl {
-    static var mute: Bool = false
-    static var sharedAudioPlayer: AVAudioPlayer?
-    //static var sharedAudioPlayer: AVAudioPlayer?
-    static var currentlyPlaying = false//sharedAudioPlayer.isPlaying
-    /*static func getSharedAudioPlayer() -> AVAudioPlayer {
-        return self.sharedAudioPlayer
-    }*/
-    static func get() -> AVAudioPlayer
-     {
-        //SharedAudioControl.sharedAudioPlayer.get()
-     if (SharedAudioControl.sharedAudioPlayer == nil)
-     {
-        do {
-        SharedAudioControl.sharedAudioPlayer = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: "ocean", ofType: "mp3")!))
-            SharedAudioControl.sharedAudioPlayer!.prepareToPlay()
-        print("TESTING AUDIO IS PLAYING")
-        print(SharedAudioControl.sharedAudioPlayer!.isPlaying)
-        if (!SharedAudioControl.sharedAudioPlayer!.isPlaying && !SharedAudioControl.currentlyPlaying) {
-            SharedAudioControl.sharedAudioPlayer!.numberOfLoops = -1
-            SharedAudioControl.sharedAudioPlayer!.play()
-            SharedAudioControl.currentlyPlaying = true
-        }
-        } catch {
-            print("Audio error")
-        }
-     }
-     return SharedAudioControl.sharedAudioPlayer!
-     }
-}
-
-
 
 class ViewController: UIViewController, difficultyLevel, userDelegate, audioControlDelegate {
     
-    /* Create current User */
+    var level:String?
+    var lvl: difficultyLevel?
     var loggedInUser:currentUser = currentUser()
-    
-    /* Delegate to pass user data */
     var delegate : userDelegate?
-    
-    
-    /* Store all the problem information and User Input to pass to the Settings View */
     var questionInfo = problemInfo()
     var questionInfoArray = [problemInfo]()
-    
-    
-    /* Music Player */
     var audioControl = SharedAudioControl.sharedAudioPlayer
+    let muteimg = UIImage(named: "muteddoublenode.png")
+    let musicimg = UIImage(named: "musicdoublenode.png")
+    @IBOutlet weak var musicButtonImg: UIButton!
+    @IBOutlet weak var logoLbl: UIImageView!
     
-    /* Set this ViewController's user to the one passed in (From another ViewController) */
+    func setLevel(choice: String){
+        // set the different game levels
+        level = choice
+    }
+    
     func setUser(user: currentUser) {
         self.loggedInUser = user
     }
@@ -135,51 +38,11 @@ class ViewController: UIViewController, difficultyLevel, userDelegate, audioCont
         self.audioControl = audioControl
     }
     
-    //var mute: Bool = UserDefaults.standard.bool(forKey: "mute")
-    let muteimg = UIImage(named: "muteddoublenode.png")
-    let musicimg = UIImage(named: "musicdoublenode.png")
-    
-    @IBOutlet weak var musicButtonImg: UIButton!
-    @IBAction func muteButton(_ sender: UIButton) {
-        SharedAudioControl.mute = !SharedAudioControl.mute
-        print("mute = ")
-        print(SharedAudioControl.mute)
-        UserDefaults.standard.set(SharedAudioControl.mute, forKey: "mute")
-        if(!SharedAudioControl.mute){
-            musicButtonImg.setImage(musicimg, for: UIControl.State.normal)
-            SharedAudioControl.get().play()
-            SharedAudioControl.currentlyPlaying = true
-        }
-        else{
-            
-            musicButtonImg.setImage(muteimg, for: UIControl.State.normal)
-            SharedAudioControl.get().stop()
-            SharedAudioControl.currentlyPlaying = false
-        }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.addBackground()
-        authenticatePlayer()
-        // Set the audio player
-//        do {
-//            self.audioControl = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: "5", ofType: "mp3")!))
-//
-//            self.audioControl.prepareToPlay()
-//            print("TESTING AUDIO IS PLAYING")
-//            print(self.audioControl.isPlaying)
-//            if (!self.audioControl.isPlaying && !SharedAudioControl.currentlyPlaying) {
-//                self.audioControl.numberOfLoops = -1
-//                self.audioControl.play()
-//                SharedAudioControl.currentlyPlaying = true
-//            }
-//        } catch {
-//            print(error)
-//        }
-        
-        
+
         if(!SharedAudioControl.mute){
             musicButtonImg.setImage(musicimg, for: UIControl.State.normal)
             SharedAudioControl.get().play()
@@ -191,9 +54,7 @@ class ViewController: UIViewController, difficultyLevel, userDelegate, audioCont
             SharedAudioControl.get().stop()
             SharedAudioControl.currentlyPlaying = false
         }
-    
-        // Set background img
-        //self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
+        
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         
         self.logoLbl.image = UIImage(named: "logo.jpg")!
@@ -204,9 +65,6 @@ class ViewController: UIViewController, difficultyLevel, userDelegate, audioCont
         let pfd = PostFOrData(str: todosEndpoint, post: newTodo)
         pfd.forData { jsonString in
             let dict = jsonString.toJSON() as? [String:AnyObject]
-            print(jsonString)
-            print("================================================")
-            print(dict!)
             DispatchQueue.main.async {
                 guard let uname = dict!["data"] as? [String: Any] else {
                     print("Could not get data as Data from JSON")
@@ -226,32 +84,22 @@ class ViewController: UIViewController, difficultyLevel, userDelegate, audioCont
         }
     }
     
-    // Delegate Functions and Variables
-    var level:String?
-    var lvl: difficultyLevel?
-    
-    func setLevel(choice: String){
-        // set the different game levels
-        level = choice
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        /* Goes to Menu/Scores */
-        if segue.identifier == "seg2" {
-            /* Passing the User's data */
-            let passUserInfo = segue.destination as! MenuView
-            passUserInfo.setUser(user: self.loggedInUser)
-            passUserInfo.setAudioControl(audioControl: self.audioControl!)
+    @IBAction func muteButton(_ sender: UIButton) {
+        SharedAudioControl.mute = !SharedAudioControl.mute
+        UserDefaults.standard.set(SharedAudioControl.mute, forKey: "mute")
+        if(!SharedAudioControl.mute){
+            musicButtonImg.setImage(musicimg, for: UIControl.State.normal)
+            SharedAudioControl.get().play()
+            SharedAudioControl.currentlyPlaying = true
         }
-        else if segue.identifier == "seg1" {
-            let soundSettings = segue.destination as! GameView
-            soundSettings.SoundMuted = SharedAudioControl.mute
+        else{
+            
+            musicButtonImg.setImage(muteimg, for: UIControl.State.normal)
+            SharedAudioControl.get().stop()
+            SharedAudioControl.currentlyPlaying = false
         }
     }
-    
-    // Set logo for menu
-    @IBOutlet weak var logoLbl: UIImageView!
-    
+  
     // Set and choose different levels
     @IBAction func easyBtn(_ sender: UIButton) {
         //level = "Easy"
@@ -304,30 +152,6 @@ extension String {
     func toJSON() -> Any? {
         guard let data = self.data(using: .utf8, allowLossyConversion: false) else { return nil }
         return try? JSONSerialization.jsonObject(with: data, options: .mutableContainers)
-    }
-}
-
-extension ViewController: GKGameCenterControllerDelegate
-{
-    
-    func authenticatePlayer()
-    {
-        let localPlayer = GKLocalPlayer.local
-        
-        localPlayer.authenticateHandler = {
-            (view, error) in
-            if view != nil
-            {
-                self.present(view!, animated: true, completion: nil)
-            } else {
-                print("AUTHENTICATED!")
-                print(GKLocalPlayer.local.isAuthenticated)
-            }
-        }
-    }
-    
-    func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
-        gameCenterViewController.dismiss(animated: true, completion: nil)
     }
 }
 
