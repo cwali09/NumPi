@@ -70,18 +70,43 @@ struct currentUser: Codable {
     var currentUserscore: String?
     var currentUUID: String?
     var currentLVL: String?
+    var mute: Bool?
     init (){
     }
 }
 
 /* For later: Create music control instances in all VC and adjust audiosettings from there*/
 struct SharedAudioControl {
-    static var sharedAudioPlayer = AVAudioPlayer()
+    static var mute: Bool = false
+    static var sharedAudioPlayer: AVAudioPlayer?
+    //static var sharedAudioPlayer: AVAudioPlayer?
     static var currentlyPlaying = false//sharedAudioPlayer.isPlaying
-    static func getSharedAudioPlayer() -> AVAudioPlayer {
+    /*static func getSharedAudioPlayer() -> AVAudioPlayer {
         return self.sharedAudioPlayer
-    }
+    }*/
+    static func get() -> AVAudioPlayer
+     {
+        //SharedAudioControl.sharedAudioPlayer.get()
+     if (SharedAudioControl.sharedAudioPlayer == nil)
+     {
+        do {
+        SharedAudioControl.sharedAudioPlayer = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: "ocean", ofType: "mp3")!))
+            SharedAudioControl.sharedAudioPlayer!.prepareToPlay()
+        print("TESTING AUDIO IS PLAYING")
+        print(SharedAudioControl.sharedAudioPlayer!.isPlaying)
+        if (!SharedAudioControl.sharedAudioPlayer!.isPlaying && !SharedAudioControl.currentlyPlaying) {
+            SharedAudioControl.sharedAudioPlayer!.numberOfLoops = -1
+            SharedAudioControl.sharedAudioPlayer!.play()
+            SharedAudioControl.currentlyPlaying = true
+        }
+        } catch {
+            print("Audio error")
+        }
+     }
+     return SharedAudioControl.sharedAudioPlayer!
+     }
 }
+
 
 
 class ViewController: UIViewController, difficultyLevel, userDelegate, audioControlDelegate {
@@ -110,27 +135,63 @@ class ViewController: UIViewController, difficultyLevel, userDelegate, audioCont
         self.audioControl = audioControl
     }
     
+    //var mute: Bool = UserDefaults.standard.bool(forKey: "mute")
+    let muteimg = UIImage(named: "muteddoublenode.png")
+    let musicimg = UIImage(named: "musicdoublenode.png")
+    
+    @IBOutlet weak var musicButtonImg: UIButton!
+    @IBAction func muteButton(_ sender: UIButton) {
+        SharedAudioControl.mute = !SharedAudioControl.mute
+        print("mute = ")
+        print(SharedAudioControl.mute)
+        UserDefaults.standard.set(SharedAudioControl.mute, forKey: "mute")
+        if(!SharedAudioControl.mute){
+            musicButtonImg.setImage(musicimg, for: UIControl.State.normal)
+            SharedAudioControl.get().play()
+            SharedAudioControl.currentlyPlaying = true
+        }
+        else{
+            
+            musicButtonImg.setImage(muteimg, for: UIControl.State.normal)
+            SharedAudioControl.get().stop()
+            SharedAudioControl.currentlyPlaying = false
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.addBackground()
         authenticatePlayer()
-        /* Set the audio player */
-        /*do {
-            self.audioControl = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: "8-bit-sound-adventure", ofType: "mp3")!))
-
-            self.audioControl.prepareToPlay()
-            print("TESTING AUDIO IS PLAYING")
-            print(self.audioControl.isPlaying)
-            if (!self.audioControl.isPlaying && !SharedAudioControl.currentlyPlaying) {
-                self.audioControl.numberOfLoops = -1
-                self.audioControl.play()
-                SharedAudioControl.currentlyPlaying = true
-            }
-        } catch {
-            print(error)
-        }*/
+        // Set the audio player
+//        do {
+//            self.audioControl = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: "5", ofType: "mp3")!))
+//
+//            self.audioControl.prepareToPlay()
+//            print("TESTING AUDIO IS PLAYING")
+//            print(self.audioControl.isPlaying)
+//            if (!self.audioControl.isPlaying && !SharedAudioControl.currentlyPlaying) {
+//                self.audioControl.numberOfLoops = -1
+//                self.audioControl.play()
+//                SharedAudioControl.currentlyPlaying = true
+//            }
+//        } catch {
+//            print(error)
+//        }
         
+        
+        if(!SharedAudioControl.mute){
+            musicButtonImg.setImage(musicimg, for: UIControl.State.normal)
+            SharedAudioControl.get().play()
+            SharedAudioControl.currentlyPlaying = true
+        }
+        else{
+
+            musicButtonImg.setImage(muteimg, for: UIControl.State.normal)
+            SharedAudioControl.get().stop()
+            SharedAudioControl.currentlyPlaying = false
+        }
+    
         // Set background img
         //self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
@@ -175,6 +236,17 @@ class ViewController: UIViewController, difficultyLevel, userDelegate, audioCont
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        /* Goes to Menu/Scores */
+        if segue.identifier == "seg2" {
+            /* Passing the User's data */
+            let passUserInfo = segue.destination as! MenuView
+            passUserInfo.setUser(user: self.loggedInUser)
+            passUserInfo.setAudioControl(audioControl: self.audioControl!)
+        }
+        else if segue.identifier == "seg1" {
+            let soundSettings = segue.destination as! GameView
+            soundSettings.SoundMuted = SharedAudioControl.mute
+        }
     }
     
     // Set logo for menu

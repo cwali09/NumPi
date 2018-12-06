@@ -40,6 +40,9 @@
 		249EAB1221A4ACC7006156B5 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249EAB1121A4ACC7006156B5 /* FriendsView.swift */; };
 		249EAB1421A4AFE3006156B5 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249EAB1321A4AFE3006156B5 /* TableViewController.swift */; };
 		24C07B40216BE42000C4B216 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C07B3F216BE42000C4B216 /* MenuView.swift */; };
+		24EB09BB21B8B6290067C360 /* correctAnswer.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 24EB09BA21B8B6290067C360 /* correctAnswer.mp3 */; };
+		24EB09BD21B8B6370067C360 /* ocean.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 24EB09BC21B8B6370067C360 /* ocean.mp3 */; };
+		24EB09BF21B8B67A0067C360 /* 5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 24EB09BE21B8B67A0067C360 /* 5.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +103,9 @@
 		249EAB1121A4ACC7006156B5 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		249EAB1321A4AFE3006156B5 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		24C07B3F216BE42000C4B216 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		24EB09BA21B8B6290067C360 /* correctAnswer.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = correctAnswer.mp3; path = assets/correctAnswer.mp3; sourceTree = "<group>"; };
+		24EB09BC21B8B6370067C360 /* ocean.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = ocean.mp3; path = assets/ocean.mp3; sourceTree = "<group>"; };
+		24EB09BE21B8B67A0067C360 /* 5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = 5.mp3; path = assets/5.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +179,9 @@
 				24472C0B21B77F7800C38ADB /* GameInProgress+CoreDataProperties.swift */,
 				24912B07216BB98C00C34B6C /* Main.storyboard */,
 				24912B0A216BB98D00C34B6C /* Assets.xcassets */,
+				24EB09BE21B8B67A0067C360 /* 5.mp3 */,
+				24EB09BC21B8B6370067C360 /* ocean.mp3 */,
+				24EB09BA21B8B6290067C360 /* correctAnswer.mp3 */,
 				24912B0C216BB98D00C34B6C /* LaunchScreen.storyboard */,
 				24912B0F216BB98D00C34B6C /* Info.plist */,
 			);
@@ -331,6 +340,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24EB09BF21B8B67A0067C360 /* 5.mp3 in Resources */,
 				249E720C218A490200DB111B /* K2D-SemiBold.ttf in Resources */,
 				249E720D218A490200DB111B /* K2D-Bold.ttf in Resources */,
 				249E720E218A490200DB111B /* K2D-Thin.ttf in Resources */,
@@ -340,10 +350,12 @@
 				249E7212218A490200DB111B /* K2D-ExtraLightItalic.ttf in Resources */,
 				249E7213218A490200DB111B /* K2D-ExtraLight.ttf in Resources */,
 				249E7214218A490200DB111B /* K2D-MediumItalic.ttf in Resources */,
+				24EB09BD21B8B6370067C360 /* ocean.mp3 in Resources */,
 				249E7215218A490200DB111B /* K2D-ThinItalic.ttf in Resources */,
 				249E7216218A490200DB111B /* K2D-BoldItalic.ttf in Resources */,
 				249E7217218A490200DB111B /* OFL.txt in Resources */,
 				249E7218218A490200DB111B /* K2D-SemiBoldItalic.ttf in Resources */,
+				24EB09BB21B8B6290067C360 /* correctAnswer.mp3 in Resources */,
 				249E7219218A490200DB111B /* K2D-Light.ttf in Resources */,
 				249E721A218A490200DB111B /* K2D-ExtraBoldItalic.ttf in Resources */,
 				249E721B218A490200DB111B /* K2D-Medium.ttf in Resources */,

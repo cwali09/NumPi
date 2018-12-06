@@ -166,6 +166,9 @@
                                 <state key="normal" title="Music" image="musicdoublenode"/>
                                 <state key="disabled" image="musicdoublenode" backgroundImage="muteddoublenode"/>
                                 <state key="selected" image="muteddoublenode" backgroundImage="muteddoublenode"/>
+                                <connections>
+                                    <action selector="muteButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NXN-Od-ZZS"/>
+                                </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2FA-n6-CTh">
                                 <rect key="frame" x="62.5" y="224" width="250" height="304"/>
@@ -246,6 +249,7 @@
                     <navigationItem key="navigationItem" title="Project_Team6" id="0pB-md-m7F" colorLabel="IBBuiltInLabel-Red"/>
                     <connections>
                         <outlet property="logoLbl" destination="7gy-9n-kfK" id="Iiq-Ob-bob"/>
+                        <outlet property="musicButtonImg" destination="qYc-zE-kt2" id="OeT-CN-1RZ"/>
                         <segue destination="189-at-5wv" kind="presentation" identifier="seg1" animates="NO" id="G6k-bP-DLD"/>
                         <segue destination="KEW-Th-GS8" kind="presentation" identifier="seg7" animates="NO" id="GUQ-fM-y61"/>
                     </connections>

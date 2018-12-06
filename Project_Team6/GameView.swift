@@ -85,9 +85,12 @@ class GameView: UIViewController, userDelegate {
     // Show timer
     @IBOutlet weak var timerLbl: UILabel!
     
-    
+    /*create variable to see if it is muted*/
+    var muted: Bool?
     /* Audio for the coin sound (correct answer) */
     var coinPlayer = AVAudioPlayer()
+    var SoundMuted: Bool = false
+
     
     override func viewDidLoad() {
         let currentDateTime = Date()
@@ -104,10 +107,19 @@ class GameView: UIViewController, userDelegate {
         loggedInUser.currentUserscore = UserDefaults.standard.string(forKey: "currentUserscore")
         loggedInUser.currentLVL = UserDefaults.standard.string(forKey: "currentLVL")
         loggedInUser.currentUUID = UserDefaults.standard.string(forKey: "currentUUID")
+        loggedInUser.mute = UserDefaults.standard.bool(forKey: "mute")
+        self.muted = UserDefaults.standard.bool(forKey: "mute")
         
         
         // Set background img
         scrollView.image = UIImage(named: "scrollProblems.jpg")
+        /* Set up the Coin audio player */
+        do {
+            self.coinPlayer = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: "correctAnswer", ofType: "mp3")!))
+            self.coinPlayer.prepareToPlay()
+        } catch {
+            print(error)
+        }
         
         // Iterate through buttons and change text
         questionInfoArrayGV.removeAll()
@@ -242,6 +254,15 @@ class GameView: UIViewController, userDelegate {
             })
             //answerOutput.text = "Correct!"
             print("correct answer chosen")
+            
+            /* Coin player plays when answer is correct */
+            
+            if(!SharedAudioControl.mute){
+                self.coinPlayer.play()
+            }else{
+                self.coinPlayer.pause()
+            }
+            
             questionInfo.isCorrect = true
             currentScore += 1
             tempScore += 1

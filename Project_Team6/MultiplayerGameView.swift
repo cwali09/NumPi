@@ -42,6 +42,9 @@ class MultiplayerGameView: UIViewController{
         self.loggedInUser = user
     }
     
+    /* Audio for the coin sound (correct answer) */
+    var coinPlayer = AVAudioPlayer()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -69,6 +72,13 @@ class MultiplayerGameView: UIViewController{
         
         // Set background img
         scrollView.image = UIImage(named: "scrollProblems.jpg")
+        /* Set up the Coin audio player */
+        do {
+            self.coinPlayer = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: "correctAnswer", ofType: "mp3")!))
+            self.coinPlayer.prepareToPlay()
+        } catch {
+            print(error)
+        }
         
         // Iterate through buttons and change text
         questionInfoArrayGV.removeAll()
@@ -254,6 +264,15 @@ class MultiplayerGameView: UIViewController{
                 self.RightOrWrong.fadeIn()
             })
             print("correct answer chosen")
+            
+            /* Coin player plays when answer is correct */
+            
+            if(!SharedAudioControl.mute){
+                self.coinPlayer.play()
+            }else{
+                self.coinPlayer.pause()
+            }
+            
             questionData.isCorrect = true
             currentScore += 1
             tempScore += 1
