@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		240E7B012187B95700BA79B9 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240E7B002187B95700BA79B9 /* SettingsView.swift */; };
+		241E9B0621B99BF00047D76E /* Pirates.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 241E9B0521B99BF00047D76E /* Pirates.mp3 */; };
 		24458FC921B729A200972636 /* MultiplayerChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24458FC821B729A200972636 /* MultiplayerChoiceView.swift */; };
 		24458FCB21B7313E00972636 /* MultiplayerGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24458FCA21B7313E00972636 /* MultiplayerGameView.swift */; };
 		24458FCE21B7325E00972636 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24458FCD21B7325E00972636 /* GameKit.framework */; };
@@ -21,7 +22,6 @@
 		24912B24216BB98D00C34B6C /* Project_Team6UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24912B23216BB98D00C34B6C /* Project_Team6UITests.swift */; };
 		24912B32216BC27C00C34B6C /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24912B31216BC27C00C34B6C /* GameView.swift */; };
 		249B7CDA21B8CFB30007DAD1 /* MiscShared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249B7CD921B8CFB30007DAD1 /* MiscShared.swift */; };
-		249B7CDC21B8D3670007DAD1 /* Pirates.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 249B7CDB21B8D3670007DAD1 /* Pirates.mp3 */; };
 		249E0F8721B86D060003A6F6 /* MultiplayerScoringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249E0F8621B86D060003A6F6 /* MultiplayerScoringView.swift */; };
 		249E720C218A490200DB111B /* K2D-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 249E71EA218A47D300DB111B /* K2D-SemiBold.ttf */; };
 		249E720D218A490200DB111B /* K2D-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 249E71EB218A47D300DB111B /* K2D-Bold.ttf */; };
@@ -65,6 +65,7 @@
 
 /* Begin PBXFileReference section */
 		240E7B002187B95700BA79B9 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		241E9B0521B99BF00047D76E /* Pirates.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Pirates.mp3; path = assets/Pirates.mp3; sourceTree = "<group>"; };
 		24458FC821B729A200972636 /* MultiplayerChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerChoiceView.swift; sourceTree = "<group>"; };
 		24458FCA21B7313E00972636 /* MultiplayerGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerGameView.swift; sourceTree = "<group>"; };
 		24458FCD21B7325E00972636 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
@@ -84,7 +85,6 @@
 		24912B25216BB98D00C34B6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		24912B31216BC27C00C34B6C /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		249B7CD921B8CFB30007DAD1 /* MiscShared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiscShared.swift; sourceTree = "<group>"; };
-		249B7CDB21B8D3670007DAD1 /* Pirates.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Pirates.mp3; path = "../../../Downloads/NumPi-MusicFix_broke/Project_Team6/assets/Pirates.mp3"; sourceTree = "<group>"; };
 		249E0F8621B86D060003A6F6 /* MultiplayerScoringView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerScoringView.swift; sourceTree = "<group>"; };
 		249E71EA218A47D300DB111B /* K2D-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "K2D-SemiBold.ttf"; sourceTree = "<group>"; };
 		249E71EB218A47D300DB111B /* K2D-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "K2D-Bold.ttf"; sourceTree = "<group>"; };
@@ -183,7 +183,7 @@
 				24912B07216BB98C00C34B6C /* Main.storyboard */,
 				24912B0A216BB98D00C34B6C /* Assets.xcassets */,
 				24EB09BE21B8B67A0067C360 /* 5.mp3 */,
-				249B7CDB21B8D3670007DAD1 /* Pirates.mp3 */,
+				241E9B0521B99BF00047D76E /* Pirates.mp3 */,
 				24EB09BA21B8B6290067C360 /* correctAnswer.mp3 */,
 				24912B0C216BB98D00C34B6C /* LaunchScreen.storyboard */,
 				24912B0F216BB98D00C34B6C /* Info.plist */,
@@ -352,7 +352,6 @@
 				249E7211218A490200DB111B /* K2D-ExtraBold.ttf in Resources */,
 				249E7212218A490200DB111B /* K2D-ExtraLightItalic.ttf in Resources */,
 				249E7213218A490200DB111B /* K2D-ExtraLight.ttf in Resources */,
-				249B7CDC21B8D3670007DAD1 /* Pirates.mp3 in Resources */,
 				249E7214218A490200DB111B /* K2D-MediumItalic.ttf in Resources */,
 				249E7215218A490200DB111B /* K2D-ThinItalic.ttf in Resources */,
 				249E7216218A490200DB111B /* K2D-BoldItalic.ttf in Resources */,
@@ -365,6 +364,7 @@
 				24912B0E216BB98D00C34B6C /* LaunchScreen.storyboard in Resources */,
 				24912B0B216BB98D00C34B6C /* Assets.xcassets in Resources */,
 				24912B09216BB98C00C34B6C /* Main.storyboard in Resources */,
+				241E9B0621B99BF00047D76E /* Pirates.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
