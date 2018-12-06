@@ -1605,7 +1605,7 @@
                         <outlet property="userLabel" destination="pSs-UJ-raU" id="Ef1-TW-5nz"/>
                         <outlet property="winnerImage" destination="CTA-ZS-8eP" id="D4W-do-0Nt"/>
                         <outlet property="winnerWinnerChickenDinner" destination="8BK-lC-8Bo" id="3ud-Qc-faV"/>
-                        <segue destination="tkB-QP-QEK" kind="show" identifier="backMultiplayer" id="30S-2u-Umi"/>
+                        <segue destination="tkB-QP-QEK" kind="show" identifier="backMultiplayer" animates="NO" id="30S-2u-Umi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yXz-bz-qIw" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1627,7 +1627,6 @@
         <image name="score" width="980" height="658"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ctQ-IZ-JP8"/>
         <segue reference="O8E-uR-ApR"/>
         <segue reference="zUZ-Qq-I52"/>
         <segue reference="G6k-bP-DLD"/>

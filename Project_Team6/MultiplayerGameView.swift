@@ -21,7 +21,7 @@ class MultiplayerGameView: UIViewController {
     let rs = GKMersenneTwisterRandomSource()
     var timerCountdown: Timer!
     var gameComplete = false
-    var totalTime = 20
+    var totalTime = 60
     var questionData = problemInfo()
     var currentProblem: String?
     var currentScore = 0
@@ -93,7 +93,7 @@ class MultiplayerGameView: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.timerLabel.text = "00:20"
+        self.timerLabel.text = "00:00"
         
         super.viewDidLoad()
     }

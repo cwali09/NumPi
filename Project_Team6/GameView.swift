@@ -43,7 +43,7 @@ class GameView: UIViewController, userDelegate {
     var currentScore = 0
     var tempScore = 0
     var countdownTimer: Timer!
-    var totalTime = 20
+    var totalTime = 60
     var gameComplete = false
     
     @IBAction func menu(_ sender: UIButton) {
@@ -271,7 +271,7 @@ class GameView: UIViewController, userDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.timerLbl.text = "00:20"
+        self.timerLbl.text = "00:00"
         
         super.viewDidLoad()
     }
