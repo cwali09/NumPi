@@ -89,8 +89,6 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
             addFriend(friendName: addFriend.text)
         }
         else {
-            print("empty add friend")
-            //need to add toast or alert pop up
             showToast(message : "Cannot be Empty!")
         }
         addFriend.text  = ""
@@ -100,31 +98,25 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     func addFriend(friendName: String?)
     {
-        print("adding a friend")
         let todosEndpoint: String = "http://98.197.90.65:8000/addFriend"
         let newTodo = "uuid=\(String(describing: uid!))&&username=\(friendName!)"
         
         let pfd = PostFOrData(str: todosEndpoint, post: newTodo)
         pfd.forData
             { jsonString in
-                print("posted")
                 DispatchQueue.main.async {
-                    print("\(friendName!) friend request sent !")
-                    print(jsonString)
-                    // need to add toast or alert pop up
                     let dict = jsonString.toJSON() as? [String:AnyObject]
                     guard let rep = dict!["msg"] as? String else {
                         print("Could not get msg from addFriend response")
                         return
                     }
                     self.showToast(message : rep)
-                }
+            }
         }
     }
     
     func ChangeUsername(newName: String?)
     {
-        print(newName!)
         self.settingsUser.currentUsername = newName!
         
         let todosEndpoint: String = "http://98.197.90.65:8000/changeUsername"
@@ -132,8 +124,6 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
 
         let pfd = PostFOrData(str: todosEndpoint, post: newTodo)
         pfd.forData { jsonString in
-            print(jsonString)
-            print("================================================")
             DispatchQueue.main.async
             {
                 self.uNameLbl.text = self.settingsUser.currentUsername!
@@ -243,8 +233,6 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
         return view
     }
     
-    
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         if (section == 0)
@@ -271,10 +259,8 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
         }
     }
 
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        dump(indexPath)
         let cell = tableView.dequeueReusableCell(withIdentifier: "friends", for: indexPath)
         cell.isUserInteractionEnabled = true
         
@@ -289,7 +275,6 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
             friendsLabel.text = (self.friends![indexPath.row]["username"] as! String)
         }
 
-        
         let ac = cell.viewWithTag(6) as! friendButton
         let rej = cell.viewWithTag(7) as! friendButton
         
@@ -298,9 +283,23 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
             
             ac.addTarget(self, action: #selector(tapAccept), for: .touchUpInside)
             
-            rej.addTarget(self, action: #selector(tapReject), for: .touchUpInside)
+            let acWidth = ac.frame.width
+            let acHeight = ac.frame.height
+            let acBackground = UIImageView(frame: CGRect(x: 0, y: 0, width: acWidth, height: acHeight))
+            acBackground.image = UIImage(named: "accept.jpg")
+            acBackground.contentMode = UIView.ContentMode.scaleAspectFill
+            ac.addSubview(acBackground)
+            ac.sendSubviewToBack(acBackground)
             
-            dump(indexPath)
+            rej.addTarget(self, action: #selector(tapReject), for: .touchUpInside)
+            let rejWidth = rej.frame.width
+            let rejHeight = rej.frame.height
+            let rejBackground = UIImageView(frame: CGRect(x: 0, y: 0, width: rejWidth, height: rejHeight))
+            rejBackground.image = UIImage(named: "reject.jpg")
+            rejBackground.contentMode = UIView.ContentMode.scaleAspectFill
+            rej.addSubview(rejBackground)
+            rej.sendSubviewToBack(rejBackground)
+            
             ac.ID = (self.requests![indexPath.row]["id"] as! String)
             rej.ID = (self.requests![indexPath.row]["id"] as! String)
             
@@ -312,10 +311,18 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
         }
         else
         {
-            rej.addTarget(self, action: #selector(tapReject), for: .touchUpInside)
             rej.ID = (self.friends![indexPath.row]["id"] as! String)
             ac.isHidden = true
             rej.isHidden = false
+            
+            rej.addTarget(self, action: #selector(tapReject), for: .touchUpInside)
+            let rejWidth = rej.frame.width
+            let rejHeight = rej.frame.height
+            let rejBackground = UIImageView(frame: CGRect(x: 0, y: 0, width: rejWidth, height: rejHeight))
+            rejBackground.image = UIImage(named: "trashcan.jpg")
+            rejBackground.contentMode = UIView.ContentMode.scaleAspectFill
+            rej.addSubview(rejBackground)
+            rej.sendSubviewToBack(rejBackground)
         }
         
         return cell
@@ -326,30 +333,28 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
         {
             uname2 = self.friends![indexPath.row]["username"] as! String
             getOneFriend(uname: self.friends![indexPath.row]["username"] as! String)
-            
         }
     }
-    
     
     @objc func tapReject(sender: friendButton!)
     {
         if (!sender.wasTapped)
         {
-            if (sender.otherBtn == nil)
+            if (sender.otherBtn != nil)
             {
-                return //other button was nil, not defined properly exit the function
+                if ((sender.otherBtn?.wasTapped)!)
+                {
+                    sender.wasTapped = true //set this one to tapped as well
+                    return //other button was tapped, exit the function
+                }
+                //return //other button was nil, not defined properly exit the function
             }
-            if ((sender.otherBtn?.wasTapped)!)
-            {
-                sender.wasTapped = true //set this one to tapped as well
-                return //other button was tapped, exit the function
-            }
+            
             if (sender.otherBtn != nil)
             {
                 sender.otherBtn?.wasTapped = true //set both buttons to tapped state
             }
             sender.wasTapped = true
-            print("reject tapped")
             if (sender.ID != nil)
             {
                 doReject(id: sender.ID!)
@@ -359,8 +364,8 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
                 print("id was nil")
             }
         }
-        
     }
+    
     @objc func tapAccept(sender: friendButton!)
     {
         if (!sender.wasTapped)
@@ -379,7 +384,6 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
                 sender.otherBtn?.wasTapped = true //set both buttons to tapped state
             }
             sender.wasTapped = true
-            print("accept tapped")
             if (sender.ID != nil)
             {
                 doAccept(id: sender.ID!)
@@ -393,16 +397,13 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     func doReject(id: String)
     {
-        print("doing reject")
         let todosEndpoint: String = "http://98.197.90.65:8000/rejectFriend"
         let newTodo = "id=\(id)"
         
         let pfd = PostFOrData(str: todosEndpoint, post: newTodo)
         pfd.forData
             { jsonString in
-            print("posted")
                 DispatchQueue.main.async {
-                    print("done")
                     self.getFriends()
                 }
         }
@@ -410,55 +411,42 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     func doAccept(id: String)
     {
-        print("doing accept")
         let todosEndpoint: String = "http://98.197.90.65:8000/acceptFriend"
         let newTodo = "id=\(id)"
         
         let pfd = PostFOrData(str: todosEndpoint, post: newTodo)
         pfd.forData
             { jsonString in
-                print("posted")
                 DispatchQueue.main.async {
-                    print("done")
                     self.getFriends()
-                }
+            }
         }
     }
     
     func getOneFriend(uname: String)
     {
-        print("getting one friend detail")
         let todosEndpoint: String = "http://98.197.90.65:8000/getTopScore"
         let newTodo = "username=\(uname)"
         
         let pfd = PostFOrData(str: todosEndpoint, post: newTodo)
         pfd.forData
             { jsonString in
-                print("posted")
                 DispatchQueue.main.async {
-                    print("\(uname) got details")
-                    print(jsonString)
                     let dict = jsonString.toJSON() as? [String:AnyObject]
-                    print(dict!)
                     guard let data = dict!["data"] as? [[String:AnyObject]] else {
                         print("Could not get individual detail")
                         return
                     }
                     
-                    //set easy score
-                    print("easyA")
                     if(data[0]["easyCount"] as? Int == 1){
-                        print("easyX")
                         guard let easy = data[0]["easy"]!["score"]!! as? Int else {
                             print("could not get easy score")
                             return
                         }
                         self.easy2 = String(easy)
-                        print(self.easy2)
                     }
                     else {
                         self.easy2 = "0"
-                        print("easyZ")
                     }
                     
                     if(data[0]["mediumCount"] as? Int == 1){
@@ -467,21 +455,17 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
                             return
                         }
                         self.medium2 = String(medium)
-                        print(self.medium2)
                     }
                     else {
                         self.medium2 = "0"
                     }
                     
-                    
-                    //set high score
                     if(data[0]["hardCount"] as? Int == 1){
                         guard let hard = data[0]["hard"]!["score"]!! as? Int else {
                             print("could not get easy score")
                             return
                         }
                         self.hard2 = String(hard)
-                        print(self.hard2)
                     }
                     else {
                         self.hard2 = "0"
@@ -501,24 +485,10 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
             let dict = jsonString.toJSON() as? [String:AnyObject]
             
             DispatchQueue.main.async {
-                //print("------dict------")
-                //dump(dict)
-                //print("---------------------")
                 guard let data = dict!["data"] as? [[String: Any?]] else {
                     print("Could not get data as Data from JSON") //this will also call when friends are empty
                     return
                 }
-                
-                //print("------data------")
-                //dump(data)
-                //print("---------------------")
-                
-                
-                /*guard let friends = data[0]["friends"] as? [String] else {
-                    print("Could not get data as frirends from data")
-                    return
-                }*/
-                
                 
                 guard let friends = data[0]["friends"] as? [[String: Any]] else {
                     print("Could not get friends as Data from JSON") //this will also call when friends are empty
@@ -526,11 +496,6 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
                 }
                 
                 self.friends = friends
-                
-                print("------friends------")
-                dump(friends)
-                print("---------------------")
-                
                 
                 guard let requests = data[0]["requests"] as? [[String:Any]] else {
                     print("Could not get requests from data")
@@ -540,17 +505,13 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
                 self.requests = requests
                 self.friendsTable.reloadData()
                 
-                print("------requests------")
-                dump(requests)
-                print("---------------------")
-                
                 self.view.setNeedsDisplay()
-                
             }
         }
     }
     
 }
+
 extension UIViewController {
     
     func showToast(message : String) {

@@ -11,15 +11,6 @@ import AVFoundation
 
 let uid = UIDevice.current.identifierForVendor?.uuidString
 
-struct QuestionLog {
-    var Question: String?
-    var Answer: String?
-    var PossibleAnswers: [String]?
-    
-    init(){
-    }
-}
-
 /* Store all the values all questions */
 var questionInfoArrayGV = [problemInfo]()
 var showRecent: String!
@@ -27,7 +18,6 @@ var showRecent: String!
 class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, userDelegate, audioControlDelegate {
     
     var recentGame = false
-    
     var passedScore: String?
     var passedLevel: String?
     
@@ -41,15 +31,12 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
         performSegue(withIdentifier: "scoreBack", sender: self)
     }
     
-    // Drop Down Menu Button
-    // var button = dropDownBtn()
     var Questions = QuestionLog()
     var menuUser = currentUser()
     
     // Value sent through delegate
     var showHighest: String!
    
-    
     // Logo Labes
     @IBOutlet weak var recentScore: UILabel!
     @IBOutlet weak var highScore: UILabel!
@@ -88,12 +75,8 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
         
         print(menuUser.currentUsername!)
         
-        // Set background img
         self.recentScore.text = "0"
         self.highScore.text = ""
-//        self.easyScore.text = "0"
-//        self.medScore.text = "0"
-//        self.hardScore.text = "0"
         
         if showRecent == nil {
             showRecent = ""
@@ -123,8 +106,7 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
             doAddHighscore(score: passedScore!, level: passedLevel!)
         }
         
-        //****TODO****
-        let hardcodedlevelforscore = "Easy" //This is used for when we visit the score screen directly, we need to figure out how to handle this
+        let hardcodedlevelforscore = "Easy"
         
         if (passedLevel != nil)
         {
@@ -222,59 +204,54 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
     
     func getOneFriend(uname: String)
     {
-        print("getting one friend detail")
         let todosEndpoint: String = "http://98.197.90.65:8000/getTopScore"
         let newTodo = "username=\(uname)"
         let pfd = PostFOrData(str: todosEndpoint, post: newTodo)
-        pfd.forData
-            { jsonString in
-                print("posted")
-                DispatchQueue.main.async {
-                    print("\(uname) got details")
-                    print(jsonString)
-                    let dict = jsonString.toJSON() as? [String:AnyObject]
-                    print(dict!)
-                    guard let data = dict!["data"] as? [[String:AnyObject]] else {
-                        print("Could not get individual detail")
+        pfd.forData {
+            jsonString in
+            DispatchQueue.main.async {
+                let dict = jsonString.toJSON() as? [String:AnyObject]
+                guard let data = dict!["data"] as? [[String:AnyObject]] else {
+                    print("Could not get individual detail")
+                    return
+                }
+                
+                //set easy score
+                if(data[0]["easyCount"] as? Int == 1){
+                    guard let easy = data[0]["easy"]!["score"]!! as? Int else {
+                        print("could not get easy score")
                         return
                     }
-                    
-                    //set easy score
-                    if(data[0]["easyCount"] as? Int == 1){
-                        guard let easy = data[0]["easy"]!["score"]!! as? Int else {
-                            print("could not get easy score")
-                            return
-                        }
-                        self.easyScore.text = String(easy)
-                    }
-                    else {
-                        self.easyScore.text = "0"
-                    }
-                    
-                    if(data[0]["mediumCount"] as? Int == 1){
-                        guard let medium = data[0]["medium"]!["score"]!! as? Int else {
-                            print("could not get medium score")
-                            return
-                        }
-                        self.medScore.text = String(medium)
-                    }
-                    else {
-                        self.medScore.text = "0"
-                    }
-                    
-                    
-                    //set high score
-                    if(data[0]["hardCount"] as? Int == 1){
-                        guard let hard = data[0]["hard"]!["score"]!! as? Int else {
-                            print("could not get easy score")
-                            return
-                        }
-                        self.hardScore.text = String(hard)
-                    }
-                    else {
-                        self.hardScore.text = "0"
-                    }
+                    self.easyScore.text = String(easy)
                 }
+                else {
+                    self.easyScore.text = "0"
+                }
+                
+                if(data[0]["mediumCount"] as? Int == 1){
+                    guard let medium = data[0]["medium"]!["score"]!! as? Int else {
+                        print("could not get medium score")
+                        return
+                    }
+                    self.medScore.text = String(medium)
+                }
+                else {
+                    self.medScore.text = "0"
+                }
+                
+                
+                //set high score
+                if(data[0]["hardCount"] as? Int == 1){
+                    guard let hard = data[0]["hard"]!["score"]!! as? Int else {
+                        print("could not get easy score")
+                        return
+                    }
+                    self.hardScore.text = String(hard)
+                }
+                else {
+                    self.hardScore.text = "0"
+                }
+            }
         }
     }
 }
