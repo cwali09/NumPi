@@ -92,20 +92,9 @@ class GameView: UIViewController, userDelegate {
     override func viewDidLoad() {
         let currentDateTime = Date()
         currentDateTime.timeIntervalSinceReferenceDate
-        
-//
-//        let interval = 10
-//        let formatter = DateComponentsFormatter()
-//        formatter.allowedUnits = [.hour, .minute, .second]
-//        formatter.unitsStyle = .full
-//
-//        let formattedString = formatter.string(from: TimeInterval(interval))!
-//        print("FORMATTED STRING")
-//        print(formattedString)
-//
-//        var seedInterval = TimeInterval(interval)
+        self.view.addBackground()
+
         rs.seed =  UInt64(currentDateTime.timeIntervalSinceReferenceDate)
-//        rs.seed =  UInt64(currentDateTime-seedInterval)
         print(currentDateTime.timeIntervalSinceReferenceDate)
         print("RS.SEED IS: ")
         print(rs.seed)
@@ -118,7 +107,6 @@ class GameView: UIViewController, userDelegate {
         
         
         // Set background img
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         scrollView.image = UIImage(named: "scrollProblems.jpg")
         
         // Iterate through buttons and change text
@@ -128,7 +116,6 @@ class GameView: UIViewController, userDelegate {
         print("USERNAME IS: ")
         print(loggedInUser.currentUsername!)
 
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
@@ -204,7 +191,6 @@ class GameView: UIViewController, userDelegate {
         //num2 cannot be 0 because may cause a divide by 0
         //self.num2 = Int.random(in: 0...12)
         self.num2 = rd.nextInt()
-        //self.currentProblem=array.randomElement()!
         self.currentProblem = array[rd.nextInt()%2]
         return "\(self.num1!) \(self.currentProblem!) \(self.num2!)"
     }
@@ -278,9 +264,7 @@ class GameView: UIViewController, userDelegate {
         questionInfoArrayGV.append(questionInfo)
         generateProblem()
     }
-    
-    
-    
+
     var countdownTimer: Timer!
     var totalTime = 20
     
@@ -321,7 +305,6 @@ class GameView: UIViewController, userDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
 }
 
 extension UIView {

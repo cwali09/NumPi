@@ -38,7 +38,9 @@ class MultiplayerChoiceView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
+        self.view.addBackground()
+        
+        //self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     

@@ -25,6 +25,8 @@ class FriendsView: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        self.view.addBackground()
+        
         uname.text = uname1
         easy.text = easy1
         medium.text = medium1

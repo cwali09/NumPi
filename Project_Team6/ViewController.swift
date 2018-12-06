@@ -113,7 +113,7 @@ class ViewController: UIViewController, difficultyLevel, userDelegate, audioCont
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        self.view.addBackground()
         authenticatePlayer()
         /* Set the audio player */
         /*do {
@@ -132,7 +132,7 @@ class ViewController: UIViewController, difficultyLevel, userDelegate, audioCont
         }*/
         
         // Set background img
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
+        //self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         
         self.logoLbl.image = UIImage(named: "logo.jpg")!
@@ -256,5 +256,22 @@ extension ViewController: GKGameCenterControllerDelegate
     
     func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
         gameCenterViewController.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension UIView {
+    func addBackground() {
+        // screen width and height:
+        let width = UIScreen.main.bounds.size.width
+        let height = UIScreen.main.bounds.size.height
+        
+        let imageViewBackground = UIImageView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        imageViewBackground.image = UIImage(named: "background.jpg")
+        
+        // you can change the content mode:
+        imageViewBackground.contentMode = UIView.ContentMode.scaleAspectFill
+        
+        self.addSubview(imageViewBackground)
+        self.sendSubviewToBack(imageViewBackground)
     }
 }

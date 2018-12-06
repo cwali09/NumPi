@@ -45,7 +45,9 @@ class MultiplayerGameView: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if(StoreMatch.gkMatch != nil && StoreMatch.gkMatch.players.count != 0){
+        self.view.addBackground()
+        
+        if(StoreMatch.gkMatch.players.count != 0){
             playerOneLabel.text = GKLocalPlayer.local.alias
             playerTwoLabel.text = StoreMatch.gkMatch.players[0].alias
         }
@@ -72,12 +74,7 @@ class MultiplayerGameView: UIViewController{
         questionInfoArrayGV.removeAll()
         generateProblem()
         startTimer()
-        print("USERNAME IS: ")
-        print(loggedInUser.currentUsername!)
         
-        print(self.match)
-        
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
@@ -85,7 +82,6 @@ class MultiplayerGameView: UIViewController{
         self.timerLabel.text = "00:20"
         
         super.viewDidLoad()
-        //GKMatch.SendDataMode = GKMatch
     }
     
     func sendData(turnLog: Data) {
@@ -323,7 +319,7 @@ class MultiplayerGameView: UIViewController{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "scoreBoard") {
             //sendData(turnLog: "abcdef".data(using: .utf8)!)
-            var tmp = segue.destination as! MultiplayerScoringView
+            let tmp = segue.destination as! MultiplayerScoringView
             tmp.enemyScore = self.enemyScore
             tmp.userScore = "\(self.currentScore)"
         }

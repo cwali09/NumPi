@@ -76,6 +76,8 @@ class MenuView: UIViewController, UITableViewDelegate, UITableViewDataSource, us
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.addBackground()
+        
         menuUser.currentUsername =  UserDefaults.standard.string(forKey: "currentUsername")
         menuUser.currentUserscore = UserDefaults.standard.string(forKey: "currentUserscore")
         menuUser.currentLVL = UserDefaults.standard.string(forKey: "currentLVL")

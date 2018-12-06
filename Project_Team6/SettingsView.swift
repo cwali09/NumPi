@@ -94,6 +94,7 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
             showToast(message : "Cannot be Empty!")
         }
         addFriend.text  = ""
+
         
     }
     
@@ -143,6 +144,7 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        self.view.addBackground()
         getFriends()
         
         friendsTable.dataSource = self
@@ -284,7 +286,7 @@ class SettingsView: UIViewController, UITableViewDelegate, UITableViewDataSource
         }
         if(indexPath.section == 1)
         {
-            friendsLabel.text = self.friends![indexPath.row]["username"] as! String
+            friendsLabel.text = (self.friends![indexPath.row]["username"] as! String)
         }
 
         

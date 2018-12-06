@@ -20,6 +20,7 @@ class MultiplayerScoringView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.addBackground()
 
         playerOne.text = GKLocalPlayer.local.alias
         playerTwo.text = StoreMatch.gkMatch.players[0].alias
@@ -36,7 +37,7 @@ class MultiplayerScoringView: UIViewController {
             winnerWinnerChickenDinner.text = "Its a Tie!"
         }
         
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
+        //self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
 }

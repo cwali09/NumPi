@@ -156,17 +156,19 @@
                                     <segue destination="04g-37-KJp" kind="presentation" identifier="seg2" animates="NO" id="RuU-Uy-VLJ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qYc-zE-kt2">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qYc-zE-kt2">
                                 <rect key="frame" x="315" y="607" width="50" height="50"/>
-                                <color key="backgroundColor" red="0.8329050818" green="0.2110055901" blue="0.28187175390000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="45s-K4-LT8"/>
                                     <constraint firstAttribute="width" constant="50" id="Uei-HX-K9H"/>
                                 </constraints>
-                                <state key="normal" title="Music"/>
+                                <state key="normal" title="Music" image="musicdoublenode"/>
+                                <state key="disabled" image="musicdoublenode" backgroundImage="muteddoublenode"/>
+                                <state key="selected" image="muteddoublenode" backgroundImage="muteddoublenode"/>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2FA-n6-CTh">
-                                <rect key="frame" x="62.5" y="223" width="250" height="304"/>
+                                <rect key="frame" x="62.5" y="224" width="250" height="304"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S08-gc-sAg">
                                         <rect key="frame" x="0.0" y="0.0" width="250" height="70"/>
@@ -229,13 +231,13 @@
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="qYc-zE-kt2" secondAttribute="bottom" constant="10" id="JEt-d5-Ixx"/>
                             <constraint firstItem="6Mz-MY-OxK" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="10" id="LCy-JQ-822"/>
+                            <constraint firstItem="2FA-n6-CTh" firstAttribute="top" secondItem="7gy-9n-kfK" secondAttribute="bottom" constant="30" id="OUq-GW-z5I"/>
                             <constraint firstItem="bjh-cO-w4t" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="10" id="SCb-81-Xir"/>
                             <constraint firstItem="7gy-9n-kfK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="76.5" id="Tqj-hd-Ele"/>
                             <constraint firstItem="2FA-n6-CTh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Z9x-uR-Qd5"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7gy-9n-kfK" secondAttribute="trailing" constant="76.5" id="Zzw-9e-avd"/>
                             <constraint firstAttribute="trailing" secondItem="6Mz-MY-OxK" secondAttribute="trailing" constant="10" id="cqJ-P9-U0h"/>
                             <constraint firstItem="bjh-cO-w4t" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="10" id="gUb-zh-vFN"/>
-                            <constraint firstAttribute="bottom" secondItem="2FA-n6-CTh" secondAttribute="bottom" constant="140" id="niX-Cy-pcO"/>
                             <constraint firstItem="7gy-9n-kfK" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="94" id="pNd-59-ggz"/>
                             <constraint firstAttribute="trailing" secondItem="qYc-zE-kt2" secondAttribute="trailing" constant="10" id="um6-WI-WBg"/>
                         </constraints>
@@ -826,13 +828,13 @@
                                 <rect key="frame" x="113" y="92" width="250" height="70"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eS0-Fl-skw">
-                                        <rect key="frame" x="0.0" y="0.0" width="250" height="29"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="250" height="0.0"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="315-eV-IxD">
-                                        <rect key="frame" x="0.0" y="32" width="250" height="35"/>
+                                        <rect key="frame" x="0.0" y="3" width="250" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="8zq-qY-OZG"/>
                                         </constraints>
@@ -841,7 +843,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OvB-cm-2JG">
-                                        <rect key="frame" x="0.0" y="70" width="250" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="41" width="250" height="29"/>
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="17"/>
                                         <state key="normal" title="Edit UserName">
@@ -861,43 +863,33 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="98K-oS-uqF">
                                 <rect key="frame" x="109" y="228" width="250" height="90"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="Oh5-O6-TGm">
-                                        <rect key="frame" x="0.0" y="0.0" width="250" height="30"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="Oh5-O6-TGm">
+                                        <rect key="frame" x="0.0" y="0.0" width="250" height="30.5"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="top" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rkU-Tr-jgm">
-                                                <rect key="frame" x="0.0" y="0.0" width="218" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="250" height="30.5"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
-                                                <connections>
-                                                    <action selector="addFriend:" destination="KEW-Th-GS8" eventType="editingDidEnd" id="8Fn-Rx-Uqm"/>
-                                                </connections>
                                             </textField>
-                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ekJ-ek-s9V">
-                                                <rect key="frame" x="220" y="0.0" width="30" height="30"/>
-                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <state key="normal" title="+">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                            </button>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="sjx-7V-VBg">
-                                        <rect key="frame" x="0.0" y="33" width="250" height="57"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="sjx-7V-VBg">
+                                        <rect key="frame" x="0.0" y="33.5" width="250" height="56.5"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fHo-A5-40q">
-                                                <rect key="frame" x="0.0" y="0.0" width="250" height="35.5"/>
+                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fHo-A5-40q">
+                                                <rect key="frame" x="0.0" y="0.0" width="250" height="35"/>
                                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="K2D-Medium" family="K2D Medium" pointSize="17"/>
-                                                <state key="normal" title="Search Users">
+                                                <state key="normal" title="Add Friend">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="SearchUser:" destination="KEW-Th-GS8" eventType="touchUpInside" id="eX1-ha-EZU"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="_" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qqM-RA-N0E">
-                                                <rect key="frame" x="0.0" y="36.5" width="250" height="20.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="_" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qqM-RA-N0E">
+                                                <rect key="frame" x="0.0" y="36" width="250" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -1601,6 +1593,8 @@
         <image name="hardBtn" width="1437" height="389"/>
         <image name="mediumBtn" width="1449" height="389"/>
         <image name="multiplayer" width="1438" height="405"/>
+        <image name="musicdoublenode" width="1699" height="1945"/>
+        <image name="muteddoublenode" width="1699" height="1945"/>
         <image name="navigation" width="512" height="512"/>
         <image name="playAgainBtn" width="1095" height="377"/>
         <image name="score" width="980" height="658"/>
@@ -1609,7 +1603,7 @@
         <segue reference="GUQ-fM-y61"/>
         <segue reference="RuU-Uy-VLJ"/>
         <segue reference="G6k-bP-DLD"/>
-        <segue reference="Yw3-ZV-yxg"/>
+        <segue reference="vL8-f7-U9c"/>
         <segue reference="mJm-gu-5EE"/>
     </inferredMetricsTieBreakers>
 </document>
